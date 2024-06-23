@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import { Epilogue } from "next/font/google";
+import { Config } from "tailwindcss";
+
+const config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,4 +17,7 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: "class",
 };
+
+export default config;
