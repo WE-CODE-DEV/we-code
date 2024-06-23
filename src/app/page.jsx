@@ -11,13 +11,13 @@ export default function Home() {
         <AppHeader/>
         <div className="app-body">
             <MainHero/>
-            <section className="components-showcase wrapper py-10 flex flex-col gap-10">
+            <section className="components-showcase wrapper py-10 flex flex-col gap-6 lg:gap-10">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Decorate your project with our components</h2>
               <div className="flex-1">
-                <div className="component-grids gap-8">
-                  <div className="flex flex-col gap-6 justify-center">
-                    <h3 className="font-bold text-2xl">We have showcased some of our components</h3>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quos quidem explicabo sunt nihil quae, ipsa molestias, minima reiciendis ea quo eligendi quibusdam asperiores aliquid, expedita ratione fuga esse autem!</p>
+                <div className="component-grids gap-12 lg:gap-8">
+                  <div className="flex h-fit flex-col gap-4 lg:gap-6 justify-center bg-gradient-to-br from-blue-200 to-blue-400 p-6 lg:p-10 rounded-lg shadow-xl border border-blue-400 self-center">
+                    <h3 className="font-bold text-xl lg:text-2xl">Showcased some of our components</h3>
+                    <p className="text-sm lg:text-base">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quos quidem explicabo sunt nihil quae, ipsa molestias, minima reiciendis ea quo eligendi quibusdam asperiores aliquid, expedita ratione fuga esse autem!</p>
                     <button className="pri-btn self-start">Explore more</button>
                   </div>
                   <div className="component"><span>Gooey Navigation</span></div>

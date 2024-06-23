@@ -262,39 +262,88 @@ div:has(.hero-window){
 }
 
 .component-grids div:nth-of-type(1){
-  grid-row: 1/4;
-  grid-column: 1/5;
+  grid-row: span 3;
+  grid-column: span 4;
 }
 
 .component-grids div:nth-of-type(2){
-  grid-column: 6/11;
+  /* grid-column: 6/11; */
+  grid-column: 6 / span 5;
   /* background: tomato; */
 }
 
 .component-grids div:nth-of-type(3){
-  grid-column: 5/8;
+  grid-column: 5 / span 3;
   /* background: green; */
 }
 
 .component-grids div:nth-of-type(4){
-  grid-column: 8/11;
+  grid-column: 8 / span 3;
   /* background: yellow; */
 }
 
 .component-grids div:nth-of-type(5){
-  grid-column: 1/6;
-  grid-row: 4/7;
+  grid-column: span 5;
+  grid-row: 4 / span 3;
   /* background: blueviolet; */
 }
 
 .component-grids div:nth-of-type(6){
-  grid-column : 6/11;
-  grid-row: 3/5;
+  grid-column : 6 / span 5;
+  grid-row: 3 / span 2;
   /* background: goldenrod; */
 }
 
 .component-grids div:nth-of-type(7){
-  grid-column: 6/11;
-  grid-row: 5/8;
+  grid-column: 6 / span 5;
+  grid-row: 5 / span 3;
   /* background: blue; */
+}
+
+@media (max-width: 1024px){
+  .component-grids div:nth-of-type(1){
+    grid-column: 3 / span 6;
+    grid-row: span 2;
+    /* height: 90%; */
+    /* align-self: start; */
+  }
+  
+  .component-grids div:nth-of-type(2){
+    grid-column: span 6;
+  }
+
+  .component-grids div:nth-of-type(3){
+    grid-column: 7 / span 4;
+  }
+
+  .component-grids div:nth-of-type(4){
+    grid-column: 7 / span 4;
+  }
+
+  .component-grids div:nth-of-type(5){
+    grid-column: 6 / span 5;
+    grid-row: 5 / span 3;
+  }
+
+  .component-grids div:nth-of-type(6){
+    grid-column : span 5;
+    grid-row: 6 / span 2;
+  }
+
+  .component-grids div:nth-of-type(7){
+    grid-column: span 5;
+    grid-row: 4 / span 2;
+  }
+}
+
+@media (max-width: 800px) {
+  .component-grids{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .component-grids div{
+    width: 100%;
+    flex: 1;
+  }
 }
