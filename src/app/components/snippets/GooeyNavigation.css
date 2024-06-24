@@ -1,0 +1,142 @@
+
+ul li {
+  list-style: none;
+}
+
+:root {
+  --priBg: #1c1c28;
+  --secBg: #3f71ff;
+  --bodyBg: #7f8794;
+  --priBlack: #1e2022;
+  --secBlack: #22262f;
+  --terBlack: #242424;
+  --space1: .5em;
+  --space2: 1em;
+  --space3: 1.5em;
+  --space4: 2em;
+  --space5: 2.5em;
+  --space6: 3em;
+}
+
+.gooey-nav {
+  --insetColor: var(--secBg);
+  --movingStripWidth: 60px;
+  --movingStripX: 36px;
+  --rotateTo: 0;
+  background: var(--priBlack);
+  padding: var(--space1) var(--space5);
+  position: relative;
+  border-radius: 15px;
+  transform-origin: center;
+  transition: 0.3s;
+  transition-timing-function: 0.23, 1, 0.32, 1.2;
+  transform: rotate(var(--rotateTo));
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
+}
+.gooey-nav::before, .gooey-nav::after {
+  content: "";
+  width: 0.5em;
+  height: 50%;
+  background: radial-gradient(circle, #fff 25%, transparent 26%);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-size: 0.25em 0.25em;
+  opacity: 0.25;
+}
+.gooey-nav::before {
+  left: 10px;
+}
+.gooey-nav::after {
+  right: 10px;
+}
+.gooey-nav .moving-strip {
+  width: var(--movingStripWidth);
+  height: 72%;
+  /* background: var(--insetColor); */
+  @apply bg-blue-50;
+  position: absolute;
+  top: 0;
+  left: var(--movingStripX);
+  border-radius: 0 0 50% 50%;
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+}
+.gooey-nav .moving-strip::before, .gooey-nav .moving-strip::after {
+  --blendIntend: 2px;
+  --wh: 1.25em;
+  --fromX: calc(calc(var(--wh) - var(--blendIntend)) * -1);
+  content: "";
+  width: var(--wh);
+  height: var(--wh);
+  background: inherit;
+  position: absolute;
+  top: calc(var(--blendIntend) * -1);
+}
+.gooey-nav .moving-strip::before {
+  left: var(--fromX);
+  mask-image: radial-gradient(circle at bottom left, transparent 60%, #000 65%);
+}
+.gooey-nav .moving-strip::after {
+  right: var(--fromX);
+  mask-image: radial-gradient(circle at bottom right, transparent 60%, #000 65%);
+}
+.gooey-nav ul {
+  display: flex;
+  gap: var(--space2);
+}
+.gooey-nav ul li {
+  --pseudoY: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space2);
+  color: #e0e0e0;
+  background: var(--priBlack);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1;
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+  transition-delay: 0.15s;
+}
+.gooey-nav ul li.active {
+  color: #fff;
+  transform: translateY(-1em);
+}
+.gooey-nav ul li a {
+  @apply w-5 h-5 inline-block;
+  /* display: inline-block; */
+  /* --wh: 1.75em; */
+  /* width: var(--wh); */
+  /* height: var(--wh); */
+}
+.gooey-nav ul li svg {
+  transition: 0.3s;
+  opacity: 0.8;
+}
+.gooey-nav ul li.active svg {
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+  opacity: 1;
+}
+.gooey-nav ul li:hover {
+  color: #fff;
+}
+.gooey-nav ul li:hover svg {
+  filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+}
+
+@media (max-width: 500px) {
+  .gooey-nav {
+    padding: var(--space1) var(--space5);
+  }
+  .gooey-nav .moving-strip {
+    height: 65%;
+  }
+  .gooey-nav ul li {
+    padding: var(--space1);
+  }
+  .gooey-nav ul li a {
+    --wh: 1.25em;
+  }
+}

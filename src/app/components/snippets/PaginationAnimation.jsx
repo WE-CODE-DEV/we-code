@@ -1,9 +1,59 @@
 import './PaginationAnimation.css';
+import { useRef, useState } from 'react';
 
 const PaginationAnimation = () => {
+    const paginationULRef = useRef(null);
+
+    const currentPage = useRef(1);
+
+    const totalNoOfPages = 10;
+
+    let isDebouncing = false;
+    const debounceTime = 300;
+
+    const debounce = (func, delay) => {
+        let timeoutId;
+        
+        return (...args) => {
+            clearTimeout(timeoutId);
+
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    };
+
+    const navigatePage = (bool) => {
+        const container = paginationULRef.current.querySelector('div ul');
+
+        const oldLiEle = container.querySelector('li');
+
+        const newLiEle = document.createElement('li');
+        newLiEle.textContent = currentPage.current;
+
+        paginationULRef.current.setAttribute('data-to', bool ? 'next': 'previous');
+
+        bool ? container.appendChild(newLiEle) : container.insertBefore(newLiEle, oldLiEle);
+
+        newLiEle.addEventListener('animationend', () => {
+            container.removeChild(oldLiEle);
+            paginationULRef.current.removeAttribute('data-to');
+        }, {once: true});
+    }
+
+    const navigateBasedOnBtn = debounce((bool) => {
+        if(bool){
+            currentPage.current = (currentPage.current + 1) <= totalNoOfPages ? (currentPage.current + 1) : 1;
+        }
+        else{
+            currentPage.current = (currentPage.current - 1) >= 1 ? (currentPage.current - 1) : totalNoOfPages;
+        }
+        navigatePage(bool);
+    }, debounceTime);
+
     return(
-        <div className="pagination-anim">
-            <button id="prev-page" aria-label="Previous Page" title="Go To Previous Page">
+        <div className="pagination-anim" ref={paginationULRef}>
+            <button id="prev-page" aria-label="Previous Page" title="Go To Previous Page" onClick={()=>navigateBasedOnBtn(false)}>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -23,7 +73,7 @@ const PaginationAnimation = () => {
                 </ul>
                 <span>of 10</span>
             </div>
-            <button id="nxt-page" aria-label="Next Page" title="Go To Next Page">
+            <button id="nxt-page" aria-label="Next Page" title="Go To Next Page" onClick={()=>navigateBasedOnBtn(true)}>
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                       <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">

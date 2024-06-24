@@ -235,7 +235,7 @@ div:has(.hero-window){
 }
 
 .component-grids .component{
-  @apply p-3 rounded-md border border-dashed border-blue-500 bg-blue-50;
+  @apply px-3 py-9 rounded-md border border-dashed border-blue-500 bg-blue-50;
   position: relative;
 }
 
