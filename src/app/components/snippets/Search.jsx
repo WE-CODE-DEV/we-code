@@ -4,7 +4,11 @@ import { useRef, useState } from 'react';
 const Search = () => {
     const searchResultsRef = useRef(null);
 
-    const [isLoading, setIsLoading] = useState(false);
+    const searchEleContainerRef = useRef(null);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [typedValue, setTypedValue] = useState('');
     
     const defaultTxt = 'The quick brown fox jumps over the lazy dog';
 
@@ -13,31 +17,60 @@ const Search = () => {
     const LoadingTemp = () => {
         return(
             <li className='loading-li'>
-                <div class="leading-loading animate-pulse" aria-hidden="true"></div>
-                <div class="content-loading">
-                    <span aria-hidden="true" class="animate-pulse"></span>
-                    <span aria-hidden="true" class="animate-pulse"></span>
-                    <span aria-hidden="true" class="animate-pulse"></span>
+                <div className="leading-loading animate-pulse" aria-hidden="true"></div>
+                <div className="content-loading">
+                    <span aria-hidden="true" className="animate-pulse"></span>
+                    <span aria-hidden="true" className="animate-pulse"></span>
+                    <span aria-hidden="true" className="animate-pulse"></span>
                 </div>
             </li>
         );
     }
 
-    const handleSearchInput = (event) => {
-        const value = event.target.trim();
-        const isValid = value.length > 0;
-        const searchResults = searchResultsRef.current.querySelector('ul');
+    const SearchResult = () => {
+        const matchFound = defaultTxt.toLowerCase().includes(typedValue.toLowerCase());
+
+        const startIndex = defaultTxt.toLowerCase().indexOf(typedValue.toLowerCase());
+        const endIndex = startIndex + typedValue.length;
+        
+        return (
+            <>
+                {
+                    matchFound ? 
+                    <li>
+                        <div className="leading"></div>
+                        <div className="content">
+                            <p>
+                                {defaultTxt.slice(0, startIndex)}
+                                <span>{defaultTxt.slice(startIndex, endIndex)}</span>
+                                {defaultTxt.slice(endIndex)}
+                            </p>
+                        </div>
+                    </li> 
+                    : <li>No results found...</li>
+                }
+            </>
+        );
     }
 
-    const searchInputEvent = (event) => {
-        // clearTimeout(debounceTimeout);
-        // debounceTimeout = setTimeout((event)=>handleSearchInput(event), 500);
+    const searchInputEvent = (e) => {
+        clearTimeout(debounceTimeout);
+
+        const value = e.target.value;
+
+        setTypedValue(value);
+
+        debounceTimeout = setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+
+        setIsLoading(true);
     }
 
     return (
         <>
             <div className="search-container">
-            <div className="search">
+            <div className="search" ref={searchEleContainerRef} data-state="searching">
                 <label>
                     <input type="text" placeholder="Search..." id="search-input" role="searchbox" aria-label="Search input" onInput={searchInputEvent}/>
                     <button id="clear-search" aria-label="Clear search">
@@ -52,7 +85,7 @@ const Search = () => {
             </div>
             <div className="search-results" aria-live="polite" role="list" aria-label="Search results" ref={searchResultsRef}>
                 <ul>
-                    {isLoading && <LoadingTemp/>}
+                    {isLoading ? <LoadingTemp/> : <SearchResult/>}
                 </ul>
             </div>
         </div>
