@@ -1,5 +1,5 @@
 import './Search.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Search = () => {
     const searchResultsRef = useRef(null);
@@ -8,7 +8,7 @@ const Search = () => {
 
     const [isLoading, setIsLoading] = useState(true);
 
-    const [typedValue, setTypedValue] = useState('');
+    const [typedValue, setTypedValue] = useState('bro');
     
     const defaultTxt = 'The quick brown fox jumps over the lazy dog';
 
@@ -32,6 +32,10 @@ const Search = () => {
 
         const startIndex = defaultTxt.toLowerCase().indexOf(typedValue.toLowerCase());
         const endIndex = startIndex + typedValue.length;
+
+        if(typedValue.trim().length > 0){
+            searchEleContainerRef.current.setAttribute('data-state', 'result-found');
+        }
         
         return (
             <>
@@ -56,24 +60,40 @@ const Search = () => {
     const searchInputEvent = (e) => {
         clearTimeout(debounceTimeout);
 
-        const value = e.target.value;
+        const value = e.target.value.trim();
 
         setTypedValue(value);
+        
+        searchEleContainerRef.current.setAttribute('data-state', (value.length > 0) ? 'searching' : 'stop-searching');
 
-        debounceTimeout = setTimeout(() => {
+        if(value.length > 0){
+            debounceTimeout = setTimeout(() => {
+                setIsLoading(false);
+            }, 500);
+
+            setIsLoading(true);
+        }
+    }
+
+    const clearSearchBtn = () => {
+        setIsLoading(false);
+        setTypedValue("");
+        searchEleContainerRef.current.setAttribute('data-state', 'stop-searching');
+    }
+
+    useEffect(()=>{
+        setTimeout(() => {
             setIsLoading(false);
         }, 500);
-
-        setIsLoading(true);
-    }
+    },[]);
 
     return (
         <>
             <div className="search-container">
             <div className="search" ref={searchEleContainerRef} data-state="searching">
                 <label>
-                    <input type="text" placeholder="Search..." id="search-input" role="searchbox" aria-label="Search input" onInput={searchInputEvent}/>
-                    <button id="clear-search" aria-label="Clear search">
+                    <input type="text" placeholder="Search..." id="search-input" role="searchbox" aria-label="Search input" value={typedValue} onInput={searchInputEvent}/>
+                    <button id="clear-search" aria-label="Clear search" onClick={clearSearchBtn}>
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m16 8-8 8m4-4 4 4M8 8l2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </button>
                     <div className="search-svg-container">

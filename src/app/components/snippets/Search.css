@@ -1,10 +1,25 @@
 
 .search-container {
+  --priBg: 28, 28, 40;
+  --secBg: #3f71ff;
+  --bodyBg: #7f8794;
+  --priBlack: rgb(30, 32, 34);
+  --secBlack: rgb(34, 38, 47);
+  --terBlack: rgb(36, 36, 36);
+
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   perspective: 400px;
+  transition: 1s;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+  /* transform: translateY(-3rem); */
+}
+
+.search-container:has( .search[data-state='searching']),
+.search-container:has( .search[data-state='result-found']){
+  transform: translateY(-3rem);
 }
 
 .search label {
