@@ -22,7 +22,7 @@ const MainHero = () => {
                     <div className="w-5 h-5 bg-blue-700 rounded-full absolute"></div>
                 </div>
                 </div>
-                <div className="main-hero-cnts p-6 mx-auto my-0 flex flex-col gap-8 items-center justify-center z-10 relative overflow-hidden">
+                <div className="main-hero-cnts p-12 mx-auto my-0 flex flex-col gap-8 items-center justify-center z-10 relative overflow-hidden">
                     <div className="max-w-xl lg:max-w-3xl text-center flex flex-col gap-6 z-10">
                     <h2 className="font-extrabold text-3xl lg:text-4xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Speed up your development experience <br/>with our tailor-made, easy-to-use components.</h2>
                     <p className="text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa pariatur, perferendis quidem necessitatibus doloremque impedit, provident velit quia voluptatem vitae sed at ea ducimus harum quae. Similique, expedita totam!</p>

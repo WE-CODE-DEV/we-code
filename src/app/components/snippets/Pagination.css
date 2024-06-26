@@ -18,7 +18,7 @@
   padding-bottom: 0.5rem;
   background: var(--priBlack);
   perspective: 400px;
-  box-shadow: rgba(var(--priBg), 0.4) 0px 2px 4px, rgba(var(--priBg), 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(30, 32, 34, 0.4) 0px 2px 4px, rgba(30, 32, 34, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .pagination button {

@@ -1,0 +1,151 @@
+.toggling-navigation {
+    --priBg: rgb(30, 32, 34);
+    --globalTransition: .3s;
+    --globalTransFn: cubic-bezier(0.23, 1, 0.32, 1.2);
+    /* --space1: .5em;
+    --space2: 1em;
+    --space3: 1.5em;
+    --space4: 2em;
+    --space5: 2.5em;
+    --space6: 3em;
+    --fnt1: .8em;
+    --fnt2: 1rem; */
+
+    transition: 3s;
+
+    /* box-shadow: rgba(28, 28, 40, 0.4) 0px 2px 4px, rgba(28, 28, 40, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+}
+
+.toggling-navigation.active .ul-wrapper {
+  width: 100%;
+}
+
+.toggling-navigation.active .ul-wrapper button svg {
+  transform: rotate(180deg);
+}
+
+.toggling-navigation .ul-wrapper {
+  background: var(--priBg);
+  color: #e0e0e0;
+  @apply w-[4.125rem] p-3;
+  /* padding: var(--space4) var(--space3); */
+  position: relative;
+  /* box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.
+  15); */
+  box-shadow: rgba(30, 32, 34, 0.4) 0px 2px 4px, rgba(30, 32, 34, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  position: relative;
+  transition-timing-function: var(--globalTransFn);
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation .ul-wrapper button {
+  --btnDimension: 1.5em;
+  @apply w-5 h-5 text-blue-100 shadow-lg border border-blue-50 rounded-full;
+  /* --wh: var(--btnDimension); */
+  /* width: var(--wh); */
+  /* height: var(--wh); */
+  /* border-radius: 50%; */
+  position: absolute;
+  /* color: var(--priBg); */
+  background: linear-gradient(to bottom right, #52525b, #174ce0);
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(var(--btnDimension) / 2 * -1);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15); */
+}
+
+.toggling-navigation .ul-wrapper button svg {
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space1);
+  overflow: hidden;
+}
+
+.toggling-navigation ul li {
+  border-radius: 0.5em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.toggling-navigation ul li:hover, .toggling-navigation ul li:focus {
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toggling-navigation ul li:hover::before, .toggling-navigation ul li:focus::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, #e0e0e0 10%, transparent 11%), radial-gradient(circle at bottom left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at bottom right, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top right, #e0e0e0 5%, transparent 6%);
+  mask-image: linear-gradient(to bottom right, transparent 60%, #000);
+  background-size: 1em 1em;
+  opacity: .25;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toggling-navigation ul li:hover svg, .toggling-navigation ul li:focus svg {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.toggling-navigation ul li:hover svg circle, .toggling-navigation ul li:hover svg path, .toggling-navigation ul li:focus svg circle, .toggling-navigation ul li:focus svg path {
+  stroke-dasharray: 0 var(--thisLength);
+  animation: animatePath 1s ease 0.15s forwards;
+}
+
+.toggling-navigation ul li:hover span, .toggling-navigation ul li:focus span {
+  transform: translateY(0);
+}
+
+.toggling-navigation ul li a {
+    @apply gap-4;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* gap: var(--space4); */
+  letter-spacing: 0.5px;
+  @apply p-2.5;
+  /* padding: var(--space2); */
+}
+
+.toggling-navigation ul li a svg {
+    @apply w-5 h-5 min-w-5;
+  /* --wh: 2.5em; */
+  /* min-width: var(--wh); */
+  /* width: var(--wh); */
+  /* height: var(--wh); */
+}
+
+@keyframes animatePath {
+  to {
+    stroke-dasharray: var(--thisLength) var(--thisLength);
+  }
+}
+
+.toggling-navigation ul li a span {
+  white-space: nowrap;
+  transform: translateY(200%);
+  @apply text-sm;
+  /* font-size: var(--fnt2); */
+  position: relative;
+  transition-timing-function: var(--globalTransFn);
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation ul li a span::before {
+  content: attr(data-txt);
+  position: absolute;
+  bottom: 200%;
+}

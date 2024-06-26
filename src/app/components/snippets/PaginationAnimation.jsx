@@ -9,7 +9,7 @@ const PaginationAnimation = () => {
     const totalNoOfPages = 10;
 
     let isDebouncing = false;
-    const debounceTime = 300;
+    const debounceTime = 500;
 
     const debounce = (func, delay) => {
         let timeoutId;
