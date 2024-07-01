@@ -27,7 +27,7 @@
 .toggling-navigation .ul-wrapper {
   background: var(--priBg);
   color: #e0e0e0;
-  @apply w-[4.125rem] p-3;
+  @apply w-[4.1rem] p-3;
   /* padding: var(--space4) var(--space3); */
   position: relative;
   /* box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.
