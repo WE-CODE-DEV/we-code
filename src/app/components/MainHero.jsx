@@ -33,7 +33,7 @@ const MainHero = () => {
             .to(arrowRef.current, {
                 duration: 2, 
                 x: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
-                y: (hamBurgerEleY - parentY) + (hamBurgerEleHeight/2), 
+                y: (hamBurgerEleY - parentY) + (hamBurgerEleHeight), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Side Menu');
@@ -41,8 +41,8 @@ const MainHero = () => {
             }).call(() => hamBurgerEleRef.current.setAttribute('data-status', 'dropped'))
             .to(arrowRef.current, {
                 duration: 2, 
-                x: (sliderEleX - parentX), 
-                y: (sliderEleY - parentY) + (sliderEleHeight/2), 
+                x: (sliderEleX - parentX) + (sliderEleWidth/2), 
+                y: (sliderEleY - parentY) + (sliderEleHeight), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Slider');
@@ -51,7 +51,7 @@ const MainHero = () => {
             .to(arrowRef.current, {
                 duration: 2, 
                 x: (buttonEleX - parentX), 
-                y: (buttonEleY - parentY) + (buttonEleHeight/2), 
+                y: (buttonEleY - parentY) + (buttonEleHeight), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Button');
@@ -99,8 +99,8 @@ const MainHero = () => {
                         <span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span>
                     </button>
                     </div>
-                    <div className="relative w-[95%] h-[12rem] pointer-events-none">
-                    <div className="hero-window w-[85%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
+                    <div className="relative w-[100%] lg:w-[90%] h-[12rem] pointer-events-none">
+                    <div className="hero-window w-[90%] lg:w-[90%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
                         <div className="window-arrow w-8 h-8 absolute" data-txt="Hamburger Menu" ref={arrowRef}></div>
                         <div className="flex items-center justify-between">
                         <div>
