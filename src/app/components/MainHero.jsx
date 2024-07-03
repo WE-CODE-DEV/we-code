@@ -32,8 +32,8 @@ const MainHero = () => {
         timeline
             .to(arrowRef.current, {
                 duration: 2, 
-                x: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
-                y: (hamBurgerEleY - parentY) + (hamBurgerEleHeight), 
+                left: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
+                top: (hamBurgerEleY - parentY) + (hamBurgerEleHeight), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Side Menu');
@@ -41,8 +41,8 @@ const MainHero = () => {
             }).call(() => hamBurgerEleRef.current.setAttribute('data-status', 'dropped'))
             .to(arrowRef.current, {
                 duration: 2, 
-                x: (sliderEleX - parentX) + (sliderEleWidth/2), 
-                y: (sliderEleY - parentY) + (sliderEleHeight), 
+                left: (sliderEleX - parentX) + (sliderEleWidth/2), 
+                top: (sliderEleY - parentY) + (sliderEleHeight/2), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Slider');
@@ -50,8 +50,8 @@ const MainHero = () => {
             }).call(() => sliderEleRef.current.setAttribute('data-status', 'dropped'))
             .to(arrowRef.current, {
                 duration: 2, 
-                x: (buttonEleX - parentX), 
-                y: (buttonEleY - parentY) + (buttonEleHeight), 
+                left: (buttonEleX - parentX), 
+                top: (buttonEleY - parentY) + (buttonEleHeight), 
                 opacity: 1, 
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Button');
