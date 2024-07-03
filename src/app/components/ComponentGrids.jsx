@@ -7,33 +7,36 @@ import Calendar from "./snippets/Calendar";
 
 const ComponentGrids = () => {
     return (
-        <div className="component-grids gap-6">
-            <div className="p-[1px] h-fit rounded-lg bg-gradient-to-tl from-blue-300 to-blue-400 shadow-xl self-center">
-                <div className="flex h-fit flex-col gap-4 lg:gap-6 justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 lg:p-10 rounded-lg self-center">
-                <h3 className="font-bold text-xl lg:text-2xl">Showcased some of our components</h3>
-                <p className="text-sm lg:text-base">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quos quidem explicabo sunt nihil quae, ipsa molestias, minima reiciendis ea quo eligendi quibusdam asperiores aliquid, expedita ratione fuga esse autem!</p>
-                <button className="pri-btn self-start relative tracking-wide">Explore now<span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span></button>
+        <>
+            <div className="component-grids gap-6 pb-10">
+                <div className="p-[1px] h-fit rounded-lg bg-gradient-to-tl from-blue-300 to-blue-400 shadow-xl self-center">
+                    <div className="flex h-fit flex-col gap-4 lg:gap-6 justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 lg:p-10 rounded-lg self-center">
+                    <h3 className="font-bold text-xl lg:text-2xl">Showcased some of our components</h3>
+                    <p className="text-sm lg:text-base">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quos quidem explicabo sunt nihil quae, ipsa molestias, minima reiciendis ea quo eligendi quibusdam asperiores aliquid, expedita ratione fuga esse autem!</p>
+                    <button className="pri-btn self-start relative tracking-wide">Explore now<span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span></button>
+                    </div>
                 </div>
+                <ComponentGrid componentName={"Gooey Navigation"}>
+                    <GooeyNavigation/>
+                </ComponentGrid>
+                <ComponentGrid componentName={"Pagination"}>
+                    <Pagination/>
+                </ComponentGrid>
+                <ComponentGrid componentName={"Pagination with Sliding Animation"}>
+                    <PaginationAnimation/>
+                </ComponentGrid>
+                <ComponentGrid componentName={"Calendar"}>
+                    <Calendar/>
+                </ComponentGrid>
+                <ComponentGrid componentName={"Search"}>
+                    <Search/>
+                </ComponentGrid>
+                <ComponentGrid componentName={"Toggling Sidebar"}>
+                    <TogglingSidebar/>
+                </ComponentGrid>
             </div>
-            <ComponentGrid componentName={"Gooey Navigation"}>
-                <GooeyNavigation/>
-            </ComponentGrid>
-            <ComponentGrid componentName={"Pagination"}>
-                <Pagination/>
-            </ComponentGrid>
-            <ComponentGrid componentName={"Pagination with Sliding Animation"}>
-                <PaginationAnimation/>
-            </ComponentGrid>
-            <ComponentGrid componentName={"Calendar"}>
-                <Calendar/>
-            </ComponentGrid>
-            <ComponentGrid componentName={"Search"}>
-                <Search/>
-            </ComponentGrid>
-            <ComponentGrid componentName={"Toggling Sidebar"}>
-                <TogglingSidebar/>
-            </ComponentGrid>
-        </div>
+            <button className="pri-btn tracking-wide absolute">More Components</button>
+        </>
     );
 }
 

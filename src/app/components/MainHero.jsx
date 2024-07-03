@@ -1,7 +1,75 @@
+import {useRef, useEffect} from 'react';
+import { gsap } from 'gsap';
+
 const MainHero = () => {
+    const arrowRef = useRef(null);
+
+    const hamBurgerEleRef = useRef(null);
+    const sliderEleRef = useRef(null);
+    const buttonEleRef = useRef(null);
+
+    useEffect(() => {
+        const parent = hamBurgerEleRef.current.closest('.hero-window');
+
+        const {x: parentX, y: parentY} = parent.getBoundingClientRect()
+
+        const timeline = gsap.timeline({
+            repeat: -1,
+            repeatDelay: 1,
+            onRepeat: () => {
+              hamBurgerEleRef.current.setAttribute('data-status', 'not-dropped');
+              sliderEleRef.current.setAttribute('data-status', 'not-dropped');
+              buttonEleRef.current.setAttribute('data-status', 'not-dropped');
+            },
+        });
+
+        const {x:hamBurgerEleX, y:hamBurgerEleY, width:hamBurgerEleWidth, height:hamBurgerEleHeight} = hamBurgerEleRef.current.getBoundingClientRect();
+
+        const {x:sliderEleX, y:sliderEleY, width:sliderEleWidth, height:sliderEleHeight} = sliderEleRef.current.getBoundingClientRect();
+
+        const {x:buttonEleX, y:buttonEleY, width:buttonEleWidth, height:buttonEleHeight} = buttonEleRef.current.getBoundingClientRect();
+
+        timeline
+            .to(arrowRef.current, {
+                duration: 2, 
+                x: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
+                y: (hamBurgerEleY - parentY) + (hamBurgerEleHeight/2), 
+                opacity: 1, 
+                onUpdate: () => {
+                    arrowRef.current.setAttribute('data-txt', 'Side Menu');
+                }
+            }).call(() => hamBurgerEleRef.current.setAttribute('data-status', 'dropped'))
+            .to(arrowRef.current, {
+                duration: 2, 
+                x: (sliderEleX - parentX), 
+                y: (sliderEleY - parentY) + (sliderEleHeight/2), 
+                opacity: 1, 
+                onUpdate: () => {
+                    arrowRef.current.setAttribute('data-txt', 'Slider');
+                }
+            }).call(() => sliderEleRef.current.setAttribute('data-status', 'dropped'))
+            .to(arrowRef.current, {
+                duration: 2, 
+                x: (buttonEleX - parentX), 
+                y: (buttonEleY - parentY) + (buttonEleHeight/2), 
+                opacity: 1, 
+                onUpdate: () => {
+                    arrowRef.current.setAttribute('data-txt', 'Button');
+                }
+            }).call(() => buttonEleRef.current.setAttribute('data-status', 'dropped'))
+
+        // console.log((hamBurgerEleX - parentX) + (hamBurgerEleWidth/2), (hamBurgerEleY - parentY) + (hamBurgerEleHeight/2));
+        // console.log((sliderEleX - parentX) + (sliderEleWidth/2), (sliderEleY - parentY) + (sliderEleHeight/2));
+        // console.log((buttonEleX - parentX) + (buttonEleWidth/2), (buttonEleY - parentY) + (buttonEleHeight/2));
+
+        return () => {
+            timeline.kill();
+        }
+    }, []);
+
     return(
-        <section className="main-hero rounded-3xl m-4 p-[2px] shadow-lg">
-            <div className="flex relative rounded-3xl bg-gradient-to-b from-blue-100 to-blue-300 h-full lg:min-h-[42rem] lg:max-h-svh">
+        <section className="main-hero rounded-3xl p-[2px] m-4 shadow-lg">
+            <div className="flex relative rounded-3xl bg-gradient-to-b from-blue-50 to-blue-300 h-full lg:min-h-[42rem] lg:max-h-svh">
                 <div className="circles absolute pointer-events-none">
                 <div className="circle w-[60rem] h-[60rem] lg:w-[80rem] lg:h-[80rem] border border-dashed border-blue-800/30 rounded-full">
                 <div className="w-5 h-5 bg-blue-700 rounded-full absolute"></div>
@@ -33,6 +101,7 @@ const MainHero = () => {
                     </div>
                     <div className="relative w-[95%] h-[12rem] pointer-events-none">
                     <div className="hero-window w-[85%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
+                        <div className="window-arrow w-8 h-8 absolute" data-txt="Hamburger Menu" ref={arrowRef}></div>
                         <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm px-5 tracking-wide text-white">localhost:3000</p>
@@ -46,12 +115,12 @@ const MainHero = () => {
                         <div className="flex-1 bg-blue-400 rounded-md">
                         <div className="p-5 h-full flex flex-col gap-6 items-center justify-center min-h-28 text-center overflow-hidden">
                             <div className="flex w-full justify-end">
-                            <div className="w-8 h-8 lg:w-10 lg:h-10" data-status="dropping">
-                                <span className="w-full h-full inline-block bg-blue-200 rounded-full ham-span animate-pulse shadow-xl"></span>
+                            <div className="w-8 h-8 lg:w-10 lg:h-10" data-status="not-dropped" ref={hamBurgerEleRef}>
+                                <span className="w-full h-full inline-block rounded-full ham-span"></span>
                             </div>
                             </div>
                             <div>
-                            <div className="flex items-center gap-2 slides animate-pulse" data-status="not-dropped">
+                            <div data-status="not-dropped" className="flex items-center gap-2 slides" ref={sliderEleRef}>
                                 <div className="w-32 h-20 lg:w-40 lg:h-32 bg-gradient-to-br from-blue-100 to-blue-300 rounded-lg border-4 border-blue-500/50"></div>
                                 <div className="w-32 h-20 lg:w-48 lg:h-32 bg-gradient-to-br from-blue-100 to-blue-300 rounded-lg border-4 border-blue-500/50"></div>
                                 <div className="w-32 h-20 lg:w-40 lg:h-32 bg-gradient-to-br from-blue-100 to-blue-300 rounded-lg border-4 border-blue-500/50"></div>
@@ -63,7 +132,7 @@ const MainHero = () => {
                                 </span>
                             </div>
                             </div>
-                            <span className="text-xs w-24 h-7 px-3 py-2 lg:px-4 lg:py-2 bg-gradient-to-br from-blue-100 to-blue-300 rounded-full text-blue-800 shadow-lg border border-blue-400 animate-pulse" data-status="not-dropped"></span>
+                            <span data-status='not-dropped' className="text-xs w-24 h-7 px-3 py-2 lg:px-4 lg:py-2 rounded-full" ref={buttonEleRef}></span>
                         </div>
                         </div>
                     </div>

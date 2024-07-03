@@ -87,8 +87,9 @@ body {
 .main-hero{
   /* z-index: 1; */
   /* overflow: hidden; */
-  background: radial-gradient(circle at 50% 0%, #60a5fa, #dbeafe);
+  /* background: radial-gradient(circle at 50% 0%, rgb(219 234 254), 80% #fff); */
   /* mask-image: radial-gradient(circle, #000 35%, rgba(0,0,0,.5)); */
+  background: radial-gradient(circle at 50% 0,#60a5fa,#dbeafe);
 }
 
 .main-hero > div{
@@ -123,6 +124,30 @@ div:has(.hero-window){
   opacity: 0;
   @apply bg-zinc-800/80;
   animation: scaleUp 5s ease .3s forwards, float 10s ease-in .3s alternate-reverse infinite;
+}
+
+.window-arrow{
+  /* @apply shadow-lg; */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='%231d4ed8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath clip-rule='evenodd' d='M19.503 9.97c1.204.489 1.112 2.224-.137 2.583l-6.306 1.813-2.88 5.895c-.57 1.168-2.295.957-2.568-.314L4.677 6.257A1.369 1.369 0 0 1 6.53 4.7L19.503 9.97Z' stroke='%231d4ed8' stroke-width='1.5'/%3E%3C/svg%3E%0A");
+  z-index: 2;
+  opacity: 0;
+  /* transform: translate3d(2000px, 80.2517px, 0px); */
+  /* top: 200%; */
+  /* left: 200%; */
+  /* transition: .3s; */
+}
+
+.window-arrow.active{
+  transform: scale(.9);
+}
+
+.window-arrow::before{
+  content: attr(data-txt);
+  text-wrap: nowrap;
+  @apply px-3 py-1 bg-blue-100/80 backdrop-blur-xl text-xs font-semibold rounded-md shadow-lg;
+  position: absolute;
+  top: calc(100% - .5rem);
+  left: calc(100% - .5rem);
 }
 
 @keyframes scaleUp{
@@ -162,8 +187,36 @@ div:has(.hero-window){
   box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
 }
 
-.ham-span{
+[data-status='dropped'] .ham-span{
+  @apply animate-pulse bg-blue-200 shadow-xl;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%232563eb' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M20 7H4M20 12H4M20 17H4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+[data-status='not-dropped'] .ham-span{
+  @apply bg-blue-200/50 border-2 border-blue-100 border-dotted animate-pulse;
+}
+
+[data-status='not-dropped'].slides{
+  @apply bg-blue-200/50 border-2 border-blue-100 border-dotted animate-pulse rounded-xl;
+}
+
+[data-status='dropped'].slides{
+  @apply animate-pulse;
+}
+
+[data-status='not-dropped'].slides > *{
+  @apply opacity-0;
+}
+
+[data-status='not-dropped'].text-xs{
+  @apply bg-blue-200/50 border-2 border-blue-100 border-dotted animate-pulse;
+}
+
+[data-status='dropped'].text-xs{
+  @apply animate-pulse bg-gradient-to-br from-blue-100 to-blue-300 shadow-lg border border-blue-400;
+}
+
+.ham-span{
   background-size: 60%;
   background-position: center;
   background-repeat: no-repeat;
@@ -238,10 +291,11 @@ div:has(.hero-window){
   display: grid;
   grid-template-rows: repeat(6, 10rem);
   grid-template-columns: repeat(10, 1fr);
+  /* mask-image: linear-gradient(to bottom, #000 80%, transparent); */
 }
 
 .component-grids .component{
-  @apply px-3 py-9 rounded-md border border-dashed border-blue-500 bg-blue-50 overflow-hidden;
+  @apply px-3 py-9 rounded-md border border-dashed border-blue-500 bg-blue-50;
   position: relative;
 }
 
@@ -303,6 +357,12 @@ div:has(.hero-window){
 
 .component-grids .pri-btn span{
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23fff'%3E%3Cpath d='M12.55 3.44c-.432-.931-.648-1.396-1.029-1.435-.38-.04-.674.373-1.262 1.198l-.152.214c-.166.234-.25.351-.37.422-.12.07-.263.087-.55.119l-.26.03c-1.01.112-1.514.168-1.664.52-.15.351.154.765.761 1.592l.158.214c.172.235.258.352.29.49.031.138.004.28-.05.564l-.05.259c-.192 1-.288 1.5 0 1.757.289.256.77.099 1.733-.215l.249-.081c.274-.09.41-.134.55-.12.14.015.266.086.519.23l.23.13c.89.506 1.335.759 1.663.566.328-.193.322-.704.31-1.725l-.004-.264c-.003-.29-.005-.436.05-.564.055-.129.16-.227.371-.422l.192-.178c.742-.688 1.113-1.032 1.027-1.408-.085-.375-.57-.534-1.54-.851L13.47 4.4c-.276-.09-.414-.135-.52-.23-.105-.093-.166-.225-.289-.49l-.111-.24Z' stroke-width='1.5'/%3E%3Cpath d='M11 22c-.334-2.167-.8-7.2 0-10M14.5 22c0-1.125.17-2.516.628-4M22 9.5c-2.2 1.283-3.794 2.857-4.931 4.5' stroke-width='1.5' stroke-linecap='round'/%3E%3Cpath d='M5 13.268s.65.747 1.223.9c.573.155 1.51-.168 1.51-.168s-.749.65-.902 1.222c-.154.573.17 1.51.17 1.51s-.65-.748-1.223-.902c-.573-.153-1.51.17-1.51.17s.748-.65.901-1.223c.154-.573-.169-1.51-.169-1.51Z' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.component-grids + .pri-btn{
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
 }
 
 @media (max-width: 1024px){

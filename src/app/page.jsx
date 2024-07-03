@@ -14,7 +14,7 @@ export default function Home() {
             <MainHero/>
             <section className="components-showcase wrapper py-10 flex flex-col gap-6 lg:gap-10">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Decorate your project with our components</h2>
-              <div className="flex-1">
+              <div className="flex-1 relative">
                 <ComponentGrids/>
               </div>
             </section>
