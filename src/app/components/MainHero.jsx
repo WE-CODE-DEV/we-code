@@ -29,8 +29,6 @@ const MainHero = () => {
 
         const {x:buttonEleX, y:buttonEleY, width:buttonEleWidth, height:buttonEleHeight} = buttonEleRef.current.getBoundingClientRect();
 
-        console.log(`Hamburger Dimension: x: ${(hamBurgerEleX - parentX - (hamBurgerEleWidth))}, y: ${(hamBurgerEleY - parentY) + (hamBurgerEleHeight)}`);
-
         timeline
             .to(arrowRef.current, {
                 duration: 2, 
@@ -58,11 +56,7 @@ const MainHero = () => {
                 onUpdate: () => {
                     arrowRef.current.setAttribute('data-txt', 'Button');
                 }
-            }).call(() => buttonEleRef.current.setAttribute('data-status', 'dropped'))
-
-        // console.log((hamBurgerEleX - parentX) + (hamBurgerEleWidth/2), (hamBurgerEleY - parentY) + (hamBurgerEleHeight/2));
-        // console.log((sliderEleX - parentX) + (sliderEleWidth/2), (sliderEleY - parentY) + (sliderEleHeight/2));
-        // console.log((buttonEleX - parentX) + (buttonEleWidth/2), (buttonEleY - parentY) + (buttonEleHeight/2));
+            }).call(() => buttonEleRef.current.setAttribute('data-status', 'dropped'));
 
         return () => {
             timeline.kill();
