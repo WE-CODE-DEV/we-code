@@ -35,7 +35,6 @@ const ComponentGrids = () => {
                     <TogglingSidebar/>
                 </ComponentGrid>
             </div>
-            <button className="pri-btn tracking-wide absolute">More Components</button>
         </>
     );
 }
