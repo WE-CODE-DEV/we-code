@@ -42,7 +42,7 @@ export default function Home() {
                           <li className="w-3 h-3 bg-yellow-500 rounded-full"></li>
                           <li className="w-3 h-3 bg-green-500 rounded-full"></li>
                         </ul>
-                        <div className="">
+                        <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible">
                           <ul className="tabs flex gap-2">
                             <li className="tab active html"><span>index.html</span></li>
                             <li className="tab css"><span>styles.css</span></li>
