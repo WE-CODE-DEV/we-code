@@ -96,7 +96,7 @@ const MainHero = () => {
                     </button>
                     </div>
                     <div className="relative w-[100%] lg:w-[90%] h-[12rem] pointer-events-none">
-                    <div className="hero-window w-[100%] lg:w-[90%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
+                    <div className="hero-window w-[90%] lg:w-[80%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
                         <div className="window-arrow w-8 h-8 absolute" data-txt="Hamburger Menu" ref={arrowRef}></div>
                         <div className="flex items-center justify-between">
                         <div>
