@@ -2,11 +2,11 @@ import Slider from "./snippets/Slider";
 
 const CodePreview = () => {
     return(
-        <section className="clipboard wrapper py-10 flex flex-col gap-4 min-h-svh">
+        <section className="clipboard wrapper flex flex-col gap-4 min-h-svh">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
               <p>Preview, customize and copy it, it's that simple</p>
               <div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 flex-col lg:flex-row">
                   <div className="min-w-52 border border-blue-600">
                     <ul>
                       <li>Preview it</li>
@@ -14,9 +14,16 @@ const CodePreview = () => {
                       <li>Copy the code</li>
                     </ul>
                   </div>
-                  <div className="flex-1 overflow-hidden">
-                    <div className="component min-h-96">
-                        <Slider/>
+                  <div className="flex flex-col gap-4 w-full preview">
+                    <ul className="flex gap-1 self-center tabs p-2">
+                      <li className="tab active">Preview</li>
+                      <li className="tab">Customize</li>
+                      <li className="tab">Code</li>
+                    </ul>
+                    <div className="flex-1 overflow-hidden">
+                      <div className="component light min-h-96">
+                          <Slider/>
+                      </div>
                     </div>
                     {/* <div className="screen w-full h-full min-h-96 bg-[rgb(30,32,34)] rounded-xl shadow-2xl p-4">
                       <div className="w-full h-full flex flex-col">

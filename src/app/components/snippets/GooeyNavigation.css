@@ -54,7 +54,8 @@ ul li {
   width: var(--movingStripWidth);
   height: 72%;
   /* background: var(--insetColor); */
-  @apply bg-blue-50;
+  /* @apply bg-blue-50; */
+  background: #71a8eb;
   position: absolute;
   top: 0;
   left: var(--movingStripX);

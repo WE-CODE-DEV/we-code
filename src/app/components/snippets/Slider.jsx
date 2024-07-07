@@ -11,6 +11,13 @@ const SliderContainer = styled.div`
   width: clamp(22rem, 90%, 64rem);
   height: 20rem;
   margin: 0 auto;
+
+  @media (max-width: 500px) {
+    width: clamp(18rem, 90%, 64rem);
+    height: 15rem;
+    gap: 1rem;
+  }
+
 `;
 
 const SliderEle = styled.div`
@@ -34,41 +41,19 @@ const Slide = styled.div`
   border-radius: 0.5rem;
   border-width: 1px;
   border-color: rgb(113 113 122 / 0.5);
-  background-image: linear-gradient(to bottom right, #3f3f46, #18181b);
+  background-image: linear-gradient(to bottom right, #1e2022, #22262f);
+  /* background-image: linear-gradient(to bottom right,#f8fafc, #e2e8f0); */
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
-
-  /* &:nth-of-type(1) {
-    transform: translate3d(-200%, -50%, 0) rotateY(45deg) scale(0.85);
-  }
-
-  &:nth-of-type(2) {
-    transform: translate3d(-150%, -50%, 3rem) rotateY(30deg) scale(0.9);
-  }
-
-  &:nth-of-type(3) {
-    transform: translate3d(-100%, -50%, 6rem) rotateY(15deg) scale(0.95);
-  }
-
-  &:nth-of-type(4) {
-    transform: translate3d(-50%, -50%, 9rem);
-  }
-
-  &:nth-of-type(5) {
-    transform: translate3d(0%, -50%, 6rem) rotateY(-15deg) scale(0.95);
-  }
-
-  &:nth-of-type(6) {
-    transform: translate3d(50%, -50%, 3rem) rotateY(-30deg) scale(0.9);
-  }
-
-  &:nth-of-type(7) {
-    transform: translate3d(100%, -50%, 0) rotateY(-45deg) scale(0.85);
-  } */
 
   @media (max-width: 950px) {
     width: clamp(4rem, 6rem, 25rem);
     height: clamp(6rem, 8rem, 27rem);
+  }
+
+  @media (max-width: 500px) {
+    width: clamp(3rem, 5rem, 23rem);
+    height: clamp(5rem, 7rem, 25rem);
   }
 
   span {
@@ -83,6 +68,7 @@ const Slide = styled.div`
       to bottom right,
       #d4d4d8, #52525b
     );
+    /* background-image: linear-gradient(to bottom right,#93c5fd, #1e3a8a); */
     -webkit-background-clip: text;
     background-clip: text;
     font-size: 2.25rem;
@@ -104,7 +90,8 @@ const SliderButtons = styled.div`
         align-items: center;
         justify-content: center;
         border-radius: 9999px;
-        background-image: linear-gradient(to bottom right, #3f3f46, #18181b);
+        background-image: linear-gradient(to bottom right, #1e2022, #22262f);
+        /* background-image: linear-gradient(to bottom right,#f8fafc, #e2e8f0); */
         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
         svg{

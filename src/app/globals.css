@@ -296,8 +296,18 @@ div:has(.hero-window){
 
 .component-grids .component,
 .clipboard .component{
-  @apply px-3 py-9 rounded-md border border-dashed border-blue-500 bg-blue-50;
+  @apply px-3 py-9 rounded-md border border-dashed border-blue-500;
   position: relative;
+}
+
+.component-grids .component,
+.clipboard .component{
+  @apply bg-blue-50;
+}
+
+.component-grids .component,
+.clipboard .component{
+  @apply bg-gradient-to-br from-blue-300 to-blue-600;
 }
 
 .component-grids .component::before,
@@ -310,6 +320,12 @@ div:has(.hero-window){
   background-size: 1em 1em;
   opacity: .5;
   inset: 0;
+}
+
+.component-grids .component::before,
+.clipboard .component::before{
+  background: radial-gradient(circle, #dbeafe 10%, transparent 11%);
+  background-size: 1em 1em;
 }
 
 .component-grids .component > span{
@@ -420,6 +436,29 @@ div:has(.hero-window){
   .component-grids div:nth-of-type(5){
     min-height: 25rem;
   }
+}
+
+.preview .tabs{
+  @apply bg-blue-50 rounded-full border border-blue-300 shadow-xl relative;
+}
+
+.preview .tab{
+  @apply rounded-full px-5 py-2 cursor-pointer;
+  z-index: 2;
+}
+
+.preview .tab.active{
+  @apply text-blue-50;
+}
+
+.preview .tabs::before{
+  content: '';
+  width: 100px;
+  height: 40px;
+  @apply bg-gradient-to-br from-blue-400 rounded-full to-blue-700 transition-all;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px, rgba(0, 0, 0, 0.15) 0px 7px 13px -3px, rgba(0, 0, 0, 0.05) 0px -3px 0px inset;
+  position: absolute;
+  z-index: 1;
 }
 
 .screen .tab{
