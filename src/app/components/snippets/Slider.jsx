@@ -18,6 +18,26 @@ const SliderContainer = styled.div`
     gap: 1rem;
   }
 
+  &.dark{
+    --bg: linear-gradient(to bottom right, #1e2022, #22262f);
+    --txtBg: linear-gradient(
+      to bottom right,
+      #d4d4d8, #52525b
+    );
+    --borderClr: rgba(127, 127, 127, .5);
+  }
+
+  &.light{
+    --bg: linear-gradient(to bottom right, #fff, #cecece);
+    --txtBg: linear-gradient(to bottom right,#93c5fd, #1e3a8a);
+    --borderClr: rgb(113 113 122 / 0.5);
+  }
+
+  &.custom{
+    --bg: linear-gradient(to bottom right, #ccfbf1, #60a5fa);
+    --txtBg: linear-gradient(to bottom right,#6996f8, #1e3a8a);
+    --borderClr: rgba(230, 230, 230, 0.5);
+  }
 `;
 
 const SliderEle = styled.div`
@@ -40,10 +60,9 @@ const Slide = styled.div`
   justify-content: center;
   border-radius: 0.5rem;
   border-width: 1px;
-  border-color: rgb(113 113 122 / 0.5);
-  background-image: linear-gradient(to bottom right, #1e2022, #22262f);
-  /* background-image: linear-gradient(to bottom right,#f8fafc, #e2e8f0); */
   transition: 0.5s;
+  border-color: var(--borderClr);
+  background: var(--bg);
   transition-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
 
   @media (max-width: 950px) {
@@ -64,11 +83,11 @@ const Slide = styled.div`
     width: 3rem;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(
+    /* background-image: linear-gradient(
       to bottom right,
       #d4d4d8, #52525b
-    );
-    /* background-image: linear-gradient(to bottom right,#93c5fd, #1e3a8a); */
+    ); */
+    background-image: var(--txtBg);
     -webkit-background-clip: text;
     background-clip: text;
     font-size: 2.25rem;
@@ -84,26 +103,39 @@ const SliderButtons = styled.div`
     z-index: 1;
 
     button{
-        display: flex;
-        height: 2rem;
-        width: 2rem;
-        align-items: center;
-        justify-content: center;
-        border-radius: 9999px;
-        background-image: linear-gradient(to bottom right, #1e2022, #22262f);
-        /* background-image: linear-gradient(to bottom right,#f8fafc, #e2e8f0); */
-        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      display: flex;
+      height: 2rem;
+      width: 2rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-image: var(--bg);
+      position: relative;
+      /* background-image: linear-gradient(to bottom right,#f8fafc, #e2e8f0); */
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
 
-        svg{
-            width: 70%;
-            height: 70%;
-            opacity: .5;
-            transition: .3s;
-        }
+    button::before{
+      content: '';
+      width: 80%;
+      height: 80%;
+      background: var(--txtBg);
+      position: absolute;
+      border-radius: inherit;
+      transition: .3s;
+      opacity: .5;
+    }
 
-        &:hover svg{
-            opacity: 1;
-        }
+    button:hover::before{
+      opacity: 1;
+    }
+
+    button:nth-of-type(1)::before{
+      mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14.29 5.707a1 1 0 0 0-1.415 0L7.988 10.6a2 2 0 0 0 0 2.828l4.89 4.89a1 1 0 0 0 1.415-1.414l-4.186-4.185a1 1 0 0 1 0-1.415l4.182-4.182a1 1 0 0 0 0-1.414Z' fill='%230F0F0F'/%3E%3C/svg%3E");
+    }
+
+    button:nth-of-type(2)::before{
+      mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.71 18.293a1 1 0 0 0 1.415 0l4.887-4.892a2 2 0 0 0 0-2.828l-4.89-4.89a1 1 0 0 0-1.415 1.414l4.186 4.185a1 1 0 0 1 0 1.415L9.71 16.879a1 1 0 0 0 0 1.414Z' fill='%230F0F0F'/%3E%3C/svg%3E");
     }
 `;
 
@@ -116,6 +148,18 @@ const debounce = (func, delay) => {
   };
 
 const Slider = () => {
+    const variantsRef = useRef(null);
+
+    const [theme, setTheme] = useState('dark');
+
+    const changeTheme = (event) => {
+      if(event.target.tagName == 'LI'){
+        const getTheme = event.target.getAttribute('data-theme');
+
+        setTheme(getTheme);
+      }
+    }
+
     const generatedTransformsArr = ['translate3d(-200%, -50%, 0rem) rotateY(45deg) scale(0.85)', 'translate3d(-150%, -50%, 3rem) rotateY(30deg) scale(0.9)', 'translate3d(-100%, -50%, 6rem) rotateY(15deg) scale(0.95)', 'translate3d(-50%, -50%, 9rem)', 'translate3d(0%, -50%, 6rem) rotateY(-15deg) scale(0.95)', 'translate3d(50%, -50%, 3rem) rotateY(-30deg) scale(0.9)', 'translate3d(100%, -50%, 0) rotateY(-45deg) scale(0.85)'];
 
     const [transformsArr, setTransformsArr] = useState(generatedTransformsArr);
@@ -143,7 +187,8 @@ const Slider = () => {
     const displayNumbers = [5, 6, 7, 1, 2, 3, 4];
 
     return (
-        <SliderContainer>
+      <>
+        <SliderContainer className={theme}>
         <SliderEle>
             {
                 transformsArr.map(
@@ -159,56 +204,18 @@ const Slider = () => {
             aria-label="Previous Slide"
             title="Go To Previous Slide"
             onClick={debouncedNavigatePrev}
-            >
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop
-                    offset="0%"
-                    style={{ stopColor: "#e4e4e7", stopOpacity: 1 }}
-                    />
-                    <stop
-                    offset="100%"
-                    style={{ stopColor: "#a1a1aa", stopOpacity: 1 }}
-                    />
-                </linearGradient>
-                </defs>
-                <path
-                d="M14.29 5.707a1 1 0 0 0-1.415 0L7.988 10.6a2 2 0 0 0 0 2.828l4.89 4.89a1 1 0 0 0 1.415-1.414l-4.186-4.185a1 1 0 0 1 0-1.415l4.182-4.182a1 1 0 0 0 0-1.414Z"
-                fill="url(#grad1)"
-                />
-            </svg>
-            </button>
-            <button id="nxt-slide" aria-label="Next Slide" title="Go To Next Slide" onClick={debouncedNavigateNext}>
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <defs>
-                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop
-                    offset="0%"
-                    style={{ stopColor: "#a1a1aa", stopOpacity: 1 }}
-                    />
-                    <stop
-                    offset="100%"
-                    style={{ stopColor: "#e4e4e7", stopOpacity: 1 }}
-                    />
-                </linearGradient>
-                </defs>
-                <path
-                d="M9.71 18.293a1 1 0 0 0 1.415 0l4.887-4.892a2 2 0 0 0 0-2.828l-4.89-4.89a1 1 0 0 0-1.415 1.414l4.186 4.185a1 1 0 0 1 0 1.415L9.71 16.879a1 1 0 0 0 0 1.414Z"
-                fill="url(#grad2)"
-                />
-            </svg>
-            </button>
+            ></button>
+            <button id="nxt-slide" aria-label="Next Slide" title="Go To Next Slide" onClick={debouncedNavigateNext}></button>
         </SliderButtons>
         </SliderContainer>
+        <div className="absolute top-[50%] translate-y-[-50%] right-4 rounded-full" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
+          <ul className="flex flex-col gap-2">
+            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#1e2022] from-50% to-[#333539] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all" data-theme="dark"></li>
+            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#fff] from-50% to-[#cecece] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all" data-theme="light"></li>
+            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#ccdff9] from-50% to-[#60a5fa] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all"  data-theme="custom"></li>
+          </ul>
+        </div>
+      </>
     );
 };
 

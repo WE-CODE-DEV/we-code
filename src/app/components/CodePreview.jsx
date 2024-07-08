@@ -1,6 +1,31 @@
 import Slider from "./snippets/Slider";
+import { useState, useRef, useEffect } from "react";
 
 const CodePreview = () => {
+  const tabsRef = useRef(null);
+
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const moveToTab = (index) => {
+    const parent = tabsRef.current;
+
+    if(parent){
+      const tabs = parent.querySelectorAll('.tab');
+
+      const {left:parentX} = parent.getBoundingClientRect();
+
+      const {width, height, left} = tabs[index].getBoundingClientRect();
+  
+      tabsRef.current.style.setProperty('--tabW', `${width}px`);
+      tabsRef.current.style.setProperty('--tabH', `${height}px`);
+      tabsRef.current.style.setProperty('--tabX', `${left - parentX}px`);
+
+      setCurrentTab(index);
+    }
+  }
+
+  useEffect(() => moveToTab(currentTab), []);
+
     return(
         <section className="clipboard wrapper flex flex-col gap-4 min-h-svh">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
@@ -15,10 +40,12 @@ const CodePreview = () => {
                     </ul>
                   </div>
                   <div className="flex flex-col gap-4 w-full preview">
-                    <ul className="flex gap-1 self-center tabs p-2">
-                      <li className="tab active">Preview</li>
-                      <li className="tab">Customize</li>
-                      <li className="tab">Code</li>
+                    <ul className="flex gap-1 self-center tabs p-2" ref={tabsRef}>
+                      {
+                        ['Preview', 'Variants', 'Code'].map((text, index) => 
+                          <li className={(index === currentTab) ? 'tab active' : 'tab'} key={`tab-${index}`} onClick={()=>moveToTab(index)}>{text}</li>
+                        )
+                      }
                     </ul>
                     <div className="flex-1 overflow-hidden">
                       <div className="component light min-h-96">

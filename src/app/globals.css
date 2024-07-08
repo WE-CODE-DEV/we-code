@@ -439,11 +439,11 @@ div:has(.hero-window){
 }
 
 .preview .tabs{
-  @apply bg-blue-50 rounded-full border border-blue-300 shadow-xl relative;
+  @apply bg-blue-50 rounded-full border border-blue-200 shadow-xl relative;
 }
 
 .preview .tab{
-  @apply rounded-full px-5 py-2 cursor-pointer;
+  @apply rounded-full px-5 py-2 cursor-pointer transition-all;
   z-index: 2;
 }
 
@@ -453,12 +453,19 @@ div:has(.hero-window){
 
 .preview .tabs::before{
   content: '';
-  width: 100px;
-  height: 40px;
+  width: var(--tabW);
+  height: var(--tabH);
   @apply bg-gradient-to-br from-blue-400 rounded-full to-blue-700 transition-all;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px, rgba(0, 0, 0, 0.15) 0px 7px 13px -3px, rgba(0, 0, 0, 0.05) 0px -3px 0px inset;
   position: absolute;
+  left: var(--tabX);
   z-index: 1;
+  transition-timing-function: cubic-bezier(.5,.75,.75,1.25);
+}
+
+.preview .tab:hover{
+  @apply border-blue-200;
+  box-shadow: inset 2px 2px 10px rgba(0, 0, 0, .1);
 }
 
 .screen .tab{

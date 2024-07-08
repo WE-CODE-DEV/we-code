@@ -8,7 +8,7 @@ import Calendar from "./snippets/Calendar";
 const ComponentGrids = () => {
     return (
         <>
-            <div className="component-grids gap-6 pb-10">
+            <div className="component-grids gap-6 pb-6">
                 <div className="p-[1px] h-fit rounded-lg bg-gradient-to-tl from-blue-300 to-blue-400 shadow-xl self-center">
                     <div className="flex h-fit flex-col gap-4 lg:gap-6 justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 lg:p-10 rounded-lg self-center">
                     <h3 className="font-bold text-xl lg:text-2xl">Showcased some of our components</h3>
