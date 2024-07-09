@@ -105,7 +105,7 @@ ul li {
   color: #fff;
   transform: translateY(-1em);
 }
-.gooey-nav ul li a {
+.gooey-nav ul li svg {
   @apply w-5 h-5 inline-block;
   /* display: inline-block; */
   /* --wh: 1.75em; */

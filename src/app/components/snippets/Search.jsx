@@ -1,116 +1,164 @@
-import './Search.css';
-import { useEffect, useRef, useState } from 'react';
+import "./Search.css";
+import { useEffect, useRef, useState } from "react";
 
 const Search = () => {
-    const searchResultsRef = useRef(null);
+  const searchResultsRef = useRef(null);
 
-    const searchEleContainerRef = useRef(null);
+  const searchEleContainerRef = useRef(null);
 
-    const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [typedValue, setTypedValue] = useState('bro');
-    
-    const defaultTxt = 'The quick brown fox jumps over the lazy dog';
+  const [typedValue, setTypedValue] = useState("bro");
 
-    let debounceTimeout;
+  const defaultTxt = "The quick brown fox jumps over the lazy dog";
 
-    const LoadingTemp = () => {
-        return(
-            <li className='loading-li'>
-                <div className="leading-loading animate-pulse" aria-hidden="true"></div>
-                <div className="content-loading">
-                    <span aria-hidden="true" className="animate-pulse"></span>
-                    <span aria-hidden="true" className="animate-pulse"></span>
-                    <span aria-hidden="true" className="animate-pulse"></span>
-                </div>
-            </li>
-        );
+  let debounceTimeout;
+
+  const LoadingTemp = () => {
+    return (
+      <li className="loading-li" role="listitem">
+        <div className="leading-loading animate-pulse" aria-hidden="true"></div>
+        <div className="content-loading">
+          <span aria-hidden="true" className="animate-pulse"></span>
+          <span aria-hidden="true" className="animate-pulse"></span>
+          <span aria-hidden="true" className="animate-pulse"></span>
+        </div>
+      </li>
+    );
+  };
+
+  const SearchResult = () => {
+    const matchFound = defaultTxt
+      .toLowerCase()
+      .includes(typedValue.toLowerCase());
+
+    const startIndex = defaultTxt
+      .toLowerCase()
+      .indexOf(typedValue.toLowerCase());
+    const endIndex = startIndex + typedValue.length;
+
+    if (typedValue.trim().length > 0) {
+      searchEleContainerRef.current.setAttribute("data-state", "result-found");
     }
-
-    const SearchResult = () => {
-        const matchFound = defaultTxt.toLowerCase().includes(typedValue.toLowerCase());
-
-        const startIndex = defaultTxt.toLowerCase().indexOf(typedValue.toLowerCase());
-        const endIndex = startIndex + typedValue.length;
-
-        if(typedValue.trim().length > 0){
-            searchEleContainerRef.current.setAttribute('data-state', 'result-found');
-        }
-        
-        return (
-            <>
-                {
-                    matchFound ? 
-                    <li>
-                        <div className="leading"></div>
-                        <div className="content">
-                            <p>
-                                {defaultTxt.slice(0, startIndex)}
-                                <span>{defaultTxt.slice(startIndex, endIndex)}</span>
-                                {defaultTxt.slice(endIndex)}
-                            </p>
-                        </div>
-                    </li> 
-                    : <li>No results found...</li>
-                }
-            </>
-        );
-    }
-
-    const searchInputEvent = (e) => {
-        clearTimeout(debounceTimeout);
-
-        const value = e.target.value.trim();
-
-        setTypedValue(value);
-        
-        searchEleContainerRef.current.setAttribute('data-state', (value.length > 0) ? 'searching' : 'stop-searching');
-
-        if(value.length > 0){
-            debounceTimeout = setTimeout(() => {
-                setIsLoading(false);
-            }, 500);
-
-            setIsLoading(true);
-        }
-    }
-
-    const clearSearchBtn = () => {
-        setIsLoading(false);
-        setTypedValue("");
-        searchEleContainerRef.current.setAttribute('data-state', 'stop-searching');
-    }
-
-    useEffect(()=>{
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 500);
-    },[]);
 
     return (
-        <>
-            <div className="search-container">
-            <div className="search" ref={searchEleContainerRef} data-state="searching">
-                <label>
-                    <input type="text" placeholder="Search..." id="search-input" role="searchbox" aria-label="Search input" value={typedValue} onInput={searchInputEvent}/>
-                    <button id="clear-search" aria-label="Clear search" onClick={clearSearchBtn}>
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m16 8-8 8m4-4 4 4M8 8l2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </button>
-                    <div className="search-svg-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </div>
-                </label>
+      <>
+        {matchFound ? (
+          <li role="listitem">
+            <div className="leading"></div>
+            <div className="content">
+              <p>
+                {defaultTxt.slice(0, startIndex)}
+                <span>{defaultTxt.slice(startIndex, endIndex)}</span>
+                {defaultTxt.slice(endIndex)}
+              </p>
             </div>
-            <div className="search-results" aria-live="polite" role="list" aria-label="Search results" ref={searchResultsRef}>
-                <ul>
-                    {isLoading ? <LoadingTemp/> : <SearchResult/>}
-                </ul>
-            </div>
-        </div>
-        </>
+          </li>
+        ) : (
+          <li role="listitem">No results found...</li>
+        )}
+      </>
     );
-}
+  };
+
+  const searchInputEvent = (e) => {
+    clearTimeout(debounceTimeout);
+
+    const value = e.target.value.trim();
+
+    setTypedValue(value);
+
+    searchEleContainerRef.current.setAttribute(
+      "data-state",
+      value.length > 0 ? "searching" : "stop-searching"
+    );
+
+    if (value.length > 0) {
+      debounceTimeout = setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+
+      setIsLoading(true);
+    }
+  };
+
+  const clearSearchBtn = () => {
+    setIsLoading(false);
+    setTypedValue("");
+    searchEleContainerRef.current.setAttribute("data-state", "stop-searching");
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, []);
+
+  return (
+    <>
+      <div className="search-container">
+        <div
+          className="search"
+          ref={searchEleContainerRef}
+          data-state="searching"
+        >
+          <label htmlFor="search-input">
+            <input
+              type="text"
+              placeholder="Search..."
+              id="search-input"
+              role="searchbox"
+              aria-label="Search input"
+              value={typedValue}
+              onInput={searchInputEvent}
+            />
+            <button
+              id="clear-search"
+              aria-label="Clear search"
+              onClick={clearSearchBtn}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m16 8-8 8m4-4 4 4M8 8l2 2"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <div className="search-svg-container">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </div>
+          </label>
+        </div>
+        <div
+          className="search-results"
+          aria-live="polite"
+          aria-label="Search results"
+          ref={searchResultsRef}
+        >
+          <ul>{isLoading ? <LoadingTemp /> : <SearchResult />}</ul>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Search;

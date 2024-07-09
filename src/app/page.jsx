@@ -25,7 +25,11 @@ export default function Home() {
             </section>
             <CodePreview/>
         </div>
-        <div className="app-footer"></div>
+        <div className="app-footer">
+          <footer className="wrapper">
+            <h1>We Code</h1>
+          </footer>
+        </div>
       </div>
     </div>
   );

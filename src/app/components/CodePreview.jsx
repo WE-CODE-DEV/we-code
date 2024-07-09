@@ -229,30 +229,51 @@ document.getElementById('nxt-slide').addEventListener('click', () => navigate(tr
 `;
 
 const CodeWindowPreview = () => {
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const htmlCSSJS = [['html', 'index.html'], ['css', 'styles.css'], ['js', 'index.js']];
+
+  const reactJS = [['react', 'app.jsx'], ['css', 'styles.css']];
+
+  const [editorTabs, setEditorTabs] = useState(htmlCSSJS);
+  const [curCodeVarIndex, setCurCodeVarIndex] = useState(0);
+  const [curTabIndex, setCurTabIndex] = useState(0);
 
   const showCorrespondingCode = (index) => {
     let code;
 
-    if(index === 0){
-      code = <HighlightCode code={htmlCode} language="html"/>
+    if(curCodeVarIndex == 0){
+      if(index === 0){
+        code = <HighlightCode code={htmlCode} language="html"/>
+      }
+      else if(index === 1){
+        code = <HighlightCode code={cssCode} language="css"/>
+      }
+      else if(index === 2){
+        code = <HighlightCode code={jsCode} language="javascript"/>
+      }
     }
-    else if(index === 1){
-      code = <HighlightCode code={cssCode} language="css"/>
-    }
-    else if(index === 2){
-      code = <HighlightCode code={jsCode} language="javascript"/>
+    else{
+      if(index === 0){
+        code = <HighlightCode code={jsCode} language="javascript"/>
+      }
+      else if(index === 1){
+        code = <HighlightCode code={cssCode} language="css"/>
+      }
     }
 
     return code;
   }
 
+  useEffect(() => {
+    setEditorTabs(curCodeVarIndex == 0 ? htmlCSSJS : reactJS);
+  }, [curCodeVarIndex]);
+
   return(
     <>
       <div className="mb-4 code-tabs flex gap-4 items-center w-fit rounded-full mx-auto">
         <ul className="flex gap-4 flex-wrap">
-          <li className="cursor-pointer active">HTML + CSS + JS Code</li>
-          <li className="cursor-pointer">React Code</li>
+          {['HTML + CSS + JS Code', 'React Code'].map((txt, index) => {
+            return <li className={`cursor-pointer ${curCodeVarIndex === index ? 'active': ''}`} key={`code-variants-${index}`} onClick={()=>setCurCodeVarIndex(index)}>{txt}</li>
+          })}
         </ul>
       </div>
       <div className="screen bg-[rgb(30,32,34)] rounded-xl shadow-2xl p-4">
@@ -265,17 +286,22 @@ const CodeWindowPreview = () => {
             </ul>
             <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2">
               <ul className="tabs flex gap-2">
-                {[['html', 'index.html'], ['css', 'styles.css'], ['js', 'index.js']].map((arr, index) => {
+                {editorTabs.map((arr, index) => {
                   const [styleClass, fileName] = arr;
 
-                  return <li className={`tab ${styleClass} ${currentTabIndex === index ? 'active': ''}`} key={`code-tab-${index}`} onClick={()=>setCurrentTabIndex(index)}><span>{fileName}</span></li>
+                  return <li className={`tab ${styleClass} ${curTabIndex === index ? 'active': ''}`} key={`code-tab-${index}`} onClick={()=>setCurTabIndex(index)}><span>{fileName}</span></li>
                 })
                 }
               </ul>
             </div>
           </div>
-          <div className="screen-body max-h-80 rounded-xl overflow-auto">
-            {showCorrespondingCode(currentTabIndex)}
+          <div className="screen-body max-h-80 rounded-xl overflow-auto relative">
+            {showCorrespondingCode(curTabIndex)}
+            <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-blue-100 shadow-2xl rounded-full cursor-pointer flex items-center justify-center" title="Copy to clipboard">
+              <div className="copy-to-cb w-7 h-7">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#1e3a8a" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"><path d="M8 12.2h7M8 16.2h4.38M10 6h4c2 0 2-1 2-2 0-2-1-2-2-2h-4C9 2 8 2 8 4s1 2 2 2Z"/><path d="M16 4.02c3.33.18 5 1.41 5 5.98v6c0 4-1 6-6 6H9c-5 0-6-2-6-6v-6c0-4.56 1.67-5.8 5-5.98"/></g></svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -309,7 +335,7 @@ const CodePreview = () => {
   useEffect(() => moveToTab(currentTab), []);
 
     return(
-        <section className="clipboard wrapper flex flex-col gap-6 min-h-svh">
+        <section className="clipboard wrapper flex flex-col gap-6 py-10">
             <div className="flex flex-col gap-2">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
               <p>Preview the component, choose the variant which suits you, and copy it, it's that simple</p>

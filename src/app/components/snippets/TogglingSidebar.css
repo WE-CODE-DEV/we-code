@@ -109,7 +109,7 @@
   transform: translateY(0);
 }
 
-.toggling-navigation ul li a {
+.toggling-navigation ul li{
     @apply gap-4;
   display: flex;
   align-items: center;
@@ -120,7 +120,7 @@
   /* padding: var(--space2); */
 }
 
-.toggling-navigation ul li a svg {
+.toggling-navigation ul li svg {
     @apply w-5 h-5 min-w-5;
   /* --wh: 2.5em; */
   /* min-width: var(--wh); */
@@ -134,7 +134,7 @@
   }
 }
 
-.toggling-navigation ul li a span {
+.toggling-navigation ul li span {
   white-space: nowrap;
   transform: translateY(200%);
   @apply text-sm;
@@ -144,7 +144,7 @@
   transition: var(--globalTransition);
 }
 
-.toggling-navigation ul li a span::before {
+.toggling-navigation ul li span::before {
   content: attr(data-txt);
   position: absolute;
   bottom: 200%;

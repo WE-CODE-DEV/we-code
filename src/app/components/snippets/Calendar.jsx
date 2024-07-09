@@ -146,7 +146,7 @@ const Calendar = () => {
                     <span className="calendar-input-month">{monthsArr[actualDMY.month]}</span>
                     <span className="calendar-input-year">{actualDMY.year}</span>
                 </label>
-                <input type="button" id="calendar-trigger" onClick={showHideCalendar}/>
+                <input type="button" id="calendar-trigger" onClick={showHideCalendar} aria-label="Calendar Input"/>
             </div>
             {isCalendarOpen && <div className="calendar-body">
                 <div className="calendar-body-header">
