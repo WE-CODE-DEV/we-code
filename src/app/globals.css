@@ -439,12 +439,12 @@ div:has(.hero-window){
 }
 
 .code-tabs li{
-  @apply pl-10 pr-5 py-2 relative font-semibold text-blue-700 bg-blue-50 rounded-full border border-dashed border-blue-600 opacity-80 transition-all text-sm;
+  @apply pl-10 pr-5 py-2 relative font-semibold text-blue-700 bg-blue-50 rounded-full border border-dashed border-blue-600 opacity-60 transition-all text-sm;
 }
 
 .code-tabs li::before{
   content: '';
-  @apply w-4 h-4 border-2 border-blue-600 absolute rounded-full shadow-inner;
+  @apply w-4 h-4 border-2 border-blue-600 absolute rounded-full shadow-inner transition-all;
   top: 50%;
   left: 1rem;
   transform: translateY(-50%);
@@ -455,8 +455,12 @@ div:has(.hero-window){
   /* box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px, rgba(0, 0, 0, 0.15) 0px 7px 13px -3px, rgba(0, 0, 0, 0.05) 0px -3px 0px inset; */
 }
 
-.code-tabs li:hover{
-  @apply opacity-100;
+.code-tabs li:not(.active):hover{
+  @apply opacity-80;
+}
+
+.code-tabs li:not(.active):hover::before{
+  background: radial-gradient(circle at center, #597ee4 40%, #dbeafe 50%);
 }
 
 .code-tabs li.active::before{
