@@ -2,6 +2,8 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 import styled from "styled-components";
 
+import './Themes.css';
+
 const SliderContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,7 +32,7 @@ const SliderContainer = styled.div`
   &.light{
     --bg: linear-gradient(to bottom right, #fff, #cecece);
     --txtBg: linear-gradient(to bottom right,#93c5fd, #1e3a8a);
-    --borderClr: rgb(113 113 122 / 0.5);
+    --borderClr: rgb(60 146 232 / 0.5);
   }
 
   &.custom{
@@ -156,6 +158,12 @@ const Slider = () => {
       if(event.target.tagName == 'LI'){
         const getTheme = event.target.getAttribute('data-theme');
 
+        const {top: parentY} = event.target.closest('ul').getBoundingClientRect();
+
+        const {top} = event.target.getBoundingClientRect();
+
+        event.target.closest('ul').style.setProperty('--circleY', `${top - parentY}px`);
+
         setTheme(getTheme);
       }
     }
@@ -209,10 +217,10 @@ const Slider = () => {
         </SliderButtons>
         </SliderContainer>
         <div className="absolute top-[50%] translate-y-[-50%] right-4 rounded-full" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
-          <ul className="flex flex-col gap-2">
-            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#1e2022] from-50% to-[#333539] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all" data-theme="dark"></li>
-            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#fff] from-50% to-[#cecece] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all" data-theme="light"></li>
-            <li className="w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-br from-[#ccdff9] from-50% to-[#60a5fa] to-50% rounded-full shadow-2xl cursor-pointer border-2 bg-transparent hover:scale-105 transition-all"  data-theme="custom"></li>
+          <ul className="flex flex-col gap-3 themes">
+            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#1e2022] from-50% to-[#333539] to-50% rounded-full shadow-2xl cursor-pointer transition-all" data-theme="dark" title="Dark"></li>
+            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#fff] from-50% to-[#cecece] to-50% rounded-full shadow-2xl cursor-pointer transition-all" data-theme="light" title="Light"></li>
+            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#ccdff9] from-50% to-[#60a5fa] to-50% rounded-full shadow-2xl cursor-pointer transition-all"  data-theme="custom" title="Custom"></li>
           </ul>
         </div>
       </>
