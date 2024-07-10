@@ -187,7 +187,7 @@ const Slider = () => {
           });
         },
         []
-      );
+    );
 
     const debouncedNavigateNext = useCallback(debounce(() => navigate(true), 300), [navigate]);
     const debouncedNavigatePrev = useCallback(debounce(() => navigate(false), 300), [navigate]);

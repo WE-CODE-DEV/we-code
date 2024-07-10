@@ -1,12 +1,16 @@
 import Slider from "./snippets/Slider";
 import HighlightCode from "./snippets/HighlightCode";
+
 import { useState, useRef, useEffect } from "react";
 
 const ComponentPreview = () => {
+  const [reload, setReload] = useState(false);
+
   return(
     <div className="overflow-hidden component-preview">
       <div className="component light min-h-96">
-          <Slider/>
+          <Slider key={reload}/>
+          <button className="refresh-component" title="Reload Component" onClick={()=>setReload(!reload)}></button>
       </div>
     </div>
   );
@@ -229,50 +233,49 @@ document.getElementById('nxt-slide').addEventListener('click', () => navigate(tr
 `;
 
 const CodeWindowPreview = () => {
-  const htmlCSSJS = [['html', 'index.html'], ['css', 'styles.css'], ['js', 'index.js']];
-
-  const reactJS = [['react', 'app.jsx'], ['css', 'styles.css']];
-
-  const [editorTabs, setEditorTabs] = useState(htmlCSSJS);
   const [curCodeVarIndex, setCurCodeVarIndex] = useState(0);
   const [curTabIndex, setCurTabIndex] = useState(0);
 
-  const showCorrespondingCode = (index) => {
-    let code;
+  const codeMap = {
+    0: [[htmlCode, 'html', 'index.html', 'html'], [cssCode, 'css', 'styles.css', 'css'], [jsCode, 'javascript', 'index.js', 'js']],
+    1: [[jsCode, 'javascript', 'app.js', 'react'], [cssCode, 'css', 'styles.css', 'css']]
+  };
+  
+  const [text, setText] = useState(codeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || '');
 
-    if(curCodeVarIndex == 0){
-      if(index === 0){
-        code = <HighlightCode code={htmlCode} language="html"/>
-      }
-      else if(index === 1){
-        code = <HighlightCode code={cssCode} language="css"/>
-      }
-      else if(index === 2){
-        code = <HighlightCode code={jsCode} language="javascript"/>
-      }
-    }
-    else{
-      if(index === 0){
-        code = <HighlightCode code={jsCode} language="javascript"/>
-      }
-      else if(index === 1){
-        code = <HighlightCode code={cssCode} language="css"/>
-      }
-    }
+  const copyToClipboard = async (event) => {
+    try{
+      await navigator.clipboard.writeText(text);
+      const targetEle = event.target.closest('.floating');
 
-    return code;
+      targetEle.setAttribute('data-iscopied', true);
+
+      const timer = setTimeout(()=> {
+        targetEle.setAttribute('data-iscopied', false);
+        clearTimeout(timer);
+      }, 1000);
+
+    }catch(err){
+      console.log(err);
+    }
   }
 
   useEffect(() => {
-    setEditorTabs(curCodeVarIndex == 0 ? htmlCSSJS : reactJS);
-  }, [curCodeVarIndex]);
+    const maxTabIndex = codeMap[curCodeVarIndex]?.length - 1;
+
+    if (curTabIndex > maxTabIndex) {
+      setCurTabIndex(maxTabIndex);
+    }
+    
+    setText(codeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || '');
+  }, [curCodeVarIndex, curTabIndex]);
 
   return(
     <>
       <div className="mb-4 code-tabs flex gap-4 items-center w-fit rounded-full mx-auto">
         <ul className="flex gap-4 flex-wrap">
           {['HTML + CSS + JS Code', 'React Code'].map((txt, index) => {
-            return <li className={`cursor-pointer ${curCodeVarIndex === index ? 'active': ''}`} key={`code-variants-${index}`} onClick={()=>setCurCodeVarIndex(index)}>{txt}</li>
+            return <li className={`cursor-pointer select-none ${curCodeVarIndex === index ? 'active': ''}`} key={`code-variants-${index}`} onClick={()=>setCurCodeVarIndex(index)}>{txt}</li>
           })}
         </ul>
       </div>
@@ -286,21 +289,19 @@ const CodeWindowPreview = () => {
             </ul>
             <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2">
               <ul className="tabs flex gap-2">
-                {editorTabs.map((arr, index) => {
-                  const [styleClass, fileName] = arr;
-
-                  return <li className={`tab ${styleClass} ${curTabIndex === index ? 'active': ''}`} key={`code-tab-${index}`} onClick={()=>setCurTabIndex(index)}><span>{fileName}</span></li>
-                })
-                }
+                {codeMap[curCodeVarIndex].map((arr, index) => {
+                  const [code, language, fileName, styleClass] = arr;
+                  return <li className={`tab ${styleClass} ${curTabIndex === index ? 'active' : ''}`} key={`code-tab-${index}`} onClick={() => setCurTabIndex(index)}><span>{fileName}</span></li>;
+                })}
               </ul>
             </div>
           </div>
           <div className="screen-body max-h-80 rounded-xl overflow-auto relative">
-            {showCorrespondingCode(curTabIndex)}
-            <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-blue-100 shadow-2xl rounded-full cursor-pointer flex items-center justify-center" title="Copy to clipboard">
-              <div className="copy-to-cb w-7 h-7">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="#1e3a8a" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"><path d="M8 12.2h7M8 16.2h4.38M10 6h4c2 0 2-1 2-2 0-2-1-2-2-2h-4C9 2 8 2 8 4s1 2 2 2Z"/><path d="M16 4.02c3.33.18 5 1.41 5 5.98v6c0 4-1 6-6 6H9c-5 0-6-2-6-6v-6c0-4.56 1.67-5.8 5-5.98"/></g></svg>
-              </div>
+            {              
+              <HighlightCode code={text} language={codeMap[curCodeVarIndex]?.[curTabIndex]?.[1] || ''}/>
+            }
+            <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all" title="Copy to clipboard" data-iscopied="false" onClick={(event)=>copyToClipboard(event)}>
+              <div className="copy-to-cb w-7 h-7"></div>
             </div>
           </div>
         </div>
