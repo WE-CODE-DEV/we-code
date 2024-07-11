@@ -55,7 +55,7 @@ body {
 
 @layer components{
   .wrapper{
-    @apply  w-full h-full max-w-6xl mx-auto px-4 lg:px-8;
+    @apply  w-full h-full max-w-6xl mx-auto px-6 lg:px-8;
   }
 
   .grids-container{
@@ -586,16 +586,48 @@ div:has(.hero-window){
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .15);
 }
 
-.floating[data-iscopied='false'] .copy-to-cb{
+.floating[data-iscopied='false'] .clipboard-path{
+  d: path("M7 14.5h8M7 18h5.5");
+}
+
+.floating[data-iscopied='false']:hover .clipboard-path{
+  stroke-dasharray: 0 13.5;
+  transition: .3s;
+
+  animation: clipboard-anim 1s cubic-bezier(0.23, 1, 0.32, 1.2) .3s forwards;
+}
+
+@keyframes clipboard-anim{
+  to{
+    stroke-dasharray: 13.5 13.5;
+  }
+}
+
+.floating[data-iscopied='true'] .clipboard-path{
+  d: path("m9 13.4 1.714 1.6L15 11");
+  stroke-dasharray: 0 8.207313537597656;
+
+  animation: clipboard-tick-anim 1s cubic-bezier(0.23, 1, 0.32, 1.2) .3s forwards;
+}
+
+@keyframes clipboard-tick-anim{
+  to{
+    stroke-dasharray: 8.207313537597656 8.207313537597656
+  }
+}
+
+/* .floating[data-iscopied='false'] .copy-to-cb{
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%231e3a8a' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 12.2h7M8 16.2h4.38M10 6h4c2 0 2-1 2-2 0-2-1-2-2-2h-4C9 2 8 2 8 4s1 2 2 2Z'/%3E%3Cpath d='M16 4.02c3.33.18 5 1.41 5 5.98v6c0 4-1 6-6 6H9c-5 0-6-2-6-6v-6c0-4.56 1.67-5.8 5-5.98'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .floating[data-iscopied='true'] .copy-to-cb{
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M9.31 14.7L10.81 16.2L14.81 12.2' stroke='%231e3a8a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M10 6H14C16 6 16 5 16 4C16 2 15 2 14 2H10C9 2 8 2 8 4C8 6 9 6 10 6Z' stroke='%231e3a8a' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M16 4.02002C19.33 4.20002 21 5.43002 21 10V16C21 20 20 22 15 22H9C4 22 3 20 3 16V10C3 5.44002 4.67 4.20002 8 4.02002' stroke='%231e3a8a' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-}
+} */
 
 .refresh-component{
   @apply w-6 h-6 bg-blue-50 absolute right-5 top-5 rounded-full shadow-2xl cursor-pointer transition-all;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+  transition: .5s;
 }
 
 .refresh-component::before{
@@ -610,5 +642,5 @@ div:has(.hero-window){
 }
 
 .refresh-component:active{
-  transform: rotate(360deg);
+  transform: rotate(180deg)
 }

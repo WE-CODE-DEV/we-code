@@ -261,12 +261,10 @@ const CodeWindowPreview = () => {
   }
 
   useEffect(() => {
-    const maxTabIndex = codeMap[curCodeVarIndex]?.length - 1;
+    setCurTabIndex(0);
+  }, [curCodeVarIndex]);
 
-    if (curTabIndex > maxTabIndex) {
-      setCurTabIndex(maxTabIndex);
-    }
-    
+  useEffect(() => {
     setText(codeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || '');
   }, [curCodeVarIndex, curTabIndex]);
 
@@ -301,7 +299,15 @@ const CodeWindowPreview = () => {
               <HighlightCode code={text} language={codeMap[curCodeVarIndex]?.[curTabIndex]?.[1] || ''}/>
             }
             <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all" title="Copy to clipboard" data-iscopied="false" onClick={(event)=>copyToClipboard(event)}>
-              <div className="copy-to-cb w-7 h-7"></div>
+              <div className="copy-to-cb w-7 h-7">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g stroke="#1C274C" strokeWidth="1.5">
+                    <path d="M16 4c2.175.012 3.353.109 4.121.877C21 5.756 21 7.17 21 9.998v6c0 2.829 0 4.243-.879 5.122-.878.878-2.293.878-5.121.878H9c-2.828 0-4.243 0-5.121-.878C3 20.24 3 18.827 3 15.998v-6c0-2.828 0-4.242.879-5.121C4.647 4.109 5.825 4.012 8 4"/>
+                    <path className="clipboard-path" d="M7 14.5h8M7 18h5.5"/>
+                    <path d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5v-1Z"/>
+                  </g>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -336,7 +342,7 @@ const CodePreview = () => {
   useEffect(() => moveToTab(currentTab), []);
 
     return(
-        <section className="clipboard wrapper flex flex-col gap-6 py-10">
+        <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
             <div className="flex flex-col gap-2">
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
               <p>Preview the component, choose the variant which suits you, and copy it, it's that simple</p>
