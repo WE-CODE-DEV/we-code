@@ -1,15 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import AppHeader from "./components/AppHeader";
 import MainHero from "./components/MainHero";
 import ComponentGrids from "./components/ComponentGrids";
 import CodePreview from "./components/CodePreview";
 
 export default function Home() {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsSticky(window.scrollY > 0);
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-between">
-      <div className="app flex flex-col w-full bg-blue-100 text-blue-800">
-        <AppHeader/>
+      <div className="app flex flex-col w-full bg-white text-blue-800">
+        <AppHeader sticky={isSticky}/>
         <div className="app-body">
             <MainHero/>
             <section className="components-showcase wrapper py-6 lg:py-8 flex flex-col gap-6 lg:gap-10">
@@ -25,7 +38,7 @@ export default function Home() {
             </section>
             <CodePreview/>
         </div>
-        <div className="app-footer bg-gradient-to-br from-blue-200 to-blue-300">
+        <div className="app-footer bg-gradient-to-b from-blue-50 to-blue-300 border border-dashed border-l-0 border-r-0 border-b-0 border-blue-400 shadow-inner">
           <footer className="wrapper py-6 lg:py-8">
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-6">
               <div className="max-w-96 flex flex-col gap-2">
