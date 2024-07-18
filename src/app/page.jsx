@@ -41,10 +41,12 @@ export default function Home() {
         <div className="app-footer bg-gradient-to-b from-blue-50 to-blue-200 border border-dashed border-l-0 border-r-0 border-b-0 border-blue-400 shadow-inner">
           <footer className="wrapper py-6 lg:py-8">
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-6">
-              <div className="max-w-96 flex flex-col gap-2">
-                <h1 className="font-extrabold text-xl lg:text-2xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">We Code</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, aut, saepe dolorem maxime laboriosam ullam, eius facere officia explicabo.</p>
-                <ul className="flex gap-2 mt-4">
+              <div className="max-w-96 flex flex-col gap-4">
+                <div>
+                  <h1 className="font-extrabold text-xl lg:text-2xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">We Code</h1>
+                  <span className="text-sm">Life of the developer is a series of building, testing, changing and iterating. Let us be your lifesaver.</span>
+                </div>
+                <ul className="flex gap-2 mt-2">
                   <li className="w-6 h-6 bg-gradient-to-br from-blue-400 to-blue-600">
                     <a href=""></a>
                   </li>
