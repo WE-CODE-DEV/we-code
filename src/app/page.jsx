@@ -38,7 +38,7 @@ export default function Home() {
             </section>
             <CodePreview/>
         </div>
-        <div className="app-footer bg-gradient-to-b from-blue-50 to-blue-300 border border-dashed border-l-0 border-r-0 border-b-0 border-blue-400 shadow-inner">
+        <div className="app-footer bg-gradient-to-b from-blue-50 to-blue-200 border border-dashed border-l-0 border-r-0 border-b-0 border-blue-400 shadow-inner">
           <footer className="wrapper py-6 lg:py-8">
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-6">
               <div className="max-w-96 flex flex-col gap-2">

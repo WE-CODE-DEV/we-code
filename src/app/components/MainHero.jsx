@@ -1,6 +1,8 @@
 import {useRef, useEffect} from 'react';
 import { gsap } from 'gsap';
 
+import './main-hero.css';
+
 const MainHero = () => {
     const arrowRef = useRef(null);
 

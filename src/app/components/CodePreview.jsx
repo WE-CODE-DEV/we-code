@@ -3,6 +3,8 @@ import HighlightCode from "./snippets/HighlightCode";
 
 import { useState, useRef, useEffect } from "react";
 
+import './code-preview.css';
+
 const ComponentPreview = () => {
   const [reload, setReload] = useState(false);
 
