@@ -1,0 +1,32 @@
+.make-sticky{
+    @apply sticky top-0 z-10;
+}
+
+.make-sticky nav{
+    @apply bg-gradient-to-br from-white/80 to-blue-100/80 backdrop-blur-xl rounded-b-lg shadow-lg border-blue-400 border-t-0;
+}
+
+.make-sticky nav h1{
+    @apply from-blue-500 to-blue-950;
+}
+
+.app-header nav{
+    /* @apply border border-blue-400; */
+}
+
+.app-header li{
+    @apply text-sm font-semibold text-sm opacity-80 cursor-pointer transition-all;
+}
+
+.app-header li a{
+    @apply px-2 py-1;
+}
+
+.app-header li:hover{
+    @apply opacity-100;
+}
+
+.app-header li.active{
+    @apply text-transparent bg-gradient-to-br from-blue-500 to-blue-900 bg-clip-text font-extrabold opacity-100;
+}
+  
