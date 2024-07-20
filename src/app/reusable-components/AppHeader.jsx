@@ -22,7 +22,7 @@ const AppHeader = () => {
   
     return(
         <div className={isSticky ? 'app-header make-sticky' : 'app-header'}>
-            <nav className="flex items-center justify-between min-h-14 py-2 wrapper mx-auto my-0 transition-all border border-dashed border-transparent">
+            <nav className="flex items-center justify-between min-h-14 py-4 wrapper mx-auto my-0 transition-all border border-dashed border-transparent gap-4 flex-col md:py-2 md:flex-row">
                 <Link href="/">
                     <h1 className="text-lg font-extrabold uppercase text-transparent bg-gradient-to-br from-blue-500 to-blue-800 bg-clip-text">&lt;We Code/&gt;</h1>
                 </Link>

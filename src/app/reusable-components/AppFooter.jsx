@@ -5,7 +5,7 @@ const AppFooter = () => {
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-6">
               <div className="max-w-96 flex flex-col gap-4">
                 <div>
-                  <h1 className="font-extrabold text-xl lg:text-2xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">We Code</h1>
+                  <h1 className="font-extrabold text-xl lg:text-2xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text mb-2">We Code</h1>
                   <span className="text-sm">Life of the developer is a series of building, testing, changing and iterating. Let us be your lifesaver.</span>
                 </div>
                 <ul className="flex gap-2 mt-2">

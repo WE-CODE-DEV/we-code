@@ -5,7 +5,8 @@ import { useState, useRef, useEffect } from "react";
 
 import './code-preview.css';
 
-const ComponentPreview = () => {
+const ComponentPreview = ({ navigateToCode }) => {
+  console.log(navigateToCode);
   const [reload, setReload] = useState(false);
 
   return(
@@ -13,6 +14,7 @@ const ComponentPreview = () => {
       <div className="component light min-h-96">
           <Slider key={reload}/>
           <button className="refresh-component" title="Reload Component" onClick={()=>setReload(!reload)}></button>
+          <button className="get-code" title="Get Code" onClick={()=>navigateToCode()}></button>
       </div>
     </div>
   );
@@ -323,6 +325,8 @@ const CodePreview = () => {
 
   const [currentTab, setCurrentTab] = useState(0);
 
+  const navigateToCode = () => moveToTab(1);
+
   const moveToTab = (index) => {
     const parent = tabsRef.current;
 
@@ -341,7 +345,7 @@ const CodePreview = () => {
     }
   }
 
-  useEffect(() => moveToTab(currentTab), []);
+  useEffect(() => moveToTab(currentTab), currentTab);
 
     return(
         <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
@@ -360,7 +364,7 @@ const CodePreview = () => {
               </ul>
             </div>
             <div className="overflow-hidden">
-              {(currentTab == 0) ? <ComponentPreview/> : <CodeWindowPreview/>}
+              {(currentTab == 0) ? <ComponentPreview navigateToCode={navigateToCode}/> : <CodeWindowPreview/>}
             </div>              
         </section>
     );
