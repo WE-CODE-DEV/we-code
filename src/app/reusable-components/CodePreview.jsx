@@ -346,27 +346,27 @@ const CodePreview = () => {
 
   useEffect(() => moveToTab(currentTab), currentTab);
 
-    return(
-        <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
-            <div className="flex flex-col gap-2">
-              <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
-              <p>Preview the component, choose the variant which suits you, and copy it, it's that simple</p>
-            </div>
-              
-            <div className="flex flex-col gap-4 w-full preview">
-              <ul className="flex gap-1 self-center tabs p-2" ref={tabsRef}>
-                {
-                  ['Preview', 'Code'].map((text, index) => 
-                    <li className={(index === currentTab) ? 'tab active' : 'tab'} key={`tab-${index}`} onClick={()=>moveToTab(index)}>{text}</li>
-                  )
-                }
-              </ul>
-            </div>
-            <div className="overflow-hidden">
-              {(currentTab == 0) ? <ComponentPreview navigateToCode={navigateToCode}/> : <CodeWindowPreview/>}
-            </div>              
-        </section>
-    );
+  return(
+      <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
+            <p>Preview the component, choose the variant which suits you, and copy it, it's that simple</p>
+          </div>
+            
+          <div className="flex flex-col gap-4 w-full preview">
+            <ul className="flex gap-1 self-center tabs p-2" ref={tabsRef}>
+              {
+                ['Preview', 'Code'].map((text, index) => 
+                  <li className={(index === currentTab) ? 'tab active' : 'tab'} key={`tab-${index}`} onClick={()=>moveToTab(index)}>{text}</li>
+                )
+              }
+            </ul>
+          </div>
+          <div className="overflow-hidden">
+            {(currentTab == 0) ? <ComponentPreview navigateToCode={navigateToCode}/> : <CodeWindowPreview/>}
+          </div>              
+      </section>
+  );
 }
 
 export default CodePreview;
