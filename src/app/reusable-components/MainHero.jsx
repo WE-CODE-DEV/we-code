@@ -97,17 +97,17 @@ const MainHero = () => {
                         <span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span>
                     </button>
                     </div>
-                    <div className="relative w-[100%] lg:w-[90%] h-[12rem] pointer-events-none">
+                    <div className="relative w-[100%] min-w-[28rem] md:min-w-[34rem] lg:w-[90%] lg:min-w-[40rem] h-[12rem] pointer-events-none">
                     <div className="hero-window w-[90%] lg:w-[80%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
                         <div className="window-arrow w-8 h-8 absolute" data-txt="Hamburger Menu" ref={arrowRef}></div>
-                        <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm px-5 tracking-wide text-white">localhost:3000</p>
-                        </div>
+                        <div className="flex items-center gap-2">
                         <div className="flex gap-2">
                             <span className="w-3 h-3 rounded-full bg-green-400 shadow-xl"></span>
                             <span className="w-3 h-3 rounded-full bg-yellow-400 shadow-xl"></span>
                             <span className="w-3 h-3 rounded-full bg-red-400 shadow-xl"></span>
+                        </div>
+                        <div>
+                            <p className="text-sm px-5 tracking-wide text-white">localhost:3000</p>
                         </div>
                         </div>
                         <div className="flex-1 bg-blue-400 rounded-md">

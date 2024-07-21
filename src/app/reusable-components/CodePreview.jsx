@@ -6,7 +6,6 @@ import { useState, useRef, useEffect } from "react";
 import './code-preview.css';
 
 const ComponentPreview = ({ navigateToCode }) => {
-  console.log(navigateToCode);
   const [reload, setReload] = useState(false);
 
   return(
