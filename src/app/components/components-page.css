@@ -193,7 +193,7 @@ div:has(.hero-window){
 }
 
 .component-previews{
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
 }
 
 .component-preview{
@@ -211,12 +211,30 @@ div:has(.hero-window){
   background-size: 1em 1em;
   opacity: .5;
   inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .component-preview .details{
-  @apply bg-gradient-to-b from-slate-950/50 to-slate-700/50 backdrop-blur-xl;
+  border-radius: inherit;
+}
+
+.component-preview .details::before{
+  content: '';
+  @apply w-full h-full bg-gradient-to-b from-slate-950/60 to-slate-700/50 backdrop-blur-xl absolute left-0 bottom-0 pointer-events-none;
   z-index: 0;
   mask-image: linear-gradient(to top, #000, transparent);
+  border-radius: inherit;
+}
+
+.component-preview .details > *{
+  position: relative;
+  z-index: 1;
+}
+
+.preview-div > div{
+  @apply w-full h-full flex items-center justify-center opacity-0;
+  transform: scale(.5);
 }
 
 .themes li{
@@ -275,15 +293,8 @@ div:has(.hero-window){
   transform: scale(.8);
 }
 
-@media (max-width: 1024px) {
-  .component-previews{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 750px) {
   .component-previews{
-    grid-template-columns: .8fr;
     justify-content: center;
   }
 }
