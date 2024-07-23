@@ -1,5 +1,138 @@
-import './GooeyNavigation.css';
 import { useEffect, useRef } from 'react';
+import styled from "styled-components";
+
+const GooeyNav = styled.div`
+    --priBg: #1c1c28;
+    --secBg: #3f71ff;
+    --bodyBg: #7f8794;
+    --priBlack: #1e2022;
+    --secBlack: #22262f;
+    --terBlack: #242424;
+    --space1: .5em;
+    --space2: 1em;
+    --space3: 1.5em;
+    --space4: 2em;
+    --space5: 2.5em;
+    --space6: 3em;
+
+    --insetColor: var(--secBg);
+    --movingStripWidth: 60px;
+    --movingStripX: 36px;
+    --rotateTo: 0;
+
+    background: var(--priBlack);
+    padding: var(--space1) var(--space5);
+    position: relative;
+    border-radius: 15px;
+    transform-origin: center;
+    transition: 0.3s;
+    transition-timing-function: 0.23, 1, 0.32, 1.2;
+    transform: rotate(var(--rotateTo));
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
+
+    &::before,
+    &::before{
+        content: "";
+        width: 0.5em;
+        height: 50%;
+        background: radial-gradient(circle, #fff 25%, transparent 26%);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-size: 0.25em 0.25em;
+        opacity: 0.25;
+    }
+
+    &::before{
+        left: 10px;
+    }
+
+    &::after{
+        right: 10px;
+    }
+
+    .moving-strip{
+        width: var(--movingStripWidth);
+        height: 72%;
+        background: #71a8eb;
+        position: absolute;
+        top: 0;
+        left: var(--movingStripX);
+        border-radius: 0 0 50% 50%;
+        transition: 0.3s;
+        transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+
+        &::before,
+        &::after{
+            --blendIntend: 2px;
+            --wh: 1.25em;
+            --fromX: calc(calc(var(--wh) - var(--blendIntend)) * -1);
+            content: "";
+            width: var(--wh);
+            height: var(--wh);
+            background: inherit;
+            position: absolute;
+            top: calc(var(--blendIntend) * -1);
+        }
+
+        &::before{
+            left: var(--fromX);
+            mask-image: radial-gradient(circle at bottom left, transparent 60%, #000 65%);
+        }
+
+        &::after{
+            right: var(--fromX);
+            mask-image: radial-gradient(circle at bottom right, transparent 60%, #000 65%);
+        }
+    }
+
+    ul{
+        display: flex;
+        gap: var(--space2);
+
+        li{
+            --pseudoY: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space2);
+            color: #e0e0e0;
+            background: var(--priBlack);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1;
+            transition: 0.3s;
+            transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+            transition-delay: 0.15s;
+
+            &:hover{
+                color: #fff;
+
+                svg{
+                    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+                }
+            }
+
+            &.active{
+                color: #fff;
+                transform: translateY(-1em);
+
+                svg{
+                    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+                    opacity: 1; 
+                }
+            }
+
+            svg{
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                transition: 0.3s;
+                opacity: 0.8;
+            }
+        }
+    }
+`;
 
 const GooeyNavigation = () => {
     const navigationRef = useRef(null);
@@ -49,7 +182,7 @@ const GooeyNavigation = () => {
     }, []);
 
     return (
-        <nav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)}>
+        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)}>
             <div className="moving-strip" data-padding="8"></div>
             <ul>
                 <li className="active" data-title="Home" title="Home">
@@ -78,7 +211,7 @@ const GooeyNavigation = () => {
                     {/* </a> */}
                 </li>
             </ul>
-        </nav>
+        </GooeyNav>
     );
 }
 

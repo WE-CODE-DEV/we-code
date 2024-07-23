@@ -253,7 +253,7 @@ div:has(.hero-window){
   transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
 }
 
-.get-code,
+.component-previews .get-code,
 .go-to-component{
   @apply w-8 h-8 bg-blue-50 absolute right-3 rounded-full shadow-2xl cursor-pointer transition-all;
   z-index: 1;
@@ -261,7 +261,7 @@ div:has(.hero-window){
   transition: .5s;
 }
 
-.get-code{
+.component-previews .get-code{
   @apply bottom-5;
 }
 
@@ -269,7 +269,7 @@ div:has(.hero-window){
   @apply top-5;
 }
 
-.get-code::before,
+.component-previews .get-code::before,
 .go-to-component::before{
   content: '';
   width: 60%;
@@ -280,7 +280,7 @@ div:has(.hero-window){
   transform: translate(-50%, -50%);
 }
 
-.get-code::before{
+.component-previews .get-code::before{
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231d4ed8'%3E%3Cpath d='M14.18 4.276a.75.75 0 0 1 .531.918l-3.973 14.83a.75.75 0 0 1-1.45-.389l3.974-14.83a.75.75 0 0 1 .919-.53ZM16.442 7.328a.75.75 0 0 1 1.06-.056l1.737 1.564c.737.662 1.347 1.212 1.767 1.71.44.525.754 1.088.754 1.784 0 .695-.313 1.258-.754 1.782-.42.499-1.03 1.049-1.767 1.711l-1.737 1.564a.75.75 0 0 1-1.004-1.115l1.697-1.527c.788-.709 1.319-1.19 1.663-1.598.33-.393.402-.622.402-.818 0-.195-.072-.424-.402-.817-.344-.409-.875-.89-1.663-1.598l-1.697-1.527a.75.75 0 0 1-.056-1.06ZM7.502 8.387a.75.75 0 1 0-1.004-1.115L4.761 8.836c-.737.662-1.347 1.212-1.767 1.71-.44.525-.754 1.088-.754 1.784 0 .695.313 1.258.754 1.782.42.499 1.03 1.049 1.767 1.711l1.737 1.564a.75.75 0 0 0 1.004-1.115l-1.697-1.527c-.788-.709-1.319-1.19-1.663-1.598-.33-.393-.402-.622-.402-.818 0-.195.072-.424.402-.817.344-.409.875-.89 1.663-1.598l1.697-1.527Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
@@ -288,7 +288,7 @@ div:has(.hero-window){
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg' fill='none'%3E%3Cpath stroke='%231d4ed8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M22 3h7v7m-1.5-5.5L20 12m-3-7H8a3 3 0 0 0-3 3v16a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3v-9'/%3E%3C/svg%3E");
 }
 
-.get-code:active,
+.component-previews .get-code:active,
 .go-to-component:active{
   transform: scale(.8);
 }

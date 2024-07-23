@@ -53,8 +53,6 @@ ul li {
 .gooey-nav .moving-strip {
   width: var(--movingStripWidth);
   height: 72%;
-  /* background: var(--insetColor); */
-  /* @apply bg-blue-50; */
   background: #71a8eb;
   position: absolute;
   top: 0;
@@ -107,10 +105,6 @@ ul li {
 }
 .gooey-nav ul li svg {
   @apply w-5 h-5 inline-block;
-  /* display: inline-block; */
-  /* --wh: 1.75em; */
-  /* width: var(--wh); */
-  /* height: var(--wh); */
 }
 .gooey-nav ul li svg {
   transition: 0.3s;

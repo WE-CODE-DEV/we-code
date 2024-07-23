@@ -9,11 +9,11 @@ const ComponentPreview = ({ navigateToCode }) => {
   const [reload, setReload] = useState(false);
 
   return(
-    <div className="overflow-hidden component-preview">
-      <div className="component light min-h-96">
+    <div className="overflow-hidden component-preview-lg">
+      <div className="component light">
           <Slider key={reload}/>
           <button className="refresh-component" title="Reload Component" onClick={()=>setReload(!reload)}></button>
-          <button className="get-code" title="Get Code" onClick={()=>navigateToCode()}></button>
+          <button className="go-to-code" title="Go to Code" onClick={()=>navigateToCode()}></button>
       </div>
     </div>
   );
