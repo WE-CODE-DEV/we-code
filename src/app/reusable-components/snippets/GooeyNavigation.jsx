@@ -16,14 +16,14 @@ const GooeyNav = styled.div`
     --space6: 3em;
 
     --insetColor: var(--secBg);
-    --movingStripWidth: 60px;
+    --movingStripWidth: 40px;
     --movingStripX: 36px;
     --rotateTo: 0;
 
     background: var(--priBlack);
     padding: var(--space1) var(--space5);
     position: relative;
-    border-radius: 15px;
+    border-radius: 10px;
     transform-origin: center;
     transition: 0.3s;
     transition-timing-function: 0.23, 1, 0.32, 1.2;
@@ -31,7 +31,7 @@ const GooeyNav = styled.div`
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
 
     &::before,
-    &::before{
+    &::after{
         content: "";
         width: 0.5em;
         height: 50%;
@@ -53,8 +53,8 @@ const GooeyNav = styled.div`
 
     .moving-strip{
         width: var(--movingStripWidth);
-        height: 72%;
-        background: #71a8eb;
+        height: 65%;
+        background: #4f8dd8;
         position: absolute;
         top: 0;
         left: var(--movingStripX);
@@ -95,7 +95,9 @@ const GooeyNav = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: var(--space2);
+            width: 32px;
+            height: 32px;
+            /* padding: var(--space2); */
             color: #e0e0e0;
             background: var(--priBlack);
             border-radius: 50%;
@@ -124,9 +126,9 @@ const GooeyNav = styled.div`
             }
 
             svg{
-                display: inline-block;
-                width: 20px;
-                height: 20px;
+                /* display: inline-block; */
+                width: 18px;
+                height: 18px;
                 transition: 0.3s;
                 opacity: 0.8;
             }
@@ -134,20 +136,19 @@ const GooeyNav = styled.div`
     }
 `;
 
-const GooeyNavigation = () => {
+const GooeyNavigation = (props) => {
     const navigationRef = useRef(null);
-
     const prevIndex = useRef(0);
 
     const moveStrip = (element, index) => {
-        const {x: elementX, width: elementWidth} = element.getBoundingClientRect();
+        let {x: elementX, width: elementWidth} = element.getBoundingClientRect();
     
         const linkPadding = +navigationRef.current.querySelector('.moving-strip').getAttribute('data-padding');
     
         navigationRef.current.style.setProperty('--movingStripWidth', `${elementWidth + linkPadding}px`);
     
-        const navigationX = navigationRef.current.getBoundingClientRect().x;
-    
+        let navigationX = navigationRef.current.getBoundingClientRect().x;
+
         const fromX = `${(elementX - navigationX) - (linkPadding / 2)}px`;
     
         element.classList.add('active');
@@ -166,9 +167,8 @@ const GooeyNavigation = () => {
     const navigateTo = (event) => {
         const link = event.target.closest('li');
 
-        const links = navigationRef.current.querySelectorAll('li');
-
         if(link){
+            const links = navigationRef.current.querySelectorAll('li');
             links.forEach(link => link.classList.remove('active'));
 
             const index = Array.from(links).indexOf(link);
@@ -176,10 +176,6 @@ const GooeyNavigation = () => {
             moveStrip(link, index);
         }
     }
-
-    useEffect(()=>{
-        moveStrip(navigationRef.current.querySelector('li'), 0);
-    }, []);
 
     return (
         <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)}>

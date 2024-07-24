@@ -11,57 +11,59 @@ const MainHero = () => {
     const buttonEleRef = useRef(null);
 
     useEffect(() => {
-        const parent = hamBurgerEleRef.current.closest('.hero-window');
+        if(hamBurgerEleRef.current && sliderEleRef.current && buttonEleRef.current && arrowRef.current){
+            const parent = hamBurgerEleRef.current.closest('.hero-window');
+    
+            const {x: parentX, y: parentY} = parent.getBoundingClientRect()
+    
+            const timeline = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 1,
+                onRepeat: () => {
+                  hamBurgerEleRef.current.setAttribute('data-status', 'not-dropped');
+                  sliderEleRef.current.setAttribute('data-status', 'not-dropped');
+                  buttonEleRef.current.setAttribute('data-status', 'not-dropped');
+                },
+            });
+    
+            const {x:hamBurgerEleX, y:hamBurgerEleY, width:hamBurgerEleWidth, height:hamBurgerEleHeight} = hamBurgerEleRef.current.getBoundingClientRect();
+    
+            const {x:sliderEleX, y:sliderEleY, width:sliderEleWidth, height:sliderEleHeight} = sliderEleRef.current.getBoundingClientRect();
+    
+            const {x:buttonEleX, y:buttonEleY, width:buttonEleWidth, height:buttonEleHeight} = buttonEleRef.current.getBoundingClientRect();
+    
+            timeline
+                .to(arrowRef.current, {
+                    duration: 2, 
+                    left: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
+                    top: (hamBurgerEleY - parentY) + (hamBurgerEleHeight), 
+                    opacity: 1, 
+                    onUpdate: () => {
+                        arrowRef.current.setAttribute('data-txt', 'Side Menu');
+                    }
+                }).call(() => hamBurgerEleRef.current.setAttribute('data-status', 'dropped'))
+                .to(arrowRef.current, {
+                    duration: 2, 
+                    left: (sliderEleX - parentX) + (sliderEleWidth/2), 
+                    top: (sliderEleY - parentY) + (sliderEleHeight/2), 
+                    opacity: 1, 
+                    onUpdate: () => {
+                        arrowRef.current.setAttribute('data-txt', 'Slider');
+                    }
+                }).call(() => sliderEleRef.current.setAttribute('data-status', 'dropped'))
+                .to(arrowRef.current, {
+                    duration: 2, 
+                    left: (buttonEleX - parentX), 
+                    top: (buttonEleY - parentY) + (buttonEleHeight), 
+                    opacity: 1, 
+                    onUpdate: () => {
+                        arrowRef.current.setAttribute('data-txt', 'Button');
+                    }
+                }).call(() => buttonEleRef.current.setAttribute('data-status', 'dropped'));
 
-        const {x: parentX, y: parentY} = parent.getBoundingClientRect()
-
-        const timeline = gsap.timeline({
-            repeat: -1,
-            repeatDelay: 1,
-            onRepeat: () => {
-              hamBurgerEleRef.current.setAttribute('data-status', 'not-dropped');
-              sliderEleRef.current.setAttribute('data-status', 'not-dropped');
-              buttonEleRef.current.setAttribute('data-status', 'not-dropped');
-            },
-        });
-
-        const {x:hamBurgerEleX, y:hamBurgerEleY, width:hamBurgerEleWidth, height:hamBurgerEleHeight} = hamBurgerEleRef.current.getBoundingClientRect();
-
-        const {x:sliderEleX, y:sliderEleY, width:sliderEleWidth, height:sliderEleHeight} = sliderEleRef.current.getBoundingClientRect();
-
-        const {x:buttonEleX, y:buttonEleY, width:buttonEleWidth, height:buttonEleHeight} = buttonEleRef.current.getBoundingClientRect();
-
-        timeline
-            .to(arrowRef.current, {
-                duration: 2, 
-                left: (hamBurgerEleX - parentX - (hamBurgerEleWidth)), 
-                top: (hamBurgerEleY - parentY) + (hamBurgerEleHeight), 
-                opacity: 1, 
-                onUpdate: () => {
-                    arrowRef.current.setAttribute('data-txt', 'Side Menu');
-                }
-            }).call(() => hamBurgerEleRef.current.setAttribute('data-status', 'dropped'))
-            .to(arrowRef.current, {
-                duration: 2, 
-                left: (sliderEleX - parentX) + (sliderEleWidth/2), 
-                top: (sliderEleY - parentY) + (sliderEleHeight/2), 
-                opacity: 1, 
-                onUpdate: () => {
-                    arrowRef.current.setAttribute('data-txt', 'Slider');
-                }
-            }).call(() => sliderEleRef.current.setAttribute('data-status', 'dropped'))
-            .to(arrowRef.current, {
-                duration: 2, 
-                left: (buttonEleX - parentX), 
-                top: (buttonEleY - parentY) + (buttonEleHeight), 
-                opacity: 1, 
-                onUpdate: () => {
-                    arrowRef.current.setAttribute('data-txt', 'Button');
-                }
-            }).call(() => buttonEleRef.current.setAttribute('data-status', 'dropped'));
-
-        return () => {
-            timeline.kill();
+            return () => {
+                timeline.kill();
+            }
         }
     }, []);
 

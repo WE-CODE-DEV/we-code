@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect, isValidElement, cloneElement } from 'react';
 
-const ComponentPreview = ({ children, componentName }) => {
+const ComponentPreview = (props) => {
+    const { children, componentName } = props;
+
+    console.log(props);
+
     const variantsRef = useRef(null);
     const previewRef = useRef(null);
     const componentRef = useRef(null);
@@ -25,34 +29,39 @@ const ComponentPreview = ({ children, componentName }) => {
     const renderComponentWithTheme = () => {
         return React.Children.map(children, child => {
             if (isValidElement(child)) {
-                return cloneElement(child, { theme });
+                return cloneElement(child, { theme, scale });
             }
             return child;
         });
     }
 
     useEffect(() => {
-        const handleResize = () => {
-            if (previewRef.current && componentRef.current) {
-                const previewWidth = previewRef.current.offsetWidth;
-                const previewHeight = previewRef.current.offsetHeight;
-                const componentWidth = componentRef.current.scrollWidth;
-                const componentHeight = componentRef.current.scrollHeight;
-
-                const widthScale = (previewWidth / 1.5) / componentWidth;
-                const heightScale = (previewHeight / 1.5) / componentHeight;
-
-                componentRef.current.style.opacity = '1';
-                setScale(Math.min(widthScale, heightScale));
-            }
-        };
-
-        handleResize();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+        if(props.isScale){
+            const handleResize = () => {
+                if (previewRef.current && componentRef.current) {
+                    const previewWidth = previewRef.current.offsetWidth;
+                    const previewHeight = previewRef.current.offsetHeight;
+                    const componentWidth = componentRef.current.scrollWidth;
+                    const componentHeight = componentRef.current.scrollHeight;
+    
+                    const widthScale = (previewWidth / 1.25) / componentWidth;
+                    // const heightScale = (previewHeight / 1.25) / componentHeight;
+    
+                    componentRef.current.style.opacity = '1';
+                    setScale(widthScale);
+                }
+            };
+    
+            handleResize();
+            window.addEventListener('resize', handleResize);
+    
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }
+        else{
+            componentRef.current.style.opacity = '1';
+        }
     }, []);
 
     return (

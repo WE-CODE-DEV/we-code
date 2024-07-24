@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import './Calendar.css';
 
-const Calendar = () => {
+const Calendar = (props) => {
     const dateObj = new Date();
 
     const calendarBodyRef = useRef(null);

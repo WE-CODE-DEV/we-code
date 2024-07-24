@@ -1,30 +1,17 @@
 "use client";
 
-import './components-page.css';
-import { useState, useEffect } from 'react';
-import ComponentPreview from './component-preview';
-import SliderPreview from './slider-preview';
+import './page.css';
+import ComponentPreview from './ComponentPreview';
+import SliderPreview from './SliderPreview';
 import GooeyNavigation from '../reusable-components/snippets/GooeyNavigation';
 import Search from '../reusable-components/snippets/Search';
 import Pagination from '../reusable-components/snippets/Pagination';
 import PaginationAnimation from '../reusable-components/snippets/PaginationAnimation';
 import Calendar from '../reusable-components/snippets/Calendar';
 import TogglingSidebar from '../reusable-components/snippets/TogglingSidebar';
-
+import HeroTxtAnimation from './HeroTxtAnimation';
 
 const Components = () => {
-    const texts = ['Component', 'Variant', 'Code'];
-
-    const [currentTextIndex, setCurrentTextIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
-        }, 1500);
-
-        return () => clearInterval(interval);
-    }, [texts.length]);
-
     return(
         <>
             <section className="main-hero rounded-3xl p-[2px] m-4 shadow-lg component-page">
@@ -50,16 +37,7 @@ const Components = () => {
                     </div>
                     </div>
                     <div className="main-hero-cnts px-3 py-12 mx-auto my-0 flex flex-col gap-8 items-center justify-center z-10 relative overflow-hidden">
-                        <div className='flex gap-2 relative'>
-                            <p className='font-extrabold text-2xl leading-snug lg:text-3xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text'>Choose the</p>
-                            <div key={currentTextIndex} className='anim-container'>
-                                {
-                                    texts[currentTextIndex].split('').map((character, index) => {
-                                        return <span key={index} style={{'--delay': `.${index}s`}}>{character}</span>
-                                    })
-                                }
-                            </div>
-                        </div>
+                        <HeroTxtAnimation/>
                         <p className='font-extrabold text-xl leading-snug lg:text-2xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-center'>We left everything up to you, Choice is yours!</p>
                         <div className="max-w-xl lg:max-w-3xl text-center flex flex-col gap-6 z-10">
                         <button className="pri-btn self-center tracking-wide flex items-center justify-center relative">
@@ -112,7 +90,7 @@ const Components = () => {
                 <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Be Choosy!</h2>
                 <div className="flex-1 flex flex-col relative">
                     <div className="component-previews grid gap-6 md:gap-8">
-                        <ComponentPreview componentName={'3D Slider'}>
+                        <ComponentPreview componentName={'3D Slider'} isScale={true}>
                             <SliderPreview/>
                         </ComponentPreview>
                         <ComponentPreview componentName={'Gooey Navigation'}>
@@ -127,7 +105,7 @@ const Components = () => {
                         <ComponentPreview componentName={'Pagination (Sliding Animation)'}>
                             <PaginationAnimation/>
                         </ComponentPreview>
-                        <ComponentPreview componentName={'Calendar'}>
+                        <ComponentPreview componentName={'Calendar'} isScale={true}>
                             <Calendar/>
                         </ComponentPreview>
                         <ComponentPreview componentName={'Toggling Sidebar'}>

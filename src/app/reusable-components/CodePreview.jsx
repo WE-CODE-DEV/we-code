@@ -344,7 +344,7 @@ const CodePreview = () => {
     }
   }
 
-  useEffect(() => moveToTab(currentTab), currentTab);
+  useEffect(() => moveToTab(currentTab), [currentTab]);
 
   return(
       <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
