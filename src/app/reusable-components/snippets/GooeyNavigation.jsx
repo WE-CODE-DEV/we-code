@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styled from "styled-components";
 
-const GooeyNav = styled.div`
+const GooeyNav = styled.div`      
     --priBg: #1c1c28;
     --secBg: #3f71ff;
     --bodyBg: #7f8794;
@@ -15,12 +15,36 @@ const GooeyNav = styled.div`
     --space5: 2.5em;
     --space6: 3em;
 
+    &[data-theme="dark"]{
+        --themeBg: var(--priBlack);
+        --pseudoBg: radial-gradient(circle, #fff 25%, transparent 26%);
+        --liClrBasic: #e0e0e0;
+        --liClrActive: #fff;
+        --slightShadow: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2)); 
+    }
+
+    &[data-theme="light"]{
+        --themeBg: #efefef;
+        --pseudoBg: radial-gradient(circle, #100f0f 25%, transparent 26%);
+        --liClrBasic: #475569;
+        --liClrActive: #334155;
+        --slightShadow: drop-shadow(0px 0px 4px rgba(30, 41, 59, .2))
+    }
+
+    &[data-theme="custom"]{
+        --themeBg: #1e293b;
+        --pseudoBg: radial-gradient(circle, #cbd5e1 25%, transparent 26%);
+        --liClrBasic: #94a3b8;
+        --liClrActive: #e2e8f0;
+        --slightShadow: drop-shadow(0px 0px 4px rgba(107, 114, 128, 0.2))
+    }
+
     --insetColor: var(--secBg);
-    --movingStripWidth: 40px;
-    --movingStripX: 36px;
+    --movingStripWidth: 43px;
+    --movingStripX: 37px;
     --rotateTo: 0;
 
-    background: var(--priBlack);
+    background: var(--themeBg);
     padding: var(--space1) var(--space5);
     position: relative;
     border-radius: 10px;
@@ -35,7 +59,7 @@ const GooeyNav = styled.div`
         content: "";
         width: 0.5em;
         height: 50%;
-        background: radial-gradient(circle, #fff 25%, transparent 26%);
+        background: var(--pseudoBg);
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -95,11 +119,12 @@ const GooeyNav = styled.div`
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            width: 37px;
+            height: 37px;
             /* padding: var(--space2); */
-            color: #e0e0e0;
-            background: var(--priBlack);
+            /* color: var(--priBg); */
+            color: var(--liClrBasic);
+            background: var(--themeBg);
             border-radius: 50%;
             cursor: pointer;
             z-index: 1;
@@ -108,27 +133,27 @@ const GooeyNav = styled.div`
             transition-delay: 0.15s;
 
             &:hover{
-                color: #fff;
+                color: var(--liClrActive);
 
                 svg{
-                    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+                    filter: var(--slightShadow);
                 }
             }
 
             &.active{
-                color: #fff;
+                color: var(--liClrActive);
                 transform: translateY(-1em);
 
                 svg{
-                    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.2));
+                    filter: var(--slightShadow);
                     opacity: 1; 
                 }
             }
 
             svg{
                 /* display: inline-block; */
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
                 transition: 0.3s;
                 opacity: 0.8;
             }
@@ -136,9 +161,11 @@ const GooeyNav = styled.div`
     }
 `;
 
-const GooeyNavigation = (props) => {
+const GooeyNavigation = ({ theme, populateThemes }) => {
     const navigationRef = useRef(null);
     const prevIndex = useRef(0);
+
+    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#cecece'}, {theme: 'custom', priClr: '#1e293b', secClr: '#334155'}];
 
     const moveStrip = (element, index) => {
         let {x: elementX, width: elementWidth} = element.getBoundingClientRect();
@@ -177,8 +204,10 @@ const GooeyNavigation = (props) => {
         }
     }
 
+    useEffect(() => populateThemes && populateThemes(themes), []);
+
     return (
-        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)}>
+        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={`${theme ? theme : 'dark'}`}>
             <div className="moving-strip" data-padding="8"></div>
             <ul>
                 <li className="active" data-title="Home" title="Home">

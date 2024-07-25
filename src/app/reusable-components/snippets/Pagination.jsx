@@ -1,7 +1,14 @@
 import './Pagination.css';
 import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
-const Pagination = () => {
+const PaginationComponent = styled.div`
+    
+`
+
+const Pagination = ({ theme, populateThemes }) => {
+    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#cecece'}, {theme: 'custom', priClr: '#e2e8f0', secClr: '#1e293b'}];
+
     const paginationULRef = useRef(null);
 
     const noOfPages = 10;
@@ -72,6 +79,8 @@ const Pagination = () => {
             }
         }, 300);
     }
+
+    useEffect(() => populateThemes && populateThemes(themes), []);
 
     useEffect(() => {
         renderPages();

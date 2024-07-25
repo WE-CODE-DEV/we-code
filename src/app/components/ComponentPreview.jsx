@@ -3,14 +3,16 @@ import React, { useState, useRef, useEffect, isValidElement, cloneElement } from
 const ComponentPreview = (props) => {
     const { children, componentName } = props;
 
-    console.log(props);
-
     const variantsRef = useRef(null);
     const previewRef = useRef(null);
     const componentRef = useRef(null);
     const [scale, setScale] = useState(1);
 
     const [theme, setTheme] = useState('dark');
+
+    const [themesObj, setThemesObj] = useState();
+
+    const populateThemes = (themesObj) => setThemesObj(themesObj);
 
     const changeTheme = (event) => {
         if(event.target.tagName === 'LI'){
@@ -29,7 +31,7 @@ const ComponentPreview = (props) => {
     const renderComponentWithTheme = () => {
         return React.Children.map(children, child => {
             if (isValidElement(child)) {
-                return cloneElement(child, { theme, scale });
+                return cloneElement(child, { theme, scale, populateThemes });
             }
             return child;
         });
@@ -45,10 +47,10 @@ const ComponentPreview = (props) => {
                     const componentHeight = componentRef.current.scrollHeight;
     
                     const widthScale = (previewWidth / 1.25) / componentWidth;
-                    // const heightScale = (previewHeight / 1.25) / componentHeight;
+                    const heightScale = (previewHeight / 1.25) / componentHeight;
     
                     componentRef.current.style.opacity = '1';
-                    setScale(widthScale);
+                    setScale(Math.min(widthScale, heightScale));
                 }
             };
     
@@ -69,9 +71,9 @@ const ComponentPreview = (props) => {
             <button className="go-to-component" title="Go to Component" aria-label="Go to Component"></button>
             <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
                 <ul className="flex flex-col gap-3 themes">
-                    <li className="from-[#1e2022] from-50% to-[#333539] to-50%" data-theme="dark" title="Dark"></li>
-                    <li className="from-[#fff] from-50% to-[#cecece] to-50%" data-theme="light" title="Light"></li>
-                    <li className="from-[#ccdff9] from-50% to-[#60a5fa] to-50%"  data-theme="custom" title="Custom"></li>
+                    {
+                        themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
+                    }
                 </ul>
             </div>
             <button className="get-code" title="Get Code" aria-label="Get Code"></button>
