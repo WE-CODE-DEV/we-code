@@ -1,8 +1,167 @@
-import './TogglingSidebar.css';
+// import './TogglingSidebar.css';
 import { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
-const TogglingSidebar = () => {
+const TogglingSideBarComponent = styled.div`
+    &[data-theme="dark"]{
+        --priBg: rgb(30, 32, 34);
+    }
+    &[data-theme="light"]{
+        --priBg: #fff;
+    }
+
+    .toggling-navigation {
+    --globalTransition: .3s;
+    --globalTransFn: cubic-bezier(0.23, 1, 0.32, 1.2);
+
+    transition: 3s;
+}
+
+.toggling-navigation.active .ul-wrapper {
+  width: 100%;
+}
+
+.toggling-navigation.active .ul-wrapper button svg {
+  transform: rotate(180deg);
+}
+
+.toggling-navigation .ul-wrapper {
+  background: var(--priBg);
+  color: #e0e0e0;
+  width: 4.1rem;
+  padding: 0.75rem;
+  position: relative;
+  box-shadow: rgba(30, 32, 34, 0.4) 0px 2px 4px, rgba(30, 32, 34, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  position: relative;
+  transition-timing-function: var(--globalTransFn);
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation .ul-wrapper button {
+  --btnDimension: 1.5em;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  color: rgb(219, 234, 254);
+  position: absolute;
+  background: linear-gradient(to bottom right, #52525b, #174ce0);
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(var(--btnDimension) / 2 * -1);
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
+}
+
+.toggling-navigation .ul-wrapper button svg {
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation ul {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  overflow: hidden;
+}
+
+.toggling-navigation ul li {
+  border-radius: 0.5em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+&[data-theme="light"].toggling-navigation ul li{
+    color: #1e40af;
+}
+
+.toggling-navigation ul li:hover, .toggling-navigation ul li:focus {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+&[data-theme="dark"] .toggling-navigation ul li:hover,
+&[data-theme="dark"] .toggling-navigation ul li:focus{
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+&[data-theme="light"] .toggling-navigation ul li:hover,
+&[data-theme="light"] .toggling-navigation ul li:focus{
+    background: linear-gradient(to bottom right, rgba(96, 165, 250, .1), rgba(96, 165, 250, .05));
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toggling-navigation ul li:hover::before, .toggling-navigation ul li:focus::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, #e0e0e0 10%, transparent 11%), radial-gradient(circle at bottom left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at bottom right, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top right, #e0e0e0 5%, transparent 6%);
+  mask-image: linear-gradient(to bottom right, transparent 60%, #000);
+  background-size: 1em 1em;
+  opacity: .25;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.toggling-navigation ul li:hover svg, .toggling-navigation ul li:focus svg {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.toggling-navigation ul li:hover svg circle, .toggling-navigation ul li:hover svg path, .toggling-navigation ul li:focus svg circle, .toggling-navigation ul li:focus svg path {
+  stroke-dasharray: 0 var(--thisLength);
+  animation: animatePath 1s ease 0.15s forwards;
+}
+
+.toggling-navigation ul li:hover span, .toggling-navigation ul li:focus span {
+  transform: translateY(0);
+}
+
+.toggling-navigation ul li{
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  padding: 0.625rem;
+}
+
+.toggling-navigation ul li svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+}
+
+@keyframes animatePath {
+  to {
+    stroke-dasharray: var(--thisLength) var(--thisLength);
+  }
+}
+
+.toggling-navigation ul li span {
+  white-space: nowrap;
+  transform: translateY(200%);
+  font-size: 0.875rem;
+  position: relative;
+  transition-timing-function: var(--globalTransFn);
+  transition: var(--globalTransition);
+}
+
+.toggling-navigation ul li span::before {
+  content: attr(data-txt);
+  position: absolute;
+  bottom: 200%;
+}
+`;
+
+const TogglingSidebar = ({ theme, populateThemes }) => {
+    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#2e57ca'}, {theme: 'light', priClr: '#fff', secClr: '#d4d4d8'}, {theme: 'custom', priClr: '#1e293b', secClr: '#db8446'}];
+
     const navigationRef = useRef(null);
+
+    useEffect(() => populateThemes && populateThemes(themes), []);
 
     useEffect(()=>{
         if(navigationRef.current){
@@ -24,7 +183,8 @@ const TogglingSidebar = () => {
     }, []);
 
     return(
-        <nav className="toggling-navigation rounded-lg" ref={navigationRef}>
+        <TogglingSideBarComponent data-theme={ theme || 'dark' }>
+            <nav className="toggling-navigation rounded-lg" ref={navigationRef}>
             <div className="ul-wrapper rounded-lg">
                 <button aria-label="Toggle Navigation" onClick={() => navigationRef.current.classList.toggle('active')}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +248,8 @@ const TogglingSidebar = () => {
                     </li>
                 </ul>
             </div>
-        </nav>
+            </nav>
+        </TogglingSideBarComponent>
     );
 }
 

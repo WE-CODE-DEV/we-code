@@ -47,10 +47,10 @@ const ComponentPreview = (props) => {
                     const componentHeight = componentRef.current.scrollHeight;
     
                     const widthScale = (previewWidth / 1.25) / componentWidth;
-                    const heightScale = (previewHeight / 1.25) / componentHeight;
+                    // const heightScale = (previewHeight / 1.25) / componentHeight;
     
                     componentRef.current.style.opacity = '1';
-                    setScale(Math.min(widthScale, heightScale));
+                    setScale(widthScale);
                 }
             };
     
@@ -68,30 +68,30 @@ const ComponentPreview = (props) => {
 
     return (
         <div className="component-preview relative">
-            <button className="go-to-component" title="Go to Component" aria-label="Go to Component"></button>
-            <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
-                <ul className="flex flex-col gap-3 themes">
-                    {
-                        themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
-                    }
-                </ul>
-            </div>
-            <button className="get-code" title="Get Code" aria-label="Get Code"></button>
-            <div className="preview-div w-full h-full overflow-hidden" ref={previewRef}>
-                <div ref={componentRef} style={{ transform: `scale(${scale})` }}>
-                    { renderComponentWithTheme() }
+                <button className="preview-component" title="Preview the Component" aria-label="Preview the Component"></button>
+                <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
+                    <ul className="flex flex-col gap-3 themes">
+                        {
+                            themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
+                        }
+                    </ul>
                 </div>
-            </div>
-            <div className='w-full h-14 absolute bottom-0 left-0 details px-4 py-2 flex flex-col gap-2'>
-                <a>
-                    <p className='text-lg text-white font-semibold'>{componentName}</p>
-                </a>
-                {/* <ul className='flex gap-2'>
-                    <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
-                    <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">3D</a></li>
-                    <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">perspective</a></li>
-                </ul> */}
-            </div>
+                <button className="get-code z-[2]" title="Get Code" aria-label="Get Code"></button>
+                <div className="preview-div w-full h-full overflow-hidden" ref={previewRef}>
+                    <div ref={componentRef} style={{ transform: `scale(${scale})` }}>
+                        { renderComponentWithTheme() }
+                    </div>
+                </div>
+                <div className='w-full h-14 absolute bottom-0 left-0 details px-4 py-2 flex flex-col gap-2'>
+                    <a>
+                        <p className='text-lg text-white truncate max-w-[85%]' title={componentName}>{componentName}</p>
+                    </a>
+                    {/* <ul className='flex gap-2'>
+                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
+                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">3D</a></li>
+                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">perspective</a></li>
+                    </ul> */}
+                </div>
         </div>
     )
 }

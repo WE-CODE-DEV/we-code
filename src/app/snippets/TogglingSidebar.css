@@ -2,18 +2,8 @@
     --priBg: rgb(30, 32, 34);
     --globalTransition: .3s;
     --globalTransFn: cubic-bezier(0.23, 1, 0.32, 1.2);
-    /* --space1: .5em;
-    --space2: 1em;
-    --space3: 1.5em;
-    --space4: 2em;
-    --space5: 2.5em;
-    --space6: 3em;
-    --fnt1: .8em;
-    --fnt2: 1rem; */
 
     transition: 3s;
-
-    /* box-shadow: rgba(28, 28, 40, 0.4) 0px 2px 4px, rgba(28, 28, 40, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
 }
 
 .toggling-navigation.active .ul-wrapper {
@@ -27,11 +17,9 @@
 .toggling-navigation .ul-wrapper {
   background: var(--priBg);
   color: #e0e0e0;
-  @apply w-[4.1rem] p-3;
-  /* padding: var(--space4) var(--space3); */
+  width: 4.1rem;
+  padding: 0.75rem;
   position: relative;
-  /* box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.
-  15); */
   box-shadow: rgba(30, 32, 34, 0.4) 0px 2px 4px, rgba(30, 32, 34, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   position: relative;
   transition-timing-function: var(--globalTransFn);
@@ -40,21 +28,18 @@
 
 .toggling-navigation .ul-wrapper button {
   --btnDimension: 1.5em;
-  @apply w-5 h-5 text-blue-100 shadow-lg border border-blue-50 rounded-full;
-  /* --wh: var(--btnDimension); */
-  /* width: var(--wh); */
-  /* height: var(--wh); */
-  /* border-radius: 50%; */
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  color: rgb(219, 234, 254);
   position: absolute;
-  /* color: var(--priBg); */
   background: linear-gradient(to bottom right, #52525b, #174ce0);
   top: 50%;
   transform: translateY(-50%);
   right: calc(var(--btnDimension) / 2 * -1);
   cursor: pointer;
-  border: none;
   outline: none;
-  /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
 }
 
 .toggling-navigation .ul-wrapper button svg {
@@ -110,22 +95,18 @@
 }
 
 .toggling-navigation ul li{
-    @apply gap-4;
+  gap: 1rem;
   display: flex;
   align-items: center;
   overflow: hidden;
-  /* gap: var(--space4); */
   letter-spacing: 0.5px;
-  @apply p-2.5;
-  /* padding: var(--space2); */
+  padding: 0.625rem;
 }
 
 .toggling-navigation ul li svg {
-    @apply w-5 h-5 min-w-5;
-  /* --wh: 2.5em; */
-  /* min-width: var(--wh); */
-  /* width: var(--wh); */
-  /* height: var(--wh); */
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
 }
 
 @keyframes animatePath {
@@ -137,8 +118,7 @@
 .toggling-navigation ul li span {
   white-space: nowrap;
   transform: translateY(200%);
-  @apply text-sm;
-  /* font-size: var(--fnt2); */
+  font-size: 0.875rem;
   position: relative;
   transition-timing-function: var(--globalTransFn);
   transition: var(--globalTransition);

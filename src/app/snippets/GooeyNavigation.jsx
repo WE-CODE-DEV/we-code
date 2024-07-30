@@ -207,7 +207,7 @@ const GooeyNavigation = ({ theme, populateThemes }) => {
     useEffect(() => populateThemes && populateThemes(themes), []);
 
     return (
-        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={`${theme ? theme : 'dark'}`}>
+        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={ theme || 'dark'}>
             <div className="moving-strip" data-padding="8"></div>
             <ul>
                 <li className="active" data-title="Home" title="Home">

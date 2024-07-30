@@ -3,12 +3,12 @@
 import './page.css';
 import ComponentPreview from './ComponentPreview';
 import SliderPreview from './SliderPreview';
-import GooeyNavigation from '../reusable-components/snippets/GooeyNavigation';
-import Search from '../reusable-components/snippets/Search';
-import Pagination from '../reusable-components/snippets/Pagination';
-import PaginationAnimation from '../reusable-components/snippets/PaginationAnimation';
-import Calendar from '../reusable-components/snippets/Calendar';
-import TogglingSidebar from '../reusable-components/snippets/TogglingSidebar';
+import GooeyNavigation from '../snippets/GooeyNavigation';
+import Search from '../snippets/Search';
+import Pagination from '../snippets/Pagination';
+import PaginationAnimation from '../snippets/PaginationAnimation';
+import Calendar from '../snippets/Calendar';
+import TogglingSidebar from '../snippets/TogglingSidebar';
 import HeroTxtAnimation from './HeroTxtAnimation';
 
 const Components = () => {
@@ -102,15 +102,15 @@ const Components = () => {
                         <ComponentPreview componentName={'Pagination'}>
                             <Pagination/>
                         </ComponentPreview>
-                        <ComponentPreview componentName={'Pagination (Sliding Animation)'}>
+                        <ComponentPreview componentName={'Pagination with Sliding Animation'}>
                             <PaginationAnimation/>
                         </ComponentPreview>
                         <ComponentPreview componentName={'Calendar'} isScale={true}>
                             <Calendar/>
                         </ComponentPreview>
-                        <ComponentPreview componentName={'Toggling Sidebar'}>
+                        {/* <ComponentPreview componentName={'Toggling Sidebar'}>
                             <TogglingSidebar/>
-                        </ComponentPreview>
+                        </ComponentPreview> */}
                     </div>
                 </div>
             </section>

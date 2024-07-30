@@ -1,5 +1,5 @@
-import Slider from "./snippets/Slider";
-import HighlightCode from "./snippets/HighlightCode";
+import Slider from "../snippets/Slider";
+import HighlightCode from "../snippets/HighlightCode";
 
 import { useState, useRef, useEffect } from "react";
 
