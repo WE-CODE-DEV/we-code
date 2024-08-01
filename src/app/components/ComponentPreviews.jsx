@@ -3,16 +3,14 @@
 import { useEffect, useState } from "react";
 import ComponentPreview from "./ComponentPreview";
 
-
 const ComponentPreviews = () => {
     const [components, setComponents] = useState();
 
-    // https://we-code-blog.netlify.app/api/components
-    // http://localhost:3000/api/components
+    const apiURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/components' : 'https://we-code-blog.netlify.app/api/components';
 
     const getComponents = async () => {
         try{
-            const response = await fetch("https://we-code-blog.netlify.app/api/components", {
+            const response = await fetch(apiURL, {
                 cache: "no-store",
             });
     

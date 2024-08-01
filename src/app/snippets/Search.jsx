@@ -374,7 +374,7 @@ const Search = ({ theme }) => {
       .indexOf(typedValue.toLowerCase());
     const endIndex = startIndex + typedValue.length;
 
-    if (typedValue.trim().length > 0) {
+    if (typedValue.trim().length > 0 && searchEleContainerRef.current) {
       searchEleContainerRef.current.setAttribute("data-state", "result-found");
     }
 
