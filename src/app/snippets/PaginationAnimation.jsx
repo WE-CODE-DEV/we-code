@@ -1,5 +1,5 @@
 // import './PaginationAnimation.css';
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 
 const PaginationComponent = styled.div`
@@ -117,9 +117,7 @@ z-index: 1;
 }
 `;
 
-const PaginationAnimation = ({ theme, populateThemes }) => {
-    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#cecece'}, {theme: 'custom', priClr: '#1e293b', secClr: '#64748b'}];
-
+const PaginationAnimation = ({ theme }) => {
     const paginationULRef = useRef(null);
 
     const currentPage = useRef(1);
@@ -168,8 +166,6 @@ const PaginationAnimation = ({ theme, populateThemes }) => {
         }
         navigatePage(bool);
     }, debounceTime);
-
-    useEffect(() => populateThemes && populateThemes(themes), []);
 
     return(
         <PaginationComponent data-theme={theme || 'dark'}>

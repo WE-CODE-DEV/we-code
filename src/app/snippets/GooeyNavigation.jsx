@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styled from "styled-components";
 
-const GooeyNav = styled.div`      
+const GooeyNav = styled.div`
     --priBg: #1c1c28;
     --secBg: #3f71ff;
     --bodyBg: #7f8794;
@@ -50,7 +50,7 @@ const GooeyNav = styled.div`
     border-radius: 10px;
     transform-origin: center;
     transition: 0.3s;
-    transition-timing-function: 0.23, 1, 0.32, 1.2;
+    transition-timing-function: cubic-bezier(.23, 1, 0.32, 1.2);
     transform: rotate(var(--rotateTo));
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.15);
 
@@ -78,7 +78,7 @@ const GooeyNav = styled.div`
     .moving-strip{
         width: var(--movingStripWidth);
         height: 65%;
-        background: #4f8dd8;
+        background: rgb(59, 130, 246);
         position: absolute;
         top: 0;
         left: var(--movingStripX);
@@ -161,11 +161,9 @@ const GooeyNav = styled.div`
     }
 `;
 
-const GooeyNavigation = ({ theme, populateThemes }) => {
+const GooeyNavigation = ({ theme }) => {
     const navigationRef = useRef(null);
     const prevIndex = useRef(0);
-
-    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#cecece'}, {theme: 'custom', priClr: '#1e293b', secClr: '#334155'}];
 
     const moveStrip = (element, index) => {
         let {x: elementX, width: elementWidth} = element.getBoundingClientRect();
@@ -203,8 +201,6 @@ const GooeyNavigation = ({ theme, populateThemes }) => {
             moveStrip(link, index);
         }
     }
-
-    useEffect(() => populateThemes && populateThemes(themes), []);
 
     return (
         <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={ theme || 'dark'}>

@@ -2,7 +2,7 @@
 
 import './page.css';
 import ComponentPreview from './ComponentPreview';
-import SliderPreview from './SliderPreview';
+import SliderPreview from '../snippets/SliderPreview';
 import GooeyNavigation from '../snippets/GooeyNavigation';
 import Search from '../snippets/Search';
 import Pagination from '../snippets/Pagination';
@@ -10,6 +10,8 @@ import PaginationAnimation from '../snippets/PaginationAnimation';
 import Calendar from '../snippets/Calendar';
 import TogglingSidebar from '../snippets/TogglingSidebar';
 import HeroTxtAnimation from './HeroTxtAnimation';
+
+import ComponentPreviews from './ComponentPreviews';
 
 const Components = () => {
     return(
@@ -88,31 +90,7 @@ const Components = () => {
             </section>
             <section className='wrapper py-6 lg:py-8 flex flex-col gap-6 lg:gap-10'>
                 <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Be Choosy!</h2>
-                <div className="flex-1 flex flex-col relative">
-                    <div className="component-previews grid gap-6 md:gap-8">
-                        <ComponentPreview componentName={'3D Slider'} isScale={true}>
-                            <SliderPreview/>
-                        </ComponentPreview>
-                        <ComponentPreview componentName={'Gooey Navigation'}>
-                            <GooeyNavigation/>
-                        </ComponentPreview>
-                        <ComponentPreview componentName={'Dynamic Search'}>
-                            <Search/>
-                        </ComponentPreview>
-                        <ComponentPreview componentName={'Pagination'}>
-                            <Pagination/>
-                        </ComponentPreview>
-                        <ComponentPreview componentName={'Pagination with Sliding Animation'}>
-                            <PaginationAnimation/>
-                        </ComponentPreview>
-                        <ComponentPreview componentName={'Calendar'} isScale={true}>
-                            <Calendar/>
-                        </ComponentPreview>
-                        {/* <ComponentPreview componentName={'Toggling Sidebar'}>
-                            <TogglingSidebar/>
-                        </ComponentPreview> */}
-                    </div>
-                </div>
+                <ComponentPreviews/>
             </section>
         </>
     )

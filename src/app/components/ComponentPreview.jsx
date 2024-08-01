@@ -1,7 +1,11 @@
-import React, { useState, useRef, useEffect, isValidElement, cloneElement } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+
+const ComponentLoader = (componentName) => lazy(() => import(`../snippets/${componentName}`));
 
 const ComponentPreview = (props) => {
-    const { children, componentName } = props;
+    const { name, isScale, componentName, variants } = props;
+    
+    const [LoadedComponent, setLoadedComponent] = useState(null);
 
     const variantsRef = useRef(null);
     const previewRef = useRef(null);
@@ -11,8 +15,6 @@ const ComponentPreview = (props) => {
     const [theme, setTheme] = useState('dark');
 
     const [themesObj, setThemesObj] = useState();
-
-    const populateThemes = (themesObj) => setThemesObj(themesObj);
 
     const changeTheme = (event) => {
         if(event.target.tagName === 'LI'){
@@ -28,48 +30,43 @@ const ComponentPreview = (props) => {
         }
     }
 
-    const renderComponentWithTheme = () => {
-        return React.Children.map(children, child => {
-            if (isValidElement(child)) {
-                return cloneElement(child, { theme, scale, populateThemes });
-            }
-            return child;
-        });
-    }
+    const handleResize = () => {
+        if (previewRef.current && componentRef.current) {
+            const previewWidth = previewRef.current.offsetWidth;
+            const previewHeight = previewRef.current.offsetHeight;
+            const componentWidth = componentRef.current.scrollWidth;
+            const componentHeight = componentRef.current.scrollHeight;
+
+            const widthScale = (previewWidth / 1.25) / componentWidth;
+            // const heightScale = (previewHeight / 1.25) / componentHeight;
+
+            componentRef.current.style.opacity = '1';
+            // console.log('testing');
+            setScale(widthScale);
+        }
+    };
 
     useEffect(() => {
-        if(props.isScale){
-            const handleResize = () => {
-                if (previewRef.current && componentRef.current) {
-                    const previewWidth = previewRef.current.offsetWidth;
-                    const previewHeight = previewRef.current.offsetHeight;
-                    const componentWidth = componentRef.current.scrollWidth;
-                    const componentHeight = componentRef.current.scrollHeight;
-    
-                    const widthScale = (previewWidth / 1.25) / componentWidth;
-                    // const heightScale = (previewHeight / 1.25) / componentHeight;
-    
-                    componentRef.current.style.opacity = '1';
-                    setScale(widthScale);
-                }
-            };
-    
-            handleResize();
-            window.addEventListener('resize', handleResize);
-    
-            return () => {
-                window.removeEventListener('resize', handleResize);
-            };
-        }
-        else{
-            componentRef.current.style.opacity = '1';
-        }
-    }, []);
+        const LoadedComponent = ComponentLoader(componentName);
+        setLoadedComponent(LoadedComponent);
+        setThemesObj(variants);
+    }, [componentName, variants]);
+
+    useEffect(() => {
+        if (LoadedComponent && isScale) handleResize();
+
+        isScale && window.addEventListener('resize', handleResize);
+
+        return () => {
+            isScale && window.removeEventListener('resize', handleResize);
+        };
+    }, [LoadedComponent, isScale]);
 
     return (
-        <div className="component-preview relative">
+        <>
+            { LoadedComponent ? <div className="component-preview relative">
                 <button className="preview-component" title="Preview the Component" aria-label="Preview the Component"></button>
-                <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
+                <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
                     <ul className="flex flex-col gap-3 themes">
                         {
                             themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
@@ -78,13 +75,15 @@ const ComponentPreview = (props) => {
                 </div>
                 <button className="get-code z-[2]" title="Get Code" aria-label="Get Code"></button>
                 <div className="preview-div w-full h-full overflow-hidden" ref={previewRef}>
-                    <div ref={componentRef} style={{ transform: `scale(${scale})` }}>
-                        { renderComponentWithTheme() }
+                    <div ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
+                        <Suspense fallback={<div className="component-preview relative"></div>}>
+                            <LoadedComponent theme={theme}/>
+                        </Suspense>
                     </div>
                 </div>
                 <div className='w-full h-14 absolute bottom-0 left-0 details px-4 py-2 flex flex-col gap-2'>
                     <a>
-                        <p className='text-lg text-white truncate max-w-[85%]' title={componentName}>{componentName}</p>
+                        <p className='text-lg text-white truncate max-w-[85%]' title={name}>{name}</p>
                     </a>
                     {/* <ul className='flex gap-2'>
                         <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
@@ -92,7 +91,8 @@ const ComponentPreview = (props) => {
                         <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">perspective</a></li>
                     </ul> */}
                 </div>
-        </div>
+            </div> : <div className="component-preview relative"></div>}
+        </>
     )
 }
 

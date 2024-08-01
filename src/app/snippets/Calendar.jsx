@@ -404,9 +404,7 @@ const CalendarComponent = styled.div`
 }
 `;
 
-const Calendar = ({ theme, populateThemes}) => {
-    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#93c5fd'}];
-
+const Calendar = ({ theme }) => {
     const dateObj = new Date();
 
     const calendarBodyRef = useRef(null);
@@ -542,8 +540,6 @@ const Calendar = ({ theme, populateThemes}) => {
             }, 600);
         }
     }
-
-    useEffect(() => populateThemes && populateThemes(themes), []);
 
     return (
         <CalendarComponent data-theme={theme || 'dark'}>

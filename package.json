@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gsap": "^3.12.5",
+    "mongoose": "^8.5.1",
     "next": "14.2.4",
     "prismjs": "^1.29.0",
     "react": "^18",

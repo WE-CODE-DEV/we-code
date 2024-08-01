@@ -338,9 +338,7 @@ const SearchContainer = styled.div`
   }
 `;
 
-const Search = ({ theme, populateThemes }) => {
-  const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#333539'}, {theme: 'light', priClr: '#fff', secClr: '#cecece'}, {theme: 'custom', priClr: '#1e293b', secClr: '#334155'}];
-
+const Search = ({ theme }) => {
   const searchResultsRef = useRef(null);
 
   const searchEleContainerRef = useRef(null);
@@ -352,8 +350,6 @@ const Search = ({ theme, populateThemes }) => {
   const defaultTxt = "The quick brown fox jumps over the lazy dog";
 
   let debounceTimeout;
-
-  useEffect(() => populateThemes && populateThemes(themes), []);
 
   const LoadingTemp = () => {
     return (

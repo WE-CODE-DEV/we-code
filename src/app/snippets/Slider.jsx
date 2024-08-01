@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 
 import styled from "styled-components";
 
@@ -147,7 +147,7 @@ const debounce = (func, delay) => {
       clearTimeout(timer);
       timer = setTimeout(() => func(...args), delay);
     };
-  };
+};
 
 const Slider = () => {
     const variantsRef = useRef(null);
