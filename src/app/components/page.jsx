@@ -1,14 +1,7 @@
 "use client";
 
 import './page.css';
-import ComponentPreview from './ComponentPreview';
-import SliderPreview from '../snippets/SliderPreview';
-import GooeyNavigation from '../snippets/GooeyNavigation';
-import Search from '../snippets/Search';
-import Pagination from '../snippets/Pagination';
-import PaginationAnimation from '../snippets/PaginationAnimation';
-import Calendar from '../snippets/Calendar';
-import TogglingSidebar from '../snippets/TogglingSidebar';
+
 import HeroTxtAnimation from './HeroTxtAnimation';
 
 import ComponentPreviews from './ComponentPreviews';

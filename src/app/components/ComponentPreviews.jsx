@@ -9,7 +9,7 @@ const ComponentPreviews = () => {
 
     const getComponents = async () => {
         try{
-            const components = await fetch("http://localhost:3000/api/components", {
+            const components = await fetch("https://we-code-blog.netlify.app", {
                 cache: "no-store",
             });
     
