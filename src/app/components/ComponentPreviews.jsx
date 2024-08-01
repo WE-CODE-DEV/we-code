@@ -14,7 +14,14 @@ const ComponentPreviews = () => {
             });
     
             if(!components.ok){
+                console.log("failed", response.status, response.statusText);
                 throw new Error("Failed to fetch components");
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                console.error("Expected JSON, but got:", contentType);
+                throw new TypeError("Expected JSON, but got " + contentType);
             }
     
             return components.json();
