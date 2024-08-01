@@ -7,9 +7,12 @@ import ComponentPreview from "./ComponentPreview";
 const ComponentPreviews = () => {
     const [components, setComponents] = useState();
 
+    https://we-code-blog.netlify.app/api/components
+    http://localhost:3000/api/components
+
     const getComponents = async () => {
         try{
-            const response = await fetch("https://we-code-blog.netlify.app", {
+            const response = await fetch("https://we-code-blog.netlify.app/api/components", {
                 cache: "no-store",
             });
     
