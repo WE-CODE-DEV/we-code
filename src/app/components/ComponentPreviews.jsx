@@ -9,11 +9,11 @@ const ComponentPreviews = () => {
 
     const getComponents = async () => {
         try{
-            const components = await fetch("https://we-code-blog.netlify.app", {
+            const response = await fetch("https://we-code-blog.netlify.app", {
                 cache: "no-store",
             });
     
-            if(!components.ok){
+            if(!response.ok){
                 console.log("failed", response.status, response.statusText);
                 throw new Error("Failed to fetch components");
             }
@@ -23,8 +23,10 @@ const ComponentPreviews = () => {
                 console.error("Expected JSON, but got:", contentType);
                 throw new TypeError("Expected JSON, but got " + contentType);
             }
+
+            const components = await response.json();
     
-            return components.json();
+            return components;
         }catch(error){
             console.log("Error in fetching components: ", error); 
         }
