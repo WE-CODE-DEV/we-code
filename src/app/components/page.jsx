@@ -33,7 +33,7 @@ const Components = () => {
                     </div>
                     <div className="main-hero-cnts px-3 py-12 mx-auto my-0 flex flex-col gap-8 items-center justify-center z-10 relative overflow-hidden">
                         <HeroTxtAnimation/>
-                        <p className='font-extrabold text-xl leading-snug lg:text-2xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-center'>We left everything up to you, Choice is yours!</p>
+                        <p className='font-extrabold text-xl leading-snug lg:text-2xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-center'>We left everything up to you, The choice is yours!</p>
                         <div className="max-w-xl lg:max-w-3xl text-center flex flex-col gap-6 z-10">
                         <button className="pri-btn self-center tracking-wide flex items-center justify-center relative">
                             Choose now

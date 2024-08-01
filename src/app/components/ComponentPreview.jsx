@@ -75,8 +75,8 @@ const ComponentPreview = (props) => {
                 </div>
                 <button className="get-code z-[2]" title="Get Code" aria-label="Get Code"></button>
                 <div className="preview-div w-full h-full overflow-hidden" ref={previewRef}>
-                    <div ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
-                        <Suspense fallback={<div className="component-preview relative"></div>}>
+                    <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
+                        <Suspense>
                             <LoadedComponent theme={theme}/>
                         </Suspense>
                     </div>

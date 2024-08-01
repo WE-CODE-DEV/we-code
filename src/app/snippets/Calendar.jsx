@@ -558,8 +558,8 @@ const Calendar = ({ theme }) => {
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <defs>
                                     <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style={{'stopColor': (theme === 'dark') ? 'rgb(156 163 175)' : '#3b82f6', 'stopOpacity': 1}}/>
-                                        <stop offset="100%" style={{'stopColor': (theme === 'dark') ? 'rgb(253 186 116)' : '#1d4ed8', 'stopOpacity': 1}}/>
+                                        <stop offset="0%" style={{'stopColor': (theme === 'dark') ? '#9ca3af' : '#3b82f6', 'stopOpacity': 1}}/>
+                                        <stop offset="100%" style={{'stopColor': (theme === 'dark') ? '#fdba74' : '#1d4ed8', 'stopOpacity': 1}}/>
                                     </linearGradient>
                                 </defs>
                                 <path
@@ -574,8 +574,8 @@ const Calendar = ({ theme }) => {
                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <defs>
                                     <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style={{'stopColor': (theme === 'dark') ? 'rgb(253 186 116)' : '#3b82f6', 'stopOpacity': 1}}/>
-                                        <stop offset="100%" style={{'stopColor': (theme === 'dark') ? 'rgb(156 163 175)' : '#1d4ed8', 'stopOpacity': 1}}/>
+                                        <stop offset="0%" style={{'stopColor': (theme === 'dark') ? '#fdba74' : '#3b82f6', 'stopOpacity': 1}}/>
+                                        <stop offset="100%" style={{'stopColor': (theme === 'dark') ? '#9ca3af' : '#1d4ed8', 'stopOpacity': 1}}/>
                                     </linearGradient>
                                 </defs>
                                 <path

@@ -15,8 +15,8 @@ const HeroTxtAnimation = () => {
 
     return (
         <div className='flex gap-2 relative'>
-            <p className='font-extrabold text-2xl leading-snug lg:text-3xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text'>Choose the</p>
-            <div key={currentTextIndex} className='anim-container'>
+            <p className='font-extrabold text-2xl leading-snug lg:text-3xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text transition-all'>Choose the</p>
+            <div key={currentTextIndex} className='anim-container min-w-[140px] lg:min-w-[180px]'>
                 {
                     texts[currentTextIndex].split('').map((character, index) => {
                         return <span key={index} style={{'--delay': `.${index}s`}}>{character}</span>
