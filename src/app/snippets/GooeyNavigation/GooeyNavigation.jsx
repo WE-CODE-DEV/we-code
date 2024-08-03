@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from "styled-components";
 
 const GooeyNav = styled.div`
@@ -161,7 +161,9 @@ const GooeyNav = styled.div`
     }
 `;
 
-const GooeyNavigation = ({ theme }) => {
+const GooeyNavigation = (props) => {
+    const theme = props.theme || 'dark';
+
     const navigationRef = useRef(null);
     const prevIndex = useRef(0);
 
@@ -203,7 +205,7 @@ const GooeyNavigation = ({ theme }) => {
     }
 
     return (
-        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={ theme || 'dark'}>
+        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={theme}>
             <div className="moving-strip" data-padding="8"></div>
             <ul>
                 <li className="active" data-title="Home" title="Home">

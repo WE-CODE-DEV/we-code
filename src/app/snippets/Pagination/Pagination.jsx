@@ -172,7 +172,9 @@ const PaginationComponent = styled.div`
 }
 `
 
-const Pagination = ({ theme }) => {
+const Pagination = (props) => {
+    const theme = props.theme || 'dark';
+    
     const paginationULRef = useRef(null);
 
     const noOfPages = 10;
@@ -249,7 +251,7 @@ const Pagination = ({ theme }) => {
     }, [currentPage]);
     
     return(
-        <PaginationComponent data-theme={ theme || 'dark' }>
+        <PaginationComponent data-theme={ theme }>
             <div className="pagination overflow-hidden">
                 <button id="prev-page" aria-label="Previous Page" title="Go To Previous Page" onClick={() => navigatePage(false)}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

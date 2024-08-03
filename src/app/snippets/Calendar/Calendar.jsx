@@ -404,8 +404,12 @@ const CalendarComponent = styled.div`
 }
 `;
 
-const Calendar = ({ theme }) => {
+const Calendar = ( props ) => {
     const dateObj = new Date();
+
+    const componentRef = useRef(null);
+
+    const theme = props.theme || 'dark';
 
     const calendarBodyRef = useRef(null);
 
@@ -541,8 +545,12 @@ const Calendar = ({ theme }) => {
         }
     }
 
+    useEffect(() => {
+      if(componentRef.current) componentRef.current.style.opacity = 1;
+    }, [props.theme])
+
     return (
-        <CalendarComponent data-theme={theme || 'dark'}>
+        <CalendarComponent data-theme={theme} ref={componentRef} style={{opacity: 0}}>
             <div className="calendar gap-2" data-state={isCalendarOpen ? 'open' : 'close'} ref={calendarBodyRef}>
                 <div className="calendar-input">
                     <label htmlFor="calendar-trigger" className="flex gap-1">

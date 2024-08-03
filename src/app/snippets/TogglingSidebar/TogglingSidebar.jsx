@@ -5,9 +5,16 @@ import styled from 'styled-components';
 const TogglingSideBarComponent = styled.div`
     &[data-theme="dark"]{
         --priBg: rgb(30, 32, 34);
+        --textClr: #e0e0e0;
     }
     &[data-theme="light"]{
         --priBg: #fff;
+        --textClr: rgb(30,32,34);
+    }
+
+    &[data-theme="custom"]{
+        --priBg: #0f172a;
+        --textClr: #ffedd5;
     }
 
     .toggling-navigation {
@@ -27,7 +34,7 @@ const TogglingSideBarComponent = styled.div`
 
 .toggling-navigation .ul-wrapper {
   background: var(--priBg);
-  color: #e0e0e0;
+  color: var(--textClr);
   width: 4.1rem;
   padding: 0.75rem;
   position: relative;
@@ -42,15 +49,22 @@ const TogglingSideBarComponent = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 50%;
-  color: rgb(219, 234, 254);
   position: absolute;
-  background: linear-gradient(to bottom right, #52525b, #174ce0);
   top: 50%;
   transform: translateY(-50%);
   right: calc(var(--btnDimension) / 2 * -1);
   cursor: pointer;
   outline: none;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)
+}
+
+&[data-theme="dark"] .toggling-navigation .ul-wrapper button,
+&[data-theme="light"] .toggling-navigation .ul-wrapper button{
+    color: #e0e0e0;
+}
+
+&[data-theme="custom"] .toggling-navigation .ul-wrapper button{
+    color: #431407;
 }
 
 .toggling-navigation .ul-wrapper button svg {
@@ -69,6 +83,7 @@ const TogglingSideBarComponent = styled.div`
   cursor: pointer;
   border: 1px solid transparent;
   position: relative;
+  overflow: hidden;
 }
 
 &[data-theme="light"].toggling-navigation ul li{
@@ -76,7 +91,7 @@ const TogglingSideBarComponent = styled.div`
 }
 
 .toggling-navigation ul li:hover, .toggling-navigation ul li:focus {
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    /* box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15); */
 }
 
 &[data-theme="dark"] .toggling-navigation ul li:hover,
@@ -85,10 +100,28 @@ const TogglingSideBarComponent = styled.div`
     border-color: rgba(255, 255, 255, 0.2);
 }
 
+&[data-theme="custom"] .toggling-navigation ul li:hover,
+&[data-theme="custom"] .toggling-navigation ul li:focus{
+    background: linear-gradient(to bottom right,rgba(255, 247, 237, 0.1), rgba(255, 247, 237, 0.05));
+    border-color: rgba(255, 247, 237, 0.2);
+}
+
+&[data-theme="dark"] .toggling-navigation .ul-wrapper button{
+    background: linear-gradient(to bottom right, #52525b, #174ce0);
+}
+
+&[data-theme="light"] .toggling-navigation .ul-wrapper button{
+    background: linear-gradient(to bottom right, #52525b, #292524);
+}
+
+&[data-theme="custom"] .toggling-navigation .ul-wrapper button{
+    background: linear-gradient(to bottom right, #fed7aa, #ea580c);
+}
+
 &[data-theme="light"] .toggling-navigation ul li:hover,
 &[data-theme="light"] .toggling-navigation ul li:focus{
-    background: linear-gradient(to bottom right, rgba(96, 165, 250, .1), rgba(96, 165, 250, .05));
-    border-color: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to bottom right, rgba(68, 64, 60, 0.1), rgba(68, 64, 60, 0.05));
+    border-color: rgba(68, 64, 60, .2);
 }
 
 .toggling-navigation ul li:hover::before, .toggling-navigation ul li:focus::before {
@@ -98,12 +131,29 @@ const TogglingSideBarComponent = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background: radial-gradient(circle, #e0e0e0 10%, transparent 11%), radial-gradient(circle at bottom left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at bottom right, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top right, #e0e0e0 5%, transparent 6%);
   mask-image: linear-gradient(to bottom right, transparent 60%, #000);
   background-size: 1em 1em;
   opacity: .25;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+&[data-theme="dark"] .toggling-navigation ul li:hover::before,
+&[data-theme="dark"] .toggling-navigation ul li:focus::before{
+    background: radial-gradient(circle, #e0e0e0 10%, transparent 11%), radial-gradient(circle at bottom left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at bottom right, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top left, #e0e0e0 5%, transparent 6%), radial-gradient(circle at top right, #e0e0e0 5%, transparent 6%);
+    background-size: 1em 1em;
+}
+
+&[data-theme="light"] .toggling-navigation ul li:hover::before,
+&[data-theme="light"] .toggling-navigation ul li:focus::before{
+    background: radial-gradient(circle, #292524 10%, transparent 11%), radial-gradient(circle at bottom left, #292524 5%, transparent 6%), radial-gradient(circle at bottom right, #292524 5%, transparent 6%), radial-gradient(circle at top left, #292524 5%, transparent 6%), radial-gradient(circle at top right, #292524 5%, transparent 6%);
+    background-size: 1em 1em;
+}
+
+&[data-theme="custom"] .toggling-navigation ul li:hover::before,
+&[data-theme="custom"] .toggling-navigation ul li:focus::before{
+    background: radial-gradient(circle, #fdba74 10%, transparent 11%), radial-gradient(circle at bottom left, #fdba74 5%, transparent 6%), radial-gradient(circle at bottom right, #fdba74 5%, transparent 6%), radial-gradient(circle at top left, #fdba74 5%, transparent 6%), radial-gradient(circle at top right, #fdba74 5%, transparent 6%);
+    background-size: 1em 1em;
 }
 
 .toggling-navigation ul li:hover svg, .toggling-navigation ul li:focus svg {
@@ -147,6 +197,7 @@ const TogglingSideBarComponent = styled.div`
   position: relative;
   transition-timing-function: var(--globalTransFn);
   transition: var(--globalTransition);
+  font-weight: 500;
 }
 
 .toggling-navigation ul li span::before {
@@ -156,12 +207,10 @@ const TogglingSideBarComponent = styled.div`
 }
 `;
 
-const TogglingSidebar = ({ theme, populateThemes }) => {
-    const themes =  [{theme: 'dark', priClr: '#1e2022', secClr: '#2e57ca'}, {theme: 'light', priClr: '#fff', secClr: '#d4d4d8'}, {theme: 'custom', priClr: '#1e293b', secClr: '#db8446'}];
-
+const TogglingSidebar = (props) => {
+    const theme = props.theme || 'dark';
     const navigationRef = useRef(null);
-
-    useEffect(() => populateThemes && populateThemes(themes), []);
+    const componentRef = useRef(null);
 
     useEffect(()=>{
         if(navigationRef.current){
@@ -182,8 +231,12 @@ const TogglingSidebar = ({ theme, populateThemes }) => {
         }
     }, []);
 
+    useEffect(() => {
+        if(componentRef.current) componentRef.current.style.opacity = 1;
+      }, [componentRef.current]);
+
     return(
-        <TogglingSideBarComponent data-theme={ theme || 'dark' }>
+        <TogglingSideBarComponent data-theme={ theme } style={{opacity: 0}} ref={componentRef}>
             <nav className="toggling-navigation rounded-lg" ref={navigationRef}>
             <div className="ul-wrapper rounded-lg">
                 <button aria-label="Toggle Navigation" onClick={() => navigationRef.current.classList.toggle('active')}>

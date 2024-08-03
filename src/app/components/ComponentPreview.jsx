@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 
-const ComponentLoader = (componentName) => lazy(() => import(`../snippets/${componentName}`));
+const ComponentLoader = (componentName) => lazy(() => import(`../snippets/${componentName}/${componentName}`));
 
 const ComponentPreview = (props) => {
     const { name, isScale, componentName, variants } = props;

@@ -1,9 +1,9 @@
-import Pagination from "../snippets/Pagination";
-import PaginationAnimation from "../snippets/PaginationAnimation";
-import Search from "../snippets/Search";
-import GooeyNavigation from "../snippets/GooeyNavigation";
-import TogglingSidebar from "../snippets/TogglingSidebar";
-import Calendar from "../snippets/Calendar";
+import Pagination from "../snippets/Pagination/Pagination";
+import PaginationAnimation from "../snippets/PaginationAnimation/PaginationAnimation";
+import Search from "../snippets/Search/Search";
+import GooeyNavigation from "../snippets/GooeyNavigation/GooeyNavigation";
+import TogglingSidebar from "../snippets/TogglingSidebar/TogglingSidebar";
+import Calendar from "../snippets/Calendar/Calendar";
 
 import './component-grid.css';
 

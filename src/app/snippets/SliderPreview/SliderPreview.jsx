@@ -1,8 +1,6 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 import styled from "styled-components";
-
-import './Themes.css';
 
 const SliderContainer = styled.div`
   display: flex;
@@ -13,12 +11,6 @@ const SliderContainer = styled.div`
   width: clamp(22rem, 90%, 64rem);
   height: 20rem;
   margin: 0 auto;
-
-  @media (max-width: 500px) {
-    width: clamp(18rem, 90%, 64rem);
-    height: 15rem;
-    gap: 1rem;
-  }
 
   &.dark{
     --bg: linear-gradient(to bottom right, #1e2022, #22262f);
@@ -66,16 +58,6 @@ const Slide = styled.div`
   border-color: var(--borderClr);
   background: var(--bg);
   transition-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
-
-  @media (max-width: 950px) {
-    width: clamp(4rem, 6rem, 25rem);
-    height: clamp(6rem, 8rem, 27rem);
-  }
-
-  @media (max-width: 500px) {
-    width: clamp(3rem, 5rem, 23rem);
-    height: clamp(5rem, 7rem, 25rem);
-  }
 
   span {
     position: absolute;
@@ -147,26 +129,12 @@ const debounce = (func, delay) => {
       clearTimeout(timer);
       timer = setTimeout(() => func(...args), delay);
     };
-};
+  };
 
-const Slider = () => {
-    const variantsRef = useRef(null);
+const SliderPreview = (props) => {
+    const theme = props.theme || 'dark';
 
-    const [theme, setTheme] = useState('dark');
-
-    const changeTheme = (event) => {
-      if(event.target.tagName == 'LI'){
-        const getTheme = event.target.getAttribute('data-theme');
-
-        const {top: parentY} = event.target.closest('ul').getBoundingClientRect();
-
-        const {top} = event.target.getBoundingClientRect();
-
-        event.target.closest('ul').style.setProperty('--circleY', `${top - parentY}px`);
-
-        setTheme(getTheme);
-      }
-    }
+    const componentRef = useRef(null);
 
     const generatedTransformsArr = ['translate3d(-200%, -50%, 0rem) rotateY(45deg) scale(0.85)', 'translate3d(-150%, -50%, 3rem) rotateY(30deg) scale(0.9)', 'translate3d(-100%, -50%, 6rem) rotateY(15deg) scale(0.95)', 'translate3d(-50%, -50%, 9rem)', 'translate3d(0%, -50%, 6rem) rotateY(-15deg) scale(0.95)', 'translate3d(50%, -50%, 3rem) rotateY(-30deg) scale(0.9)', 'translate3d(100%, -50%, 0) rotateY(-45deg) scale(0.85)'];
 
@@ -194,9 +162,12 @@ const Slider = () => {
 
     const displayNumbers = [5, 6, 7, 1, 2, 3, 4];
 
+    useEffect(() => {
+      if(componentRef.current) componentRef.current.style.opacity = 1;
+    }, [componentRef.current]);
+
     return (
-      <>
-        <SliderContainer className={theme}>
+      <SliderContainer className={theme} ref={componentRef} style={{opacity: 0}}>
         <SliderEle>
             {
                 transformsArr.map(
@@ -215,16 +186,8 @@ const Slider = () => {
             ></button>
             <button id="nxt-slide" aria-label="Next Slide" title="Go To Next Slide" onClick={debouncedNavigateNext}></button>
         </SliderButtons>
-        </SliderContainer>
-        <div className="absolute top-[50%] translate-y-[-50%] right-4 rounded-full" ref={variantsRef} onClick={(event)=>changeTheme(event)}>
-          <ul className="flex flex-col gap-3 themes">
-            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#1e2022] from-50% to-[#333539] to-50% rounded-full shadow-2xl cursor-pointer transition-all" data-theme="dark" title="Dark"></li>
-            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#fff] from-50% to-[#cecece] to-50% rounded-full shadow-2xl cursor-pointer transition-all" data-theme="light" title="Light"></li>
-            <li className="w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-br from-[#ccdff9] from-50% to-[#60a5fa] to-50% rounded-full shadow-2xl cursor-pointer transition-all"  data-theme="custom" title="Custom"></li>
-          </ul>
-        </div>
-      </>
+      </SliderContainer>
     );
 };
 
-export default Slider;
+export default SliderPreview;

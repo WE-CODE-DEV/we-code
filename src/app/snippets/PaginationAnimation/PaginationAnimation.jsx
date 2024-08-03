@@ -1,5 +1,5 @@
 // import './PaginationAnimation.css';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const PaginationComponent = styled.div`
@@ -117,7 +117,11 @@ z-index: 1;
 }
 `;
 
-const PaginationAnimation = ({ theme }) => {
+const PaginationAnimation = (props) => {
+    const theme = props.theme || 'dark';
+
+    const componentRef = useRef(null);
+
     const paginationULRef = useRef(null);
 
     const currentPage = useRef(1);
@@ -167,8 +171,12 @@ const PaginationAnimation = ({ theme }) => {
         navigatePage(bool);
     }, debounceTime);
 
+    useEffect(() => {
+      if(componentRef.current) componentRef.current.style.opacity = 1;
+    }, [componentRef.current]);
+
     return(
-        <PaginationComponent data-theme={theme || 'dark'}>
+        <PaginationComponent data-theme={theme} style={{opacity: 0}} ref={componentRef}>
             <div className="pagination-anim" ref={paginationULRef}>
                 <button id="prev-page" aria-label="Previous Page" title="Go To Previous Page" onClick={()=>navigateBasedOnBtn(false)}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

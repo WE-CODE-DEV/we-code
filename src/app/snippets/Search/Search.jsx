@@ -338,7 +338,11 @@ const SearchContainer = styled.div`
   }
 `;
 
-const Search = ({ theme }) => {
+const Search = (props) => {
+  const theme = props.theme || 'dark';
+
+  const componentRef = useRef(null);
+
   const searchResultsRef = useRef(null);
 
   const searchEleContainerRef = useRef(null);
@@ -377,6 +381,10 @@ const Search = ({ theme }) => {
     if (typedValue.trim().length > 0 && searchEleContainerRef.current) {
       searchEleContainerRef.current.setAttribute("data-state", "result-found");
     }
+
+    useEffect(() => {
+      if(componentRef.current) componentRef.current.style.opacity = 1;
+    }, [componentRef.current]);
 
     return (
       <>
@@ -432,7 +440,7 @@ const Search = ({ theme }) => {
   }, []);
 
   return (
-    <SearchContainer data-theme={`${theme ? theme : 'dark'}`}>
+    <SearchContainer data-theme={theme} ref={componentRef} style={{opacity: 0}}>
         <div
           className="search"
           ref={searchEleContainerRef}
