@@ -14,7 +14,7 @@ const TogglingSideBarComponent = styled.div`
 
     &[data-theme="custom"]{
         --priBg: #0f172a;
-        --textClr: #ffedd5;
+        --textClr: #e0cdb5;
     }
 
     .toggling-navigation {
@@ -197,7 +197,11 @@ const TogglingSideBarComponent = styled.div`
   position: relative;
   transition-timing-function: var(--globalTransFn);
   transition: var(--globalTransition);
-  font-weight: 500;
+  /* font-weight: 500; */
+}
+
+&[data-theme="light"] .toggling-navigation ul li span{
+    font-weight: 500;
 }
 
 .toggling-navigation ul li span::before {

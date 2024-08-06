@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 
-const ComponentLoader = (componentName) => lazy(() => import(`../snippets/${componentName}/${componentName}`));
+import Link from "next/link";
+
+import ComponentLoader from '../reusable-components/ComponentLoader';
 
 const ComponentPreview = (props) => {
-    const { name, isScale, componentName, variants } = props;
+    const { _id, name, isScale, componentName, variants } = props;
     
     const [LoadedComponent, setLoadedComponent] = useState(null);
 
@@ -65,7 +67,7 @@ const ComponentPreview = (props) => {
     return (
         <>
             { LoadedComponent ? <div className="component-preview relative">
-                <button className="preview-component" title="Preview the Component" aria-label="Preview the Component"></button>
+                <Link href={`/components/component?id=${_id}`} className="preview-component" title="Preview the Component" aria-label="Preview the Component"></Link>
                 <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
                     <ul className="flex flex-col gap-3 themes">
                         {

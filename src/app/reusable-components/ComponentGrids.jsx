@@ -46,6 +46,7 @@ const ComponentGrid = (props) => {
         <div className="component flex items-center justify-center mt-6">
             <span>{props.componentName}</span>
             {props.children}
+            <button className="preview-component" title="Preview the Component"></button>
         </div>
     );
 }
