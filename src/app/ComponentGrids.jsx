@@ -1,11 +1,12 @@
-import Pagination from "../snippets/Pagination/Pagination";
-import PaginationAnimation from "../snippets/PaginationAnimation/PaginationAnimation";
-import Search from "../snippets/Search/Search";
-import GooeyNavigation from "../snippets/GooeyNavigation/GooeyNavigation";
-import TogglingSidebar from "../snippets/TogglingSidebar/TogglingSidebar";
-import Calendar from "../snippets/Calendar/Calendar";
+import Pagination from "./snippets/Pagination/Pagination";
+import PaginationAnimation from "./snippets/PaginationAnimation/PaginationAnimation";
+import Search from "./snippets/Search/Search";
+import GooeyNavigation from "./snippets/GooeyNavigation/GooeyNavigation";
+import TogglingSidebar from "./snippets/TogglingSidebar/TogglingSidebar";
+import Calendar from "./snippets/Calendar/Calendar";
 
 import './component-grid.css';
+import Link from "next/link";
 
 const ComponentGrids = () => {
     return (
@@ -18,22 +19,22 @@ const ComponentGrids = () => {
                     <button className="pri-btn self-start relative tracking-wide">Explore now<span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span></button>
                     </div>
                 </div>
-                <ComponentGrid componentName={"Gooey Navigation"}>
+                <ComponentGrid componentName={"Gooey Navigation"} componentId={'66aae00acee507776b3673b2'}>
                     <GooeyNavigation/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Pagination"}>
+                <ComponentGrid componentName={"Pagination"} componentId={"66aae2abcee507776b3673b8"}>
                     <Pagination/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Pagination with Sliding Animation"}>
+                <ComponentGrid componentName={"Pagination with Sliding Animation"} componentId={'66aae2abcee507776b3673b9'}>
                     <PaginationAnimation/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Calendar"}>
+                <ComponentGrid componentName={"Calendar"} componentId={'66aae2abcee507776b3673ba'}>
                     <Calendar/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Search"}>
+                <ComponentGrid componentName={"Search"} componentId={'66aae2abcee507776b3673b7'}>
                     <Search/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Toggling Sidebar"}>
+                <ComponentGrid componentName={"Toggling Sidebar"} componentId={'66ae0c4ff0427d0665421d73'}>
                     <TogglingSidebar/>
                 </ComponentGrid>
             </div>
@@ -41,12 +42,12 @@ const ComponentGrids = () => {
     );
 }
 
-const ComponentGrid = (props) => {
+const ComponentGrid = ({ componentName, componentId, children }) => {
     return(
         <div className="component flex items-center justify-center mt-6">
-            <span>{props.componentName}</span>
-            {props.children}
-            <button className="preview-component" title="Preview the Component"></button>
+            <Link href={`/components/component?id=${componentId}`}>{ componentName }</Link>
+            {children}
+            {/* <button className="preview-component" title="Preview the Component"></button> */}
         </div>
     );
 }

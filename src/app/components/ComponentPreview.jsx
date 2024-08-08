@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import ComponentLoader from '../reusable-components/ComponentLoader';
 
+import './ComponentPreview.css';
+
 const ComponentPreview = (props) => {
     const { _id, name, isScale, componentName, variants } = props;
     

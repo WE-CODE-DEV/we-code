@@ -61,6 +61,38 @@
     animation: scaleIn .3s ease forwards;
   }
   
+  .component-preview-lg .component{
+    @apply px-3 py-9 rounded-md border border-dashed bg-blue-500;
+    position: relative;
+  }
+
+  .component-preview-lg .component::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: radial-gradient(circle, #dbeafe 10%, transparent 11%);
+    background-size: 1em 1em;
+    opacity: .5;
+    inset: 0;
+  }
+
+  .themes li{
+    @apply relative w-5 h-5 bg-gradient-to-br rounded-full shadow-2xl cursor-pointer transition-all;
+  }
+  
+  .themes li:nth-of-type(1)::before{
+    content: '';
+    @apply absolute rounded-full border-2 border-blue-100;
+    width: 120%;
+    height: 120%;
+    top: calc(var(--circleY, -0%) - 10%);
+    left: 50%;
+    transform: translateX(-50%);
+    transition: .3s;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+  }
+
   @keyframes scaleIn{
     to{
         transform: scale(1);

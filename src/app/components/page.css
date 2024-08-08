@@ -199,43 +199,8 @@ div:has(.hero-window){
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
 }
 
-.component-preview{
-  width: 100%;
-  height: 20em;
-  @apply bg-blue-500 relative rounded-md;
-}
-
-.component-preview::before{
-  content: '';
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: radial-gradient(circle, #dbeafe 10%, transparent 11%);
-  background-size: 1em 1em;
-  opacity: .5;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.component-preview .details{
-  border-radius: inherit;
-}
-
-.component-preview .details::before{
-  content: '';
-  @apply w-full h-full bg-gradient-to-b from-slate-950/60 to-slate-700/50 backdrop-blur-xl absolute left-0 bottom-0 pointer-events-none;
-  z-index: 0;
-  mask-image: linear-gradient(to top, #000, transparent);
-  border-radius: inherit;
-}
-
-.component-preview .details > *{
-  position: relative;
-  z-index: 1;
-}
-
-.preview-div > div{
-  @apply w-full h-full flex items-center justify-center;
-  transform: scale(.5);
+@media (max-width: 750px) {
+  .component-previews{
+    justify-content: center;
+  }
 }

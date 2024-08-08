@@ -49,8 +49,6 @@ const ComponentView = () => {
             const fetchedComponent = await getComponent();
 
             setComponent(fetchedComponent);
-
-            console.log(fetchedComponent);
         };
 
         loadComponent();

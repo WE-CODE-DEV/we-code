@@ -218,3 +218,6 @@ const codeMap = {
     0: [[htmlCode, 'html', 'index.html', 'html'], [cssCode, 'css', 'styles.css', 'css'], [jsCode, 'javascript', 'index.js', 'js']],
     1: [[jsCode, 'javascript', 'app.js', 'react'], [cssCode, 'css', 'styles.css', 'css']]
 };
+
+
+export { htmlCode, cssCode, jsCode, codeMap};
