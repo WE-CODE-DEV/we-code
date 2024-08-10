@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ComponentPreview from "./ComponentPreview";
+import ComponentPreview from "../reusable-components/ComponentPreview";
+import { componentPreview } from "../reusable-components/ComponentPreview.module.css";
 
 const ComponentPreviews = () => {
     const [components, setComponents] = useState();
@@ -40,7 +41,7 @@ const ComponentPreviews = () => {
             <>
                 {
                     [...Array(componentsPerPage)].map((_, index) => {
-                        return <div className="component-preview relative flex items-center justify-center" key={index}>
+                        return <div className={`${componentPreview} relative flex items-center justify-center`} key={index}>
                             <div className="w-20 h-full absolute right-0 flex flex-col justify-between items-center py-6 animate-pulse">
                                 <span className="w-9 h-9 rounded-full bg-blue-100/50 shadow-md"></span>
                                 <ul className="flex flex-col gap-3">
