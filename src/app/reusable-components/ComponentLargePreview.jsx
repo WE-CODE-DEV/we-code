@@ -84,10 +84,10 @@ const ComponentCode = ({ componentName }) => {
               <li className="w-3 h-3 bg-yellow-500 rounded-full"></li>
               <li className="w-3 h-3 bg-green-500 rounded-full"></li>
             </ul>
-            <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2">
+            <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2 min-h-[37px]">
               <ul className="tabs flex gap-2">
-                {codeMap &&
-                  codeMap[curCodeVarIndex].map((arr, index) => {
+                {
+                  codeMap ? codeMap[curCodeVarIndex].map((arr, index) => {
                     const [code, language, fileName, styleClass] = arr;
                     return (
                       <li
@@ -100,37 +100,61 @@ const ComponentCode = ({ componentName }) => {
                         <span>{fileName}</span>
                       </li>
                     );
-                  })}
+                  }) 
+                  : 
+                  <>
+                    <li className="tab loading html active"><span></span></li>
+                    <li className="tab loading css "><span></span></li>
+                    <li className="tab loading js "><span></span></li>
+                  </>
+                }
               </ul>
             </div>
           </div>
-          <div className="screen-body max-h-80 rounded-xl overflow-auto relative">
-            {codeMap && (
-              <HighlightCode
-                code={text}
-                language={codeMap[curCodeVarIndex]?.[curTabIndex]?.[1] || ""}
-              />
-            )}
-            <div
-              className="floating fixed bottom-10 right-10 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all"
-              title="Copy to clipboard"
-              data-iscopied="false"
-              onClick={(event) => copyToClipboard(event)}
-            >
-              <div className="copy-to-cb w-7 h-7">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g stroke="#1C274C" strokeWidth="1.5">
-                    <path d="M16 4c2.175.012 3.353.109 4.121.877C21 5.756 21 7.17 21 9.998v6c0 2.829 0 4.243-.879 5.122-.878.878-2.293.878-5.121.878H9c-2.828 0-4.243 0-5.121-.878C3 20.24 3 18.827 3 15.998v-6c0-2.828 0-4.242.879-5.121C4.647 4.109 5.825 4.012 8 4" />
-                    <path className="clipboard-path" d="M7 14.5h8M7 18h5.5" />
-                    <path d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5v-1Z" />
-                  </g>
-                </svg>
+          <div className="screen-body w-full h-80 rounded-xl overflow-auto relative">
+            {
+              codeMap ? (
+                <>
+                  <HighlightCode
+                    code={text}
+                    language={codeMap[curCodeVarIndex]?.[curTabIndex]?.[1] || ""}
+                  />
+                  <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all"
+                    title="Copy to clipboard"
+                    data-iscopied="false"
+                    onClick={(event) => copyToClipboard(event)}
+                  >
+                    <div className="copy-to-cb w-7 h-7">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g stroke="#1C274C" strokeWidth="1.5">
+                          <path d="M16 4c2.175.012 3.353.109 4.121.877C21 5.756 21 7.17 21 9.998v6c0 2.829 0 4.243-.879 5.122-.878.878-2.293.878-5.121.878H9c-2.828 0-4.243 0-5.121-.878C3 20.24 3 18.827 3 15.998v-6c0-2.828 0-4.242.879-5.121C4.647 4.109 5.825 4.012 8 4" />
+                          <path className="clipboard-path" d="M7 14.5h8M7 18h5.5" />
+                          <path d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5v-1Z" />
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </>
+              ) : <div className="w-full h-full text-blue-50 flex">
+                <ul className="w-[60%] m-5 flex flex-col justify-between animate-pulse">
+                  <li className="w-[80%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-full h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[90%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[60%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[70%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[50%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[75%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-full h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[60%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[70%] h-3 bg-slate-700 rounded-md"></li>
+                  <li className="w-[50%] h-3 bg-slate-700 rounded-md"></li>
+                </ul>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>
