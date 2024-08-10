@@ -56,13 +56,20 @@ const ComponentView = () => {
     }, [componentId, router]);
 
     return(
-        <section className='wrapper py-6 lg:py-8 flex flex-col gap-6 lg:gap-10'>
+        <section className='wrapper py-6 lg:py-8 flex flex-col gap-6 lg:gap-8'>
             { component ? 
             <>
+                <div>
+                    <ul className="flex gap-4">
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="components/">Components</Link></li>
+                        <li>{ component.name }</li>
+                    </ul>
+                </div>
                 <div className="flex gap-4 items-center">
-                    <Link href='components/' className="w-6 h-6 lg:w-8 lg:h-8">
+                    {/* <Link href='components/' className="w-6 h-6 lg:w-8 lg:h-8">
                         <button className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-xl"></button>
-                    </Link>
+                    </Link> */}
                     <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">{ component.name }</h2>
                 </div>
                 <ComponentLargePreview component={ component }/>

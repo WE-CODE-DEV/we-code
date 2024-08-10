@@ -82,7 +82,7 @@ const ComponentPreview = (props) => {
                 <div className={ previewDiv } ref={previewRef}>
                     <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
                         <Suspense>
-                            <LoadedComponent theme={theme}/>
+                            <LoadedComponent theme={ theme }/>
                         </Suspense>
                     </div>
                 </div>

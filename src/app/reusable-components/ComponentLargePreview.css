@@ -258,7 +258,7 @@
   }
   
   .go-to-code{
-    @apply w-10 h-10 bg-blue-50 absolute right-3 bottom-5 rounded-full shadow-2xl cursor-pointer transition-all;
+    @apply w-10 h-10 bg-blue-50 absolute right-3 bottom-5 rounded-full shadow-2xl cursor-pointer transition-all z-[1];
     transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
     transition: .5s;
   }

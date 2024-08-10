@@ -42,7 +42,7 @@
     @apply w-full h-full flex items-center justify-center;
     transform: scale(.5);
   }
-
+  
   .previewComponent{
     @apply w-8 h-8 bg-blue-50 absolute rounded-full shadow-2xl cursor-pointer transition-all top-3;
     /* top: .6rem; */
