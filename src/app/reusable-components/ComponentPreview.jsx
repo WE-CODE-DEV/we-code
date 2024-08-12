@@ -87,9 +87,10 @@ const ComponentPreview = (props) => {
                     </div>
                 </div>
                 <div className={ details }>
-                    <a>
-                        <p className='text-lg text-white truncate max-w-[85%]' title={name}>{name}</p>
-                    </a>
+                    <Link href={`/components/component?id=${_id}`} className='w-fit'>
+                        <p className='text-lg text-white truncate max-w-[85%] min-w-fit' title={name}>{name}</p>
+                    </Link>
+                    
                     {/* <ul className='flex gap-2'>
                         <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
                         <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">3D</a></li>

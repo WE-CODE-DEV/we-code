@@ -6,6 +6,8 @@ import HeroTxtAnimation from './HeroTxtAnimation';
 
 import ComponentPreviews from './ComponentPreviews';
 
+import Link from 'next/link';
+
 const Components = () => {
     return(
         <>
@@ -82,7 +84,21 @@ const Components = () => {
                 </div>
             </section>
             <section className='wrapper py-6 lg:py-8 flex flex-col gap-6 lg:gap-10'>
-                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Be Choosy!</h2>
+                <div className='flex flex-col gap-6'>
+                    <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Be Choosy!</h2>
+                    <ul className="flex gap-2 breadcrumbs justify-center lg:justify-start">
+                        <li>
+                            <Link href="/">
+                            Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="components/" className='active'>
+                            Components
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
                 <ComponentPreviews/>
             </section>
         </>
