@@ -57,7 +57,7 @@ export default function Home() {
               <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Copy what you need</h2>
               <p>Preview the component, choose the variant which suits you, and copy it, it's that simple</p>
             </div>
-            <ComponentLargePreview component={component}/>
+            <ComponentLargePreview component={component} updateParams={false}/>
           </section>
       </>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, Suspense, lazy } from "react";
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import ComponentLoader from "./ComponentLoader";
 import HighlightCode from "../snippets/HighlightCode";
 import './ComponentLargePreview.css';
@@ -197,11 +198,20 @@ const Component = ({ componentName, theme, reload }) => {
   );
 };
 
-const ComponentLargePreview = ({ component }) => {
+const ComponentLargePreview = ({ component, updateParams = true }) => {
   const { variants, componentName } = component;
-
-  const [currentTab, setCurrentTab] = useState(0);
   const [reload, setReload] = useState(false);
+
+  const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+
+  const params = new URLSearchParams(searchParams);
+  
+  const hasPreview = params.has('preview');
+  const hasCode = params.has('code');
+
+  const [currentTab, setCurrentTab] = useState(updateParams ? (hasPreview ? 0 : 1) : 0);
 
   const variantsRef = useRef(null);
   const themesObj = variants;
@@ -211,7 +221,17 @@ const ComponentLargePreview = ({ component }) => {
   const moveToTab = (index) => {
     const parent = tabsRef.current;
 
-    if (parent) {
+    if(updateParams){
+      if (index === 0) {
+        params.set('preview', 'true');
+        params.delete('code');
+      } else if (index === 1) {
+        params.set('code', 'true');
+        params.delete('preview');
+      }
+    }
+
+    if(parent) {
       const tabs = parent.querySelectorAll(".tab");
 
       const { left: parentX } = parent.getBoundingClientRect();
@@ -223,10 +243,11 @@ const ComponentLargePreview = ({ component }) => {
       tabsRef.current.style.setProperty("--tabX", `${left - parentX}px`);
 
       setCurrentTab(index);
+      updateParams && router.replace(`${pathName}?${params.toString()}`, undefined, { shallow: true });
     }
   };
 
-  useEffect(() => moveToTab(currentTab), [currentTab]);
+  useEffect(() => moveToTab(currentTab), [currentTab, pathName]);
 
   const Preview = () => {
     const [theme, setTheme] = useState("dark");
