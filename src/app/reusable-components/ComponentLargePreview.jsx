@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Suspense, lazy } from "react";
+import { useEffect, useState, useRef, useMemo, Suspense, lazy } from "react";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import ComponentLoader from "./ComponentLoader";
 import HighlightCode from "../snippets/HighlightCode";
@@ -217,6 +217,8 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
   const themesObj = variants;
 
   const tabsRef = useRef(null);
+
+  // const tabs = useMemo(() => ["Preview", "Code"], []);
 
   const moveToTab = (index) => {
     const parent = tabsRef.current;

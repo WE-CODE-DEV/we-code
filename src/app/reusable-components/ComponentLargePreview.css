@@ -1,6 +1,6 @@
 
 .code-tabs li{
-    @apply pl-10 pr-5 py-2 relative font-semibold text-blue-700 bg-blue-50 rounded-full border border-dashed border-blue-600 transition-all text-sm;
+    @apply pl-10 pr-5 py-2 relative font-semibold text-blue-700 bg-blue-50 rounded-full border border-dashed border-blue-600 transition-all text-xs lg:text-sm;
   }
   
   .code-tabs li::before{
@@ -29,7 +29,7 @@
   }
   
   .preview .tab{
-    @apply rounded-full text-sm px-5 py-2 cursor-pointer transition-all select-none;
+    @apply rounded-full text-xs md:text-sm px-5 py-2 cursor-pointer transition-all select-none;
     z-index: 2;
   }
   

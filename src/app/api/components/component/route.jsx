@@ -8,13 +8,13 @@ export const GET = async ( request ) => {
   try {
     await connectDB();
 
-    const url = new URL(request.url);
+    const url = request.nextUrl
 
     const componentId = url.searchParams.get('id');
 
     const component = await Component.findById(componentId);
 
-    console.log(component);
+    // console.log(component);
 
     return NextResponse.json(component, { status: 200 });
   } catch (error) {

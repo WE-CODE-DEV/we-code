@@ -117,7 +117,7 @@ body {
   }
 
   li{
-      @apply bg-gradient-to-br from-blue-500 to-blue-600 text-blue-50/80 -skew-x-12 rounded-sm transition-all text-sm lg:text-base;
+      @apply bg-gradient-to-br from-blue-500 to-blue-600 text-blue-50/80 -skew-x-12 rounded-sm transition-all text-sm md:text-base;
 
       &:hover{
           @apply text-blue-50;    
