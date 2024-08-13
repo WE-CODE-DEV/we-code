@@ -98,6 +98,24 @@ body {
 }
 
 .breadcrumbs{
+  &.loading{
+    @apply h-7;
+
+    li{
+      @apply w-28 relative;
+
+      &::before{
+        @apply bg-blue-50/50 animate-pulse absolute;
+        content: '';
+        width: 90%;
+        height: 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
   li{
       @apply bg-gradient-to-br from-blue-500 to-blue-600 text-blue-50/80 -skew-x-12 rounded-sm transition-all text-sm lg:text-base;
 

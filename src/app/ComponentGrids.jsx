@@ -16,7 +16,7 @@ const ComponentGrids = () => {
                     <div className="flex h-fit flex-col gap-4 lg:gap-6 justify-center bg-gradient-to-br from-blue-100 to-blue-300 p-6 lg:p-10 rounded-lg self-center">
                     <h3 className="font-bold text-xl lg:text-2xl">Showcased some of our components</h3>
                     <p className="text-sm lg:text-base">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad quos quidem explicabo sunt nihil quae, ipsa molestias, minima reiciendis ea quo eligendi quibusdam asperiores aliquid, expedita ratione fuga esse autem!</p>
-                    <button className="pri-btn self-start relative tracking-wide">Explore now<span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span></button>
+                    <Link href="/components/" className="pri-btn self-start relative tracking-wide">Explore now<span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span></Link>
                     </div>
                 </div>
                 <ComponentGrid componentName={"Gooey Navigation"} componentId={'66aae00acee507776b3673b2'}>

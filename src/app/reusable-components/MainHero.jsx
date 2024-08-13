@@ -2,6 +2,7 @@ import {useRef, useEffect} from 'react';
 import { gsap } from 'gsap';
 
 import './main-hero.css';
+import Link from 'next/link';
 
 const MainHero = () => {
     const arrowRef = useRef(null);
@@ -94,10 +95,10 @@ const MainHero = () => {
                     <div className="max-w-xl lg:max-w-3xl text-center flex flex-col gap-6 z-10">
                     <h2 className="font-extrabold text-3xl leading-snug lg:text-4xl txt-shadow lg:leading-tight text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Life of the developer is a series of building, testing, changing and iterating. <br/>Let us be your lifesaver.</h2>
                     <p className="text-lg">Speed up your development experience <br/>with our tailor-made, easy-to-use components.</p>
-                    <button className="pri-btn self-center tracking-wide flex items-center justify-center relative">
+                    <Link href="/components/" className="pri-btn self-center tracking-wide flex items-center justify-center relative">
                         Speed up now!
                         <span className="inline-block w-6 h-6 ml-2 animate-pulse absolute right-4"></span>
-                    </button>
+                    </Link>
                     </div>
                     <div className="relative w-[100%] min-w-[28rem] md:min-w-[34rem] lg:w-[90%] lg:min-w-[40rem] h-[12rem] pointer-events-none">
                     <div className="hero-window w-[90%] lg:w-[80%] min-h-80 bg-blue-500 rounded-2xl absolute top-[-4rem] p-4 flex flex-col gap-2 shadow-xl">
