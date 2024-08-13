@@ -8,7 +8,7 @@ export const GET = async ( request ) => {
   try {
     await connectDB();
 
-    const url = request.nextUrl
+    const url = new URL(request.url);
 
     const componentId = url.searchParams.get('id');
 
