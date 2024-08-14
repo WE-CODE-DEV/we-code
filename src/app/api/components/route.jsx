@@ -30,7 +30,7 @@ export const POST = async (request) => {
 
         return NextResponse.json({message: 'component added'}, { status: 201 });
     } catch (error) {
-        console.error('Error in fetching components:', error);
-        return new NextResponse(`Error in fetching components: ${error.message}`, { status: 500 });
+        console.error('Error in adding component:', error);
+        return new NextResponse(`Error in adding component: ${error.message}`, { status: 500 });
     }
 };

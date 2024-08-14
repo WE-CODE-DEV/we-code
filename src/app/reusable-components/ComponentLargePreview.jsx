@@ -211,7 +211,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
   const hasPreview = params.has('preview');
   const hasCode = params.has('code');
 
-  const [currentTab, setCurrentTab] = useState(updateParams ? (hasPreview ? 0 : 1) : 0);
+  const [currentTab, setCurrentTab] = useState(updateParams ? (hasPreview || !hasPreview && !hasCode ? 0 : 1) : 0);
 
   const variantsRef = useRef(null);
   const themesObj = variants;

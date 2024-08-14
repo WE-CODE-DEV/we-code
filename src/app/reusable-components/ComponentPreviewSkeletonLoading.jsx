@@ -1,4 +1,6 @@
-const ComponentPreviewSkeletonLoading = ({ componentPreview }) => {
+import { componentPreview } from '@/app/reusable-components/ComponentPreview.module.css';
+
+const ComponentPreviewSkeletonLoading = () => {
     return (
         <div className={`${componentPreview} relative flex items-center justify-center`}>
             <div className="w-20 h-full absolute right-0 flex flex-col justify-between items-center py-6 animate-pulse">
