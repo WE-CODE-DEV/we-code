@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import "./page.css";
 import ShowLargePreview from "./ShowLargePreview";
@@ -12,6 +12,8 @@ const ComponentView = () => {
   const searchParams = useSearchParams();
 
   const componentId = searchParams.get("id");
+
+  console.log('main testing');
 
   useEffect(() => {
     if (!componentId) {

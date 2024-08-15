@@ -70,7 +70,7 @@ const ComponentPreview = (props) => {
     return (
         <>
             { LoadedComponent ? <div className={componentPreview}>
-                <Link href={`/components/component?id=${_id}&preview=true`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link>
+                <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link>
                 <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
                     <ul className={ themes }>
                         {
@@ -78,7 +78,7 @@ const ComponentPreview = (props) => {
                         }
                     </ul>
                 </div>
-                <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link>
+                {/* <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link> */}
                 <div className={ previewDiv } ref={previewRef}>
                     <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
                         <Suspense>

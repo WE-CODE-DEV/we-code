@@ -79,7 +79,7 @@ const ShowLargePreview = ({ id }) => {
                         </Link>
                     </li>
                     <li>
-                        <Link href="components/">
+                        <Link href="/components/">
                         Components
                         </Link>
                     </li>
@@ -88,7 +88,7 @@ const ShowLargePreview = ({ id }) => {
                     </li>
                     </ul>
                 </div>
-                <ComponentLargePreview component={component} />
+                <ComponentLargePreview component={component} updateParams={false} />
             </div>
         );
     }
