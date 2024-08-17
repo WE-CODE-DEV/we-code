@@ -4,12 +4,12 @@ import ComponentLoader from "./ComponentLoader";
 import HighlightCode from "../snippets/HighlightCode";
 import './ComponentLargePreview.css';
 
-const ComponentCode = ({ componentName }) => {
+const ComponentCode = ({ componentName, theme }) => {
   const [curCodeVarIndex, setCurCodeVarIndex] = useState(0);
   const [curTabIndex, setCurTabIndex] = useState(0);
-  const [codes, setCodes] = useState({});
   const [codeMap, setCodeMap] = useState(null);
   const [text, setText] = useState("");
+  const [lineWrap, setLineWrap] = useState(false);
 
   const copyToClipboard = async (event) => {
     try{
@@ -34,14 +34,25 @@ const ComponentCode = ({ componentName }) => {
         const module = await import(
           `../snippets/${componentName}/${componentName}Code`
         );
-        // Extract variables from the imported module
-        const { htmlCode, cssCode, jsCode, codeMap } = module;
 
-        setCodes({ htmlCode, cssCode, jsCode });
+        const { codeMap, themes } = module;
 
-        setCodeMap(codeMap);
+        const themeCode = themes[theme] || "";
 
-        setText(codeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || "");
+        const updatedCodeMap = Object.keys(codeMap).reduce((acc, key) => {
+          acc[key] = codeMap[key].map(([code, language, fileName, styleClass]) => {
+            if (language === 'css') {
+              const updatedCode = code.replace(/\$\{themeCode\}/g, themeCode);
+              return [updatedCode, language, fileName, styleClass];
+            }
+            return [code, language, fileName, styleClass];
+          });
+          return acc;
+        }, {});
+
+        setCodeMap(updatedCodeMap);
+
+        setText(updatedCodeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || "");
       } catch (error) {
         console.error("Error importing module:", error);
       }
@@ -77,7 +88,7 @@ const ComponentCode = ({ componentName }) => {
           })}
         </ul>
       </div>
-      <div className="screen bg-[rgb(30,32,34)] rounded-xl shadow-2xl p-4 min-h-96">
+      <div className="screen bg-[rgb(30,32,34)] rounded-xl shadow-2xl p-4 pb-2.5 min-h-96">
         <div className="flex flex-col">
           <div className="screen-header flex items-center gap-6">
             <ul className="flex gap-2 translate-y-[-.5rem]">
@@ -118,9 +129,10 @@ const ComponentCode = ({ componentName }) => {
                 <>
                   <HighlightCode
                     code={text}
+                    linewrap={lineWrap}
                     language={codeMap[curCodeVarIndex]?.[curTabIndex]?.[1] || ""}
                   />
-                  <div className="floating fixed bottom-10 right-10 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all"
+                  <div className="floating fixed bottom-12 right-12 w-12 h-12 bg-gradient-to-br from-blue-50 to-blue-300 shadow-2xl rounded-full cursor-pointer flex items-center justify-center active:scale-95 transition-all"
                     title="Copy to clipboard"
                     data-iscopied="false"
                     onClick={(event) => copyToClipboard(event)}
@@ -158,6 +170,7 @@ const ComponentCode = ({ componentName }) => {
             }
           </div>
         </div>
+        <div className="flex gap-1.5 mt-1.5 items-center justify-end transition-all"><input type="checkbox" name="Wrap Code" id="line-wrap" className="accent-zinc-300 opacity-80 hover:opacity-100 transition-all w-2.5 h-2.5 cursor-pointer" defaultChecked={lineWrap} onChange={()=>setLineWrap(!lineWrap)}/><label htmlFor="line-wrap" className="cursor-pointer text-zinc-300 text-xs select-none opacity-80 hover:opacity-100">Line Wrap</label></div>
       </div>
     </>
   );
@@ -199,6 +212,7 @@ const Component = ({ componentName, theme, reload }) => {
 };
 
 const ComponentLargePreview = ({ component, updateParams = true }) => {
+  const [theme, setTheme] = useState("dark");
   const { variants, componentName } = component;
   const [reload, setReload] = useState(false);
 
@@ -243,72 +257,40 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       tabsRef.current.style.setProperty("--tabX", `${left - parentX}px`);
 
       setCurrentTab(index);
+
+      if(index === 0) changeThemeIndicator();
+
       updateParams && router.replace(`${pathName}?${params.toString()}`, undefined, { shallow: true });
     }
   };
 
   useEffect(() => moveToTab(currentTab), [currentTab]);
 
-  const Preview = () => {
-    const [theme, setTheme] = useState("dark");
+  const changeTheme = (targetEle) => {
+    const getTheme = targetEle.getAttribute("data-theme");
 
-    const changeTheme = (event) => {
-      if (event.target.tagName === "LI") {
-        const getTheme = event.target.getAttribute("data-theme");
+    const { top: parentY } = targetEle
+      .closest("ul")
+      .getBoundingClientRect();
 
-        const { top: parentY } = event.target
-          .closest("ul")
-          .getBoundingClientRect();
+    const { top } = targetEle.getBoundingClientRect();
 
-        const { top } = event.target.getBoundingClientRect();
+    targetEle
+      .closest("ul")
+      .style.setProperty("--circleY", `${top - parentY}px`);
 
-        event.target
-          .closest("ul")
-          .style.setProperty("--circleY", `${top - parentY}px`);
+    setTheme(getTheme);
+  }
 
-        setTheme(getTheme);
-      }
-    };
+  const changeThemeIndicator = () => {
+    if(variantsRef.current){
+      const liElems = variantsRef.current.querySelectorAll('li');
 
-    return (
-      <div className="component flex items-center justify-center min-h-96">
-        <button
-          className="refresh-component"
-          title="Reload Component"
-          onClick={() => setReload(!reload)}
-        ></button>
-        <div
-          className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]"
-          ref={variantsRef}
-          onClick={changeTheme}
-        >
-          <ul className="flex flex-col gap-3 themes">
-            {themesObj &&
-              themesObj.map(({ theme, priClr, secClr }, index) => (
-                <li
-                  style={{
-                    background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`,
-                  }}
-                  data-theme={theme}
-                  title={theme}
-                  key={`${componentName}-theme-${index}`}
-                ></li>
-              ))}
-          </ul>
-        </div>
-        <button
-          className="go-to-code"
-          title="Go to Code"
-          onClick={() => setCurrentTab(1)}
-        ></button>
-        <Component
-          componentName={componentName}
-          theme={theme}
-          reload={reload}
-        />
-      </div>
-    );
-  };
+      const targetLi = Array.from(liElems).filter(li => li.getAttribute('data-theme') === theme)[0];
+      
+      changeTheme(targetLi);
+    }
+  }
 
   return (
     <>
@@ -328,9 +310,45 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
         </div>
         <div className="overflow-hidden component-preview-lg">
           {currentTab === 0 ? (
-            <Preview />
+              <div className="component flex items-center justify-center min-h-96">
+                <button
+                  className="refresh-component"
+                  title="Reload Component"
+                  onClick={() => setReload(!reload)}
+                ></button>
+                <div
+                  className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]"
+                  ref={variantsRef}
+                >
+                  <ul className="flex flex-col gap-3 themes">
+                    {themesObj &&
+                      themesObj.map(({ theme, priClr, secClr }, index) => (
+                        <li
+                          style={{
+                            background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`,
+                          }}
+                          data-theme={theme}
+                          title={theme}
+                          key={`${componentName}-theme-${index}`}
+                          onClick={(event)=>changeTheme(event.target)}
+                        ></li>
+                      ))}
+                  </ul>
+                </div>
+                <button
+                  className="go-to-code"
+                  title="Go to Code"
+                  onClick={() => setCurrentTab(1)}
+                ></button>
+                <Component
+                  componentName={componentName}
+                  theme={theme}
+                  reload={reload}
+                />
+              </div>
+            
           ) : (
-            <ComponentCode componentName={componentName} />
+            <ComponentCode componentName={componentName} theme={theme} />
           )}
         </div>
       </div>

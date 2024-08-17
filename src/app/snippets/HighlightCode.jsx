@@ -3,12 +3,12 @@ import Prism from "prismjs";
 import "./prism-coldark-dark.css";
 // import "./prism-vsc-dark-plus.css";
 
-const HighlightCode = ({code, language}) => {
+const HighlightCode = ({code, language, linewrap}) => {
 
     useEffect(() => Prism.highlightAll(), [code, language]);
 
     return(
-        <div>
+        <div className={linewrap ? 'wrap' : 'nowrap'}>
             <pre>
                 <code className={`language-${language}`}>{code}</code>
             </pre>

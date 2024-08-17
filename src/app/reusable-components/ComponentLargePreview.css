@@ -205,6 +205,10 @@
     @apply bg-[#22262f] border border-slate-600;
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, .15);
   }
+
+  .wrap span{
+    white-space: wrap;
+  }
   
   .floating[data-iscopied='false'] .clipboard-path{
     d: path("M7 14.5h8M7 18h5.5");
