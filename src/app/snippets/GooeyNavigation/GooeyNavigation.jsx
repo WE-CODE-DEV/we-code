@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styled from "styled-components";
 
-const GooeyNav = styled.div`
+const GooeyNav = styled.nav`
     --priBg: #1c1c28;
     --secBg: #3f71ff;
     --bodyBg: #7f8794;

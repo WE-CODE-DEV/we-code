@@ -32,6 +32,10 @@ const SliderContainer = styled.div`
     --txtBg: linear-gradient(to bottom right,#6996f8, #1e3a8a);
     --borderClr: rgba(230, 230, 230, 0.5);
   }
+
+  @media (max-width: 700px){
+    gap: 0;
+  }
 `;
 
 const SliderEle = styled.div`
@@ -67,10 +71,6 @@ const Slide = styled.div`
     width: 3rem;
     align-items: center;
     justify-content: center;
-    /* background-image: linear-gradient(
-      to bottom right,
-      #d4d4d8, #52525b
-    ); */
     background-image: var(--txtBg);
     -webkit-background-clip: text;
     background-clip: text;
@@ -78,6 +78,15 @@ const Slide = styled.div`
     line-height: 2.5rem;
     font-weight: 800;
     color: transparent;
+  }
+
+  @media (max-width: 700px){
+    width: clamp(4rem, 6rem, 25rem);
+    height: clamp(6rem, 8rem, 27rem);
+
+    span{
+      font-size: 1.6rem;
+    }
   }
 `;
 
