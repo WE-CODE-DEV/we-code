@@ -37,11 +37,11 @@ const AppHeader = () => {
                             { pathName === "/components" ? `< Components />` : 'Components' }
                         </Link>
                     </li>
-                    {/* <li>
+                    <li>
                         <Link href="/blogs">
-                            { pathName === "/blogs" ? `< Blog />` : 'Blog' }
+                            { pathName === "/blogs" ? `< Blogs />` : 'Blogs' }
                         </Link>
-                    </li> */}
+                    </li>
                 </ul>
             </nav>
         </div>

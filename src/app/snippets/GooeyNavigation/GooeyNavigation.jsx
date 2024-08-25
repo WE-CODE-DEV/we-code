@@ -163,7 +163,6 @@ const GooeyNav = styled.nav`
 
 const GooeyNavigation = (props) => {
     const theme = props.theme || 'dark';
-
     const navigationRef = useRef(null);
     const prevIndex = useRef(0);
 
@@ -204,8 +203,12 @@ const GooeyNavigation = (props) => {
         }
     }
 
+    useEffect(() => {
+        if(navigationRef.current) navigationRef.current.style.opacity = 1;
+      }, [props.theme]);
+
     return (
-        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={theme}>
+        <GooeyNav className="gooey-nav" ref={navigationRef} onClick={(event) => navigateTo(event)} data-theme={theme} style={{opacity: 0}}>
             <div className="moving-strip" data-padding="8"></div>
             <ul>
                 <li className="active" data-title="Home" title="Home">

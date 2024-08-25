@@ -7,6 +7,7 @@ import Calendar from "./snippets/Calendar/Calendar";
 
 import './component-grid.css';
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 const ComponentGrids = () => {
     return (
@@ -43,10 +44,14 @@ const ComponentGrids = () => {
 }
 
 const ComponentGrid = ({ componentName, componentId, children }) => {
+    const componentLink = `/components/component?id=${componentId}`;
+
+    const router = useRouter();
+
     return(
-        <div className="component flex items-center justify-center mt-6">
-            <Link href={`/components/component?id=${componentId}`}>{ componentName }</Link>
-            {children}
+        <div className="component flex items-center justify-center mt-6 cursor-pointer" onClick={() => router.push(componentLink)}>
+            <Link href={componentLink}>{ componentName }</Link>
+            <div onClick={(e)=>e.stopPropagation()}>{children}</div>
             {/* <button className="preview-component" title="Preview the Component"></button> */}
         </div>
     );
