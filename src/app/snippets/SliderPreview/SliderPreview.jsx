@@ -176,7 +176,7 @@ const SliderPreview = (props) => {
     }, [componentRef.current]);
 
     return (
-      <SliderContainer className={theme} ref={componentRef} style={{opacity: 0}}>
+      <SliderContainer className={theme} ref={componentRef} style={{opacity: 0}} onClick={(e)=>e.stopPropagation()}>
         <SliderEle>
             {
                 transformsArr.map(

@@ -3,6 +3,7 @@
 import Component from '@/models/component';
 import connectDB from '@/lib/db';
 import { NextResponse } from 'next/server';
+import validateRequest from '@/lib/middleware/validateRequest';
 
 export const GET = async () => {
   try {
@@ -18,9 +19,10 @@ export const GET = async () => {
 };
 
 export const POST = async (request) => {
-    try{
-
+    try{      
         const requestObj = await request.json();
+
+        validateRequest(requestObj[0]);
 
         console.log('Request data:', requestObj);
 

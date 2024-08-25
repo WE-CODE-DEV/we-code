@@ -191,6 +191,7 @@ const GooeyNavigation = (props) => {
     }
 
     const navigateTo = (event) => {
+        event.stopPropagation();
         const link = event.target.closest('li');
 
         if(link){

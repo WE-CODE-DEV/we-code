@@ -432,7 +432,7 @@ const Search = (props) => {
   }, []);
 
   return (
-    <SearchContainer data-theme={theme} ref={componentRef} style={{opacity: 0}}>
+    <SearchContainer data-theme={theme} ref={componentRef} style={{opacity: 0}} onClick={(e)=>e.stopPropagation()}>
         <div
           className="search"
           ref={searchEleContainerRef}

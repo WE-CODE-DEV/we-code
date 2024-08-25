@@ -35,7 +35,7 @@ const ComponentGrids = () => {
                 <ComponentGrid componentName={"Search"} componentId={'66aae2abcee507776b3673b7'}>
                     <Search/>
                 </ComponentGrid>
-                <ComponentGrid componentName={"Toggling Sidebar"} componentId={'66ae0c4ff0427d0665421d73'}>
+                <ComponentGrid componentName={"Toggling Sidebar"} componentId={'66c36a0f3f91f7fd2774cb51'}>
                     <TogglingSidebar/>
                 </ComponentGrid>
             </div>

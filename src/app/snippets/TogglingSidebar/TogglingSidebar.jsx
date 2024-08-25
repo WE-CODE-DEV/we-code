@@ -240,7 +240,7 @@ const TogglingSidebar = (props) => {
       }, [componentRef.current]);
 
     return(
-        <TogglingSideBarComponent data-theme={ theme } style={{opacity: 0}} ref={componentRef}>
+        <TogglingSideBarComponent data-theme={ theme } style={{opacity: 0}} ref={componentRef} onClick={(e)=>e.stopPropagation()}>
             <nav className="toggling-navigation rounded-lg" ref={navigationRef}>
                 <div className="ul-wrapper rounded-lg">
                     <button aria-label="Toggle Navigation" onClick={() => navigationRef.current.classList.toggle('active')}>

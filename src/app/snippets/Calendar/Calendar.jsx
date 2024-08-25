@@ -550,7 +550,7 @@ const Calendar = ( props ) => {
     }, [props.theme])
 
     return (
-        <CalendarComponent data-theme={theme} ref={componentRef} style={{opacity: 0}}>
+        <CalendarComponent data-theme={theme} ref={componentRef} style={{opacity: 0}} onClick={(e)=>e.stopPropagation()}>
             <div className="calendar gap-2" data-state={isCalendarOpen ? 'open' : 'close'} ref={calendarBodyRef}>
                 <div className="calendar-input">
                     <label htmlFor="calendar-trigger" className="flex gap-1">

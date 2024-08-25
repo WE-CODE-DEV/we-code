@@ -1,14 +1,19 @@
 import React, { useState, useRef, useEffect, Suspense } from 'react';
 
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 import ComponentLoader from '../reusable-components/ComponentLoader';
 
 import styles from '../reusable-components/ComponentPreview.module.css';
 
 const ComponentPreview = (props) => {
+    const router = useRouter();
+
     const { componentPreview, details, previewDiv, getCode, themes, previewComponent } = styles;
     const { _id, name, isScale, componentName, variants } = props;
+
+    const componentLink = `/components/component?id=${_id}`;
     
     const [LoadedComponent, setLoadedComponent] = useState(null);
 
@@ -22,6 +27,8 @@ const ComponentPreview = (props) => {
     const [themesObj, setThemesObj] = useState();
 
     const changeTheme = (event) => {
+        event.stopPropagation();
+
         if(event.target.tagName === 'LI'){
             const getTheme = event.target.getAttribute('data-theme');
 
@@ -69,35 +76,38 @@ const ComponentPreview = (props) => {
 
     return (
         <>
-            { LoadedComponent ? <div className={componentPreview}>
-                <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link>
-                <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
-                    <ul className={ themes }>
-                        {
-                            themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
-                        }
-                    </ul>
-                </div>
-                {/* <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link> */}
-                <div className={ previewDiv } ref={previewRef}>
-                    <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
-                        <Suspense>
-                            <LoadedComponent theme={ theme }/>
-                        </Suspense>
+            { LoadedComponent ? 
+                <div className={componentPreview} onClick={() => router.push(componentLink)}>
+                    {/* <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link> */}
+                    <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
+                        <ul className={ themes }>
+                            {
+                                themesObj && themesObj.map(({theme, priClr, secClr}, index) => <li style={{background: `linear-gradient(to bottom right, ${priClr} 50%, ${secClr} 50%)`}} data-theme={theme} title={theme} key={`${componentName}-theme-${index}`}></li>)
+                            }
+                        </ul>
                     </div>
-                </div>
-                <div className={ details }>
-                    <Link href={`/components/component?id=${_id}`} className='w-fit'>
-                        <p className='text-lg text-white truncate max-w-[85%] min-w-fit' title={name}>{name}</p>
-                    </Link>
-                    
-                    {/* <ul className='flex gap-2'>
-                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
-                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">3D</a></li>
-                        <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">perspective</a></li>
-                    </ul> */}
-                </div>
-            </div> : <div className="component-preview relative"></div>}
+                    {/* <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link> */}
+                    <div className={ previewDiv } ref={previewRef}>
+                        <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
+                            <Suspense>
+                                <LoadedComponent theme={ theme }/>
+                            </Suspense>
+                        </div>
+                    </div>
+                    <div className={ details }>
+                        {/* <Link href={`/components/component?id=${_id}`} className='w-fit'> */}
+                            <p className='text-lg text-white truncate max-w-[85%] min-w-fit' title={name}>{name}</p>
+                        {/* </Link> */}
+                        
+                        {/* <ul className='flex gap-2'>
+                            <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">slider</a></li>
+                            <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">3D</a></li>
+                            <li><a className='bg-blue-100 px-3 py-1 rounded-2xl text-xs font-bold tracking-wider' href="">perspective</a></li>
+                        </ul> */}
+                    </div>
+                </div> : 
+                <div className="component-preview relative"></div>
+            }
         </>
     )
 }

@@ -176,7 +176,7 @@ const PaginationAnimation = (props) => {
     }, [componentRef.current]);
 
     return(
-        <PaginationComponent data-theme={theme} style={{opacity: 0}} ref={componentRef}>
+        <PaginationComponent data-theme={theme} style={{opacity: 0}} ref={componentRef} onClick={(e)=>e.stopPropagation()}>
             <div className="pagination-anim" ref={paginationULRef}>
                 <button id="prev-page" aria-label="Previous Page" title="Go To Previous Page" onClick={()=>navigateBasedOnBtn(false)}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

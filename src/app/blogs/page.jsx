@@ -2,8 +2,6 @@
 
 import './page.css';
 
-import Link from 'next/link';
-
 const Blogs = () => {
     return(
         <>
