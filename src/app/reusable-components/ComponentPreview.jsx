@@ -78,7 +78,7 @@ const ComponentPreview = (props) => {
         <>
             { LoadedComponent ? 
                 <div className={componentPreview} onClick={() => router.push(componentLink)}>
-                    {/* <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link> */}
+                    <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link>
                     <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
                         <ul className={ themes }>
                             {

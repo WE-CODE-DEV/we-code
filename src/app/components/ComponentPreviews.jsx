@@ -6,11 +6,17 @@ import ComponentPreviewSkeletonLoading from "../reusable-components/ComponentPre
 import { componentPreview } from "../reusable-components/ComponentPreview.module.css";
 
 const ComponentPreviews = () => {
-    const [components, setComponents] = useState();
+    const [components, setComponents] = useState([]);
 
     const componentsPerPage = 8;
 
-    const apiURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/api/components' : 'https://we-code-blog.netlify.app/api/components';
+    const environment = process.env.NODE_ENV;
+
+    const baseURL = environment === 'development' 
+    ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
+    : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+
+    const apiURL = `${baseURL}/api/components`;
 
     const getComponents = async () => {
         try{

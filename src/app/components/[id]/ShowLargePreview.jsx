@@ -5,10 +5,13 @@ import Link from "next/link";
 const ShowLargePreview = ({ id }) => {
     const [ component, setComponent ] = useState();
 
-    const apiURL =
-    process.env.NODE_ENV === "development"
-      ? `http://localhost:3000/api/components/component?id=${id}&operation=getById`
-      : `https://we-code-blog.netlify.app/api/components/component?id=${id}&operation=getById`;
+    const environment = process.env.NODE_ENV;
+
+    const baseURL = environment === 'development' 
+    ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
+    : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+
+    const apiURL = `${baseURL}/api/components/component?id=${id}&operation=getById`;
 
     const getComponent = async () => {
         try {

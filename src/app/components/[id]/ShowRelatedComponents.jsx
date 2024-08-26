@@ -51,7 +51,7 @@ const ShowRelatedComponents = ({ id }) => {
     const ActualComponent = () => {
         return(
             <div className="flex flex-col gap-6">
-                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Component you may like!</h2>
+                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Components you may like!</h2>
                 <div className="you-may-like gap-4">
                     {
                         relatedComponents.map(component => <ComponentPreview key={component['_id']} {...component}/>)
