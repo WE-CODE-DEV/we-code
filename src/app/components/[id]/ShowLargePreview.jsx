@@ -3,7 +3,7 @@ import ComponentLargePreview from "@/app/reusable-components/ComponentLargePrevi
 import Link from "next/link";
 
 const ShowLargePreview = ({ id }) => {
-    const [ component, setComponent ] = useState();
+    const [ component, setComponent ] = useState(null);
 
     const environment = process.env.NODE_ENV;
 
@@ -32,6 +32,7 @@ const ShowLargePreview = ({ id }) => {
             return await response.json();
         } catch (error) {
             console.log("Error in fetching the component: ", error);
+            return null;
         }
     };
 
@@ -68,51 +69,49 @@ const ShowLargePreview = ({ id }) => {
         )
     }
 
-    const ActualComponent = () => {
-        return(
-            <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-6">
-                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">
-                    {component.name}
-                </h2>
-                <ul className="flex gap-2 breadcrumbs justify-center lg:justify-start">
-                    <li>
-                        <Link href="/">
-                        Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/components/">
-                        Components
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={`/components/component?id=${id}`} className="active">{component.name}</Link>
-                    </li>
-                    </ul>
-                </div>
-                <ComponentLargePreview component={component} updateParams={false} />
+    const ActualComponent = () => (
+        <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
+            <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">
+                {component.name}
+            </h2>
+            <ul className="flex gap-2 breadcrumbs justify-center lg:justify-start">
+                <li>
+                    <Link href="/">
+                    Home
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/components/">
+                    Components
+                    </Link>
+                </li>
+                <li>
+                    <Link href={`/components/component?id=${id}`} className="active">{component.name}</Link>
+                </li>
+                </ul>
             </div>
-        );
-    }
+            <ComponentLargePreview component={component} updateParams={false} />
+        </div>
+    );
 
     useEffect(() => {
+        let isMounted = true;
+
         const loadComponent = async () => {
             const fetchedComponent = await getComponent();
         
-            setComponent(fetchedComponent);
+            if(isMounted) setComponent(fetchedComponent);
         };
     
         loadComponent();
+
+        return () => {
+            isMounted = false;
+        };
     }, [id]);
 
-    return(
-        <>
-        {
-            component ? <ActualComponent/> : <SkeletonLoading/>
-        }
-        </>
-    );
+    return component ? <ActualComponent/> : <SkeletonLoading/>;
 }
 
 export default ShowLargePreview;
