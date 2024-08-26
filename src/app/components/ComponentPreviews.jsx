@@ -6,7 +6,7 @@ import ComponentPreviewSkeletonLoading from "../reusable-components/ComponentPre
 import { componentPreview } from "../reusable-components/ComponentPreview.module.css";
 
 const ComponentPreviews = () => {
-    const [components, setComponents] = useState([]);
+    const [components, setComponents] = useState();
 
     const componentsPerPage = 8;
 
