@@ -4,12 +4,16 @@ import ComponentPreviewSkeletonLoading from "@/app/reusable-components/Component
 import ComponentPreview from "@/app/reusable-components/ComponentPreview";
 
 const ShowRelatedComponents = ({ id }) => {
-    const [relatedComponents, setRelatedComponents] = useState();
+    const [relatedComponents, setRelatedComponents] = useState([]);
+
+    const environment = process.env.NODE_ENV;
+
+    const baseURL = environment === 'development' 
+    ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
+    : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
 
     const apiURL =
-    process.env.NODE_ENV === "development"
-      ? `http://localhost:3000/api/components/component?id=${id}&operation=omitById&count=4`
-      : `https://we-code-blog.netlify.app/api/components/component?id=${id}&operation=omitById&count=4`;
+     `${baseURL}/api/components/component?id=${id}&operation=omitById&count=4`;
 
     const getRelatedComponents = async () => {
         try {
@@ -30,40 +34,37 @@ const ShowRelatedComponents = ({ id }) => {
             return await response.json();
         } catch (error) {
             console.log("Error in fetching related component: ", error);
+            return [];
         }
     };
 
-    const SkeletonLoading = () => {
-        return (
-            <div className="flex flex-col gap-6">
-                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">
+    const SkeletonLoading = () => (
+        <div className="flex flex-col gap-6">
+            <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">
                 Loading related components
-                </h2>
-                <div className="you-may-like gap-4">
-                {
-                    [...Array(4)].map((_, index) => <ComponentPreviewSkeletonLoading key={ index }/>)
-                }
-                </div>
+            </h2>
+            <div className="you-may-like gap-4">
+            {
+                [...Array(4)].map((_, index) => <ComponentPreviewSkeletonLoading key={ index }/>)
+            }
             </div>
-        );
-    }
+        </div>
+    );
 
-    const ActualComponent = () => {
-        return(
-            <div className="flex flex-col gap-6">
-                <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Components you may like!</h2>
-                <div className="you-may-like gap-4">
-                    {
-                        relatedComponents.map(component => <ComponentPreview key={component['_id']} {...component}/>)
-                    }
-                </div>
-                <Link href={"/components/"} className="pri-btn self-end tracking-wide flex items-center justify-center relative">
-                  More Components
-                  <span className="inline-block w-5 h-5 ml-2 animate-pulse absolute right-4"></span>
-              </Link>
+    const ActualComponent = () => (
+        <div className="flex flex-col gap-6">
+            <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Components you may like!</h2>
+            <div className="you-may-like gap-4">
+                {
+                    relatedComponents.map(component => <ComponentPreview key={component['_id']} {...component}/>)
+                }
             </div>
-        );
-    }
+            <Link href={"/components/"} className="pri-btn self-end tracking-wide flex items-center justify-center relative">
+                More Components
+                <span className="inline-block w-5 h-5 ml-2 animate-pulse absolute right-4"></span>
+            </Link>
+        </div>
+    );
 
     useEffect(() => {
         const loadComponents = async () => {
@@ -75,13 +76,7 @@ const ShowRelatedComponents = ({ id }) => {
         loadComponents();
     }, [id]);
 
-    return (
-        <>
-        {
-            relatedComponents ? <ActualComponent/> : <SkeletonLoading/>
-        }
-        </>
-    );
+    return relatedComponents.length > 0 ? <ActualComponent/> : <SkeletonLoading/>;
 }
 
 export default ShowRelatedComponents;
