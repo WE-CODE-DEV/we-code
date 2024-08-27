@@ -96,7 +96,7 @@ const ComponentCode = ({ componentName, theme }) => {
               <li className="w-3 h-3 bg-yellow-500 rounded-full"></li>
               <li className="w-3 h-3 bg-green-500 rounded-full"></li>
             </ul>
-            <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2 min-h-[37px]">
+            <div className="overflow-x-auto overflow-y-hidden lg:overflow-visible mr-2 min-h-[34px]">
               <ul className="tabs flex gap-2">
                 {
                   codeMap ? codeMap[curCodeVarIndex].map((arr, index) => {
@@ -170,7 +170,7 @@ const ComponentCode = ({ componentName, theme }) => {
             }
           </div>
         </div>
-        <div className="flex gap-1.5 mt-1.5 items-center justify-end transition-all"><input type="checkbox" name="Wrap Code" id="line-wrap" className="accent-zinc-300 opacity-80 hover:opacity-100 transition-all w-2.5 h-2.5 cursor-pointer" defaultChecked={lineWrap} onChange={()=>setLineWrap(!lineWrap)}/><label htmlFor="line-wrap" className="cursor-pointer text-zinc-300 text-xs select-none opacity-80 hover:opacity-100">Line Wrap</label></div>
+        <div className="flex gap-1.5 mt-1.5 items-center justify-end transition-all"><input type="checkbox" name="Wrap Code" id="line-wrap" className="accent-zinc-300 opacity-80 hover:opacity-100 transition-all w-2.5 h-2.5 cursor-pointer" defaultChecked={lineWrap} onChange={()=>setLineWrap(!lineWrap)}/><label htmlFor="line-wrap" className="cursor-pointer text-zinc-300 text-xs select-none opacity-80 hover:opacity-100">Line wrap</label></div>
       </div>
     </>
   );
@@ -337,7 +337,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
                 </div>
                 <button
                   className="go-to-code"
-                  title="Go to Code"
+                  title="Navigate to code"
                   onClick={() => setCurrentTab(1)}
                 ></button>
                 <Component

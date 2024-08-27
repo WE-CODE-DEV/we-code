@@ -101,7 +101,7 @@
   }
   
   .screen .tab{
-    @apply bg-[#22262f] text-sm text-slate-400 tracking-wider transition-all cursor-pointer relative border border-slate-700 border-b-0 border-b-[#22262f];
+    @apply bg-[#22262f] text-xs md:text-sm text-slate-400 tracking-wider transition-all cursor-pointer relative border border-slate-700 border-b-0 border-b-[#22262f];
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
   }
@@ -209,7 +209,38 @@
   .wrap span{
     white-space: wrap;
   }
+
+  .floating:hover{
+    &::before{
+      opacity: 1;
+      bottom: calc(100% + .5em);
+    }
+  }
+
+  .floating::before{
+    content: 'Copy to clipboard';
+    position: absolute;
+    background: linear-gradient(to bottom right, #eff6ff, #93c5fd);
+    color: #1e3a8a;
+    font-size: 12px;
+    white-space: nowrap;
+    padding: .5em 1em;
+    font-weight: 600;
+    border-radius: .5em;
+    opacity: 0;
+    bottom: 100%;
+    transition: .3s;
+    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
+  }
+
+  .floating[data-iscopied='false']::before{
+    content: 'Copy to clipboard';
+  }
   
+  .floating[data-iscopied='true']::before{
+    content: 'Copied to clipboard';
+  }
+
   .floating[data-iscopied='false'] .clipboard-path{
     d: path("M7 14.5h8M7 18h5.5");
   }

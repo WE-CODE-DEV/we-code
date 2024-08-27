@@ -6,6 +6,21 @@
  * @homepage https://github.com/ArmandPhilippot/coldark-prism
  * @license MIT
  */
+pre{
+	@media (max-width: 700px){
+		font-size: 14px;
+	}
+}
+
+
+pre.line-numbers{
+	overflow: hidden !important;
+}
+
+pre.line-numbers .line-numbers-rows > span::before{
+    background-color: rgb(34, 35, 40);
+}
+
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #e3eaf2;

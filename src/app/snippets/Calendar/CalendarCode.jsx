@@ -87,6 +87,7 @@ const htmlCode = `
     <script src="./index.js"></script>
 </body>
 </html>
+
 `;
 
 const cssCode = `
@@ -479,6 +480,7 @@ const cssCode = `
   -webkit-mask-image: linear-gradient(to right, transparent, #000, transparent);
   mask-image: linear-gradient(to right, transparent, #000, transparent);
 }
+
 `;
 
 const jsCode = `
@@ -715,6 +717,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showHideCalendar(calendarOpen);
     });
 });
+
 `;
 
 const reactCode = `

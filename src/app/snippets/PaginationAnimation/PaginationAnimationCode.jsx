@@ -47,6 +47,7 @@ const htmlCode = `
     <script src="./index.js"></script>
 </body>
 </html>
+
 `;
 
 const cssCode = `

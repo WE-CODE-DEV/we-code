@@ -67,6 +67,7 @@ const htmlCode = `
     <script src="./index.js"></script>
 </body>
 </html>
+
 `;
 
 const cssCode = `
@@ -213,6 +214,7 @@ const cssCode = `
     filter: var(--slightShadow);
     opacity: 1; 
 }
+
 `;
 
 const jsCode = `
@@ -265,6 +267,7 @@ navigation.addEventListener('click', (event) => {
         moveStrip(link, index);
     }
 });
+
 `;
 
 const reactCode = `
@@ -348,6 +351,7 @@ const GooeyNavigation = () => {
 }
 
 export default GooeyNavigation;
+
 `;
 
 const codeMap = {

@@ -75,6 +75,7 @@ const htmlCode = `
     <script src="./index.js"></script>
 </body>
 </html>
+
 `;
 
 const cssCode = `
@@ -391,6 +392,7 @@ const cssCode = `
   height: 100%;
   width: 100%;
 }
+
 `;
 
 const jsCode = `
@@ -480,6 +482,7 @@ function handleSearchInput(){
         clearTimeout(loadingTimeDelay);
     }, 1000);
 }
+
 `;
 
 const reactCode = `
@@ -646,6 +649,7 @@ const Search = () => {
 };
 
 export default Search;
+
 `;
 
 const codeMap = {

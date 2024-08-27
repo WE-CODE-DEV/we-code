@@ -114,8 +114,8 @@ const htmlCode = `
     </div>
     <script src="./index.js"></script>
 </body>
-
 </html>
+
 `;
 
 const cssCode = `
@@ -290,6 +290,7 @@ const cssCode = `
     position: absolute;
     bottom: 200%;
 }
+
 `;
 
 const jsCode = `
@@ -315,6 +316,7 @@ svgs.forEach(svg => {
         animatable.style.setProperty('--thisLength', totalLength);
     })
 });
+
 `;
 
 const reactCode = `
