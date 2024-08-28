@@ -11,6 +11,12 @@ const ComponentCode = ({ componentName, theme }) => {
   const [text, setText] = useState("");
   const [lineWrap, setLineWrap] = useState(false);
 
+  const wrapLine = () => {
+    const newLineWrap = !lineWrap;
+    setLineWrap(newLineWrap);
+    localStorage.setItem('LINE_WRAP', JSON.stringify(newLineWrap));
+  }
+
   const copyToClipboard = async (event) => {
     try{
       await navigator.clipboard.writeText(text);
@@ -68,6 +74,13 @@ const ComponentCode = ({ componentName, theme }) => {
   useEffect(() => {
     codeMap && setText(codeMap[curCodeVarIndex]?.[curTabIndex]?.[0] || "");
   }, [curCodeVarIndex, curTabIndex, codeMap]);
+
+  useEffect(() => {
+    const savedLineWrap = JSON.parse(localStorage.getItem('LINE_WRAP'));
+    if (savedLineWrap !== null) {
+      setLineWrap(savedLineWrap);
+    }
+  }, []);
 
   return (
     <>
@@ -170,7 +183,7 @@ const ComponentCode = ({ componentName, theme }) => {
             }
           </div>
         </div>
-        <div className="flex gap-1.5 mt-1.5 items-center justify-end transition-all"><input type="checkbox" name="Wrap Code" id="line-wrap" className="accent-zinc-300 opacity-80 hover:opacity-100 transition-all w-2.5 h-2.5 cursor-pointer" defaultChecked={lineWrap} onChange={()=>setLineWrap(!lineWrap)}/><label htmlFor="line-wrap" className="cursor-pointer text-zinc-300 text-xs select-none opacity-80 hover:opacity-100">Line wrap</label></div>
+        <div className="flex gap-1.5 mt-1.5 items-center justify-end transition-all"><input type="checkbox" name="Wrap Code" id="line-wrap" className="accent-zinc-300 opacity-80 hover:opacity-100 transition-all w-2.5 h-2.5 cursor-pointer" checked={lineWrap} onChange={wrapLine}/><label htmlFor="line-wrap" className="cursor-pointer text-zinc-300 text-xs select-none opacity-80 hover:opacity-100">Line wrap</label></div>
       </div>
     </>
   );
