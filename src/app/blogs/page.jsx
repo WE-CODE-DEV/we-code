@@ -45,7 +45,7 @@ const Blogs = () => {
                             <div className="flex-1 rounded-md relative bg-[#475569]">
                                 <div className="px-2 py-4 h-full flex flex-col gap-6 items-center justify-center text-center overflow-hidden">
                                     <div className='w-full h-80 px-4 relative'>
-                                        <div className='w-full h-full absolute top-0 left-0 rounded-xl flex flex-col px-4 text-sm leading-8'>
+                                        <div className='w-full h-full absolute top-0 left-0 rounded-xl flex flex-col px-4 text-xs leading-6 md:text-sm md:leading-8'>
                                             <p className='text-left text-blue-100 tracking-wider font-sans'>code@wecode ~ % sudo debug</p>
                                             <p className='text-left text-blue-100 tracking-wider font-sans'>Ready to debug.</p>
                                             <p className='text-left text-blue-100 tracking-wider font-sans'>If you wish to continue type ( Y ) then press return: Y</p>
