@@ -1,7 +1,9 @@
+import Link from 'next/link';
+
 const AppFooter = () => {
     return(
         <div className="app-footer bg-gradient-to-b from-blue-50 to-blue-200 border border-dashed border-l-0 border-r-0 border-b-0 border-blue-400 shadow-inner">
-          <footer className="wrapper py-6 lg:py-8">
+          <footer className="wrapper py-6 lg:py-8 flex items-center justify-between">
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-6">
               <div className="max-w-96 flex flex-col gap-4">
                 <div>
@@ -29,6 +31,19 @@ const AppFooter = () => {
                   <p>Consider contributing</p>
                 </div>
               </div> */}
+            <div className="">
+              <ul className="flex flex-col gap-2">
+                <li className="text-sm">
+                  <Link href="/">Home</Link>
+                </li>
+                <li className="text-sm">
+                  <Link href="/components">Components</Link>
+                </li>
+                <li className="text-sm">
+                  <Link href="/blogs">Blogs <span>Coming soon</span></Link>
+                </li>
+              </ul>
+            </div>
             </div>
           </footer>
         </div>

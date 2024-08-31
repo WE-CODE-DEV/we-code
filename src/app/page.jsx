@@ -59,6 +59,18 @@ export default function Home() {
             </div>
             <ComponentLargePreview component={component} updateParams={false}/>
           </section>
+          <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8">
+            <div className="flex flex-col gap-2">
+              <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">Vision</h2>
+              <p className="mt-2 text-lg">We envision a world where coding knowledge flows freely, empowering millions. Our goal: to nurture <span className="font-semibold">1M+ active users in two years,</span> guiding them through free blogs and newsletters. We're not just sharing code; we're becoming the mentors we once yearned for. With every component we craft and every lesson we share, <span className="font-semibold">we're sculpting a future where aspiring minds can flourish without barriers.</span></p>
+            </div>
+          </section>
+          <section className="clipboard wrapper flex flex-col gap-6 py-6 lg:py-8 mb-6">
+            <div className="flex flex-col gap-2">
+              <h2 className="font-extrabold text-2xl lg:text-3xl leading-tight txt-shadow text-transparent bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text">About us</h2>
+              <p className="mt-2 text-lg">We're coders with a dream to <span className="font-semibold">democratize web development.</span> At We Code, <span className="font-semibold">we craft and curate free, high-quality coding components,</span> making the digital canvas accessible to everyone. Our small, passionate team believes that creativity shouldn't be constrained by cost or complexity. Join us in building a world where everyone has the tools to bring their <span className="font-semibold">web visions to life.</span></p>
+            </div>
+          </section>
       </>
   );
 }
