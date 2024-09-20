@@ -536,7 +536,9 @@ const DigitalClockComponent = styled.div`
 
     label {
       background: var(--bg);
-      box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
+      /* box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25); */
+      box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1),
+      1px 1px 5px 1px rgba(0, 0, 0, 0.15);
 
       &:active::before {
         width: 1.25rem;

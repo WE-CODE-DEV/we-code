@@ -13,7 +13,7 @@ const ComponentPreview = (props) => {
     const { componentPreview, details, previewDiv, getCode, themes, previewComponent } = styles;
     const { _id, name, isScale, componentName, variants } = props;
 
-    const componentLink = `/components/component?id=${_id}`;
+    const [componentLink, setComponentLink] = useState(`/components/component?id=${_id}`);
     
     const [LoadedComponent, setLoadedComponent] = useState(null);
 
@@ -37,6 +37,10 @@ const ComponentPreview = (props) => {
             const { top } = event.target.getBoundingClientRect();
 
             event.target.closest('ul').style.setProperty('--circleY', `${top - parentY}px`);
+
+            const componentLinkArr = componentLink.split('&');
+
+            console.log(`${componentLinkArr[0]}&theme=${getTheme}`);
 
             setTheme(getTheme);
         }
