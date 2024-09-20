@@ -86,7 +86,7 @@ const ComponentPreview = (props) => {
                             }
                         </ul>
                     </div>
-                    {/* <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link> */}
+                    <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link>
                     <div className={ previewDiv } ref={previewRef}>
                         <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
                             <Suspense>
