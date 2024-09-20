@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import ComponentPreviewSkeletonLoading from "@/app/reusable-components/ComponentPreviewSkeletonLoading";
 import ComponentPreview from "@/app/reusable-components/ComponentPreview";
 
 const ShowRelatedComponents = ({ id }) => {
+    console.log('rerendered');
     const [relatedComponents, setRelatedComponents] = useState([]);
 
     const environment = process.env.NODE_ENV;
@@ -79,4 +80,6 @@ const ShowRelatedComponents = ({ id }) => {
     return relatedComponents.length > 0 ? <ActualComponent/> : <SkeletonLoading/>;
 }
 
-export default ShowRelatedComponents;
+export default React.memo(ShowRelatedComponents, (prevProps, nextProps) => {
+    return prevProps.id === nextProps.id;
+});

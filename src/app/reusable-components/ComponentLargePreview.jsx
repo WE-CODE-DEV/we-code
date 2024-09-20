@@ -11,6 +11,10 @@ const ComponentCode = ({ componentName, theme }) => {
   const [text, setText] = useState("");
   const [lineWrap, setLineWrap] = useState(false);
 
+  const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+
   const wrapLine = () => {
     const newLineWrap = !lineWrap;
     setLineWrap(newLineWrap);
@@ -65,7 +69,7 @@ const ComponentCode = ({ componentName, theme }) => {
     };
 
     importModule();
-  }, [componentName]);
+  }, [componentName, theme]);
 
   useEffect(() => {
     setCurTabIndex(0);
@@ -249,13 +253,17 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
     const parent = tabsRef.current;
 
     if(updateParams){
+      const newParams = new URLSearchParams(searchParams);
+
       if (index === 0) {
-        params.set('preview', 'true');
-        params.delete('code');
+        newParams.set('preview', 'true');
+        newParams.delete('code');
       } else if (index === 1) {
-        params.set('code', 'true');
-        params.delete('preview');
+        newParams.set('code', 'true');
+        newParams.delete('preview');
       }
+
+      router.replace(`${pathName}?${newParams.toString()}`, undefined, { shallow: true });
     }
 
     if(parent) {
@@ -268,13 +276,11 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       tabsRef.current.style.setProperty("--tabW", `${width}px`);
       tabsRef.current.style.setProperty("--tabH", `${height}px`);
       tabsRef.current.style.setProperty("--tabX", `${left - parentX}px`);
+    }
 
       setCurrentTab(index);
 
       if(index === 0) changeThemeIndicator();
-
-      updateParams && router.replace(`${pathName}?${params.toString()}`, undefined, { shallow: true });
-    }
   };
 
   useEffect(() => moveToTab(currentTab), [currentTab]);

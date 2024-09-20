@@ -91,7 +91,7 @@ const ShowLargePreview = ({ id }) => {
                 </li>
                 </ul>
             </div>
-            <ComponentLargePreview component={component} updateParams={false} />
+            <ComponentLargePreview component={component} updateParams={true} />
         </div>
     );
 
