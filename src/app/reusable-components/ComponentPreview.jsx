@@ -40,7 +40,10 @@ const ComponentPreview = (props) => {
 
             const componentLinkArr = componentLink.split('&');
 
-            console.log(`${componentLinkArr[0]}&theme=${getTheme}`);
+            if(componentLinkArr.length > 0){
+                setComponentLink(`${componentLinkArr[0]}&theme=${getTheme}`);
+            }
+
 
             setTheme(getTheme);
         }
@@ -57,7 +60,6 @@ const ComponentPreview = (props) => {
             // const heightScale = (previewHeight / 1.25) / componentHeight;
 
             componentRef.current.style.opacity = '1';
-            // console.log('testing');
             setScale(widthScale);
         }
     };
@@ -82,7 +84,7 @@ const ComponentPreview = (props) => {
         <>
             { LoadedComponent ? 
                 <div className={componentPreview} onClick={() => router.push(componentLink)}>
-                    <Link href={`/components/component?id=${_id}`} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component"></Link>
+                    <Link href={componentLink} className={ previewComponent } title="Preview the Component" aria-label="Preview the Component" onClick={(e) => e.stopPropagation()}></Link>
                     <div className="absolute top-[50%] translate-y-[-50%] right-5 rounded-full z-[1]" ref={variantsRef} onClick={changeTheme}>
                         <ul className={ themes }>
                             {
@@ -90,7 +92,7 @@ const ComponentPreview = (props) => {
                             }
                         </ul>
                     </div>
-                    <Link href={`/components/component?id=${_id}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"></Link>
+                    <Link href={`${componentLink}&code=true`} className={ getCode } title="Get Code" aria-label="Get Code"  onClick={(e) => e.stopPropagation()}></Link>
                     <div className={ previewDiv } ref={previewRef}>
                         <div className='transition-all' ref={componentRef} style={{ transform: `scale(${scale})`, opacity: isScale ? 0 : 1 }}>
                             <Suspense>

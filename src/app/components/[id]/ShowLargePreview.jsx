@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import ComponentLargePreview from "@/app/reusable-components/ComponentLargePreview";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 const ShowLargePreview = ({ id }) => {
     const [ component, setComponent ] = useState(null);
+
+    const router = useRouter();
 
     const [loading, setLoading] = useState(true);
 
     const environment = process.env.NODE_ENV;
 
-    const baseURL = environment === 'development' 
-    ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
-    : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+    // const baseURL = environment === 'development' 
+    // ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
+    // : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+
+    const baseURL = window.location.origin;
 
     const apiURL = `${baseURL}/api/components/component?id=${id}&operation=getById`;
 
@@ -33,6 +38,7 @@ const ShowLargePreview = ({ id }) => {
 
             return await response.json();
         } catch (error) {
+            router.push('/components');
             console.log("Error in fetching the component: ", error);
             return null;
         }
@@ -99,6 +105,11 @@ const ShowLargePreview = ({ id }) => {
         const loadComponent = async () => {
             setLoading(true);
             const fetchedComponent = await getComponent();
+
+            if(!fetchedComponent){
+                router.push('/components');
+                return;
+            }
         
             setComponent(fetchedComponent);
             setLoading(false);

@@ -7,6 +7,7 @@ import ShowLargePreview from "./ShowLargePreview";
 import ShowRelatedComponents from "./ShowRelatedComponents";
 
 const ComponentView = () => {
+  // console.log(window.location.origin);
   const router = useRouter();
 
   const searchParams = useSearchParams();

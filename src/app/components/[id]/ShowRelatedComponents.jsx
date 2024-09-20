@@ -9,9 +9,11 @@ const ShowRelatedComponents = ({ id }) => {
 
     const environment = process.env.NODE_ENV;
 
-    const baseURL = environment === 'development' 
-    ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
-    : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+    // const baseURL = environment === 'development' 
+    // ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
+    // : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
+
+    const baseURL = window.location.origin;
 
     const apiURL =
      `${baseURL}/api/components/component?id=${id}&operation=omitById&count=4`;

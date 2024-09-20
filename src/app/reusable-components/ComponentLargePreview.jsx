@@ -11,10 +11,6 @@ const ComponentCode = ({ componentName, theme }) => {
   const [text, setText] = useState("");
   const [lineWrap, setLineWrap] = useState(false);
 
-  const router = useRouter();
-  const pathName = usePathname();
-  const searchParams = useSearchParams();
-
   const wrapLine = () => {
     const newLineWrap = !lineWrap;
     setLineWrap(newLineWrap);
@@ -36,7 +32,7 @@ const ComponentCode = ({ componentName, theme }) => {
     }catch(err){
       console.log(err);
     }
-  }
+  } 
 
   useEffect(() => {
     const importModule = async () => {
@@ -229,15 +225,17 @@ const Component = ({ componentName, theme, reload }) => {
 };
 
 const ComponentLargePreview = ({ component, updateParams = true }) => {
-  const [theme, setTheme] = useState("dark");
-  const { variants, componentName } = component;
-  const [reload, setReload] = useState(false);
-
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-
+  
   const params = new URLSearchParams(searchParams);
+
+  const hasTheme = params.has('theme');
+  // const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(hasTheme ? params.get('theme') : "dark");
+  const { variants, componentName } = component;
+  const [reload, setReload] = useState(false);
   
   const hasPreview = params.has('preview');
   const hasCode = params.has('code');
@@ -283,6 +281,17 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       if(index === 0) changeThemeIndicator();
   };
 
+  useEffect(() => {
+    if (hasCode) {
+      setCurrentTab(1);
+    } else if (hasPreview) {
+      setCurrentTab(0);
+    }
+    else{
+      setCurrentTab(0);
+    }
+  }, [searchParams]); 
+
   useEffect(() => moveToTab(currentTab), [currentTab]);
 
   const changeTheme = (targetEle) => {
@@ -306,6 +315,11 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       const liElems = variantsRef.current.querySelectorAll('li');
 
       const targetLi = Array.from(liElems).filter(li => li.getAttribute('data-theme') === theme)[0];
+      
+      if(!targetLi){
+        router.push('/components');
+        return;
+      }
       
       changeTheme(targetLi);
     }
