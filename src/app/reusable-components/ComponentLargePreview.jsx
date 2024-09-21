@@ -253,15 +253,17 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
   const tabsRef = useRef(null);
 
   const moveToTab = (index) => {
+    // if(index === currentTab) return;
+
     const parent = tabsRef.current;
 
     if(updateParams){
       const newParams = new URLSearchParams(searchParams);
 
-      if (index === 0) {
+      if (index === 0 && !newParams.has('preview')) {
         newParams.set('preview', 'true');
         newParams.delete('code');
-      } else if (index === 1) {
+      } else if (index === 1 && !newParams.has('code')){
         newParams.set('code', 'true');
         newParams.delete('preview');
       }
@@ -281,9 +283,9 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       tabsRef.current.style.setProperty("--tabX", `${left - parentX}px`);
     }
 
-      setCurrentTab(index);
+    setCurrentTab(index);
 
-      if(index === 0) changeThemeIndicator();
+    if(index === 0) changeThemeIndicator();
   };
 
   useEffect(() => {
@@ -293,7 +295,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
     else{
       setCurrentTab(0);
     }
-  }, [searchParams]); 
+  }, [hasCode, searchParams]); 
 
   useEffect(() => moveToTab(currentTab), [currentTab]);
 
@@ -310,6 +312,13 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       .closest("ul")
       .style.setProperty("--circleY", `${Math.ceil(top - parentY)}px`);
 
+    if(theme !== getTheme){
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set('theme', getTheme);
+          
+      router.replace(`${pathName}?${newParams.toString()}`, undefined, { shallow: true });
+    }
+
     setTheme(getTheme);
   }
 
@@ -317,11 +326,11 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
     if(variantsRef.current){
       const liElems = variantsRef.current.querySelectorAll('li');
 
-      const targetLi = Array.from(liElems).filter(li => li.getAttribute('data-theme') === theme)[0];
+      let targetLi = Array.from(liElems).filter(li => li.getAttribute('data-theme') === theme)[0];
       
       if(!targetLi){
-        router.push('/components');
-        return;
+        setTheme('dark');
+        targetLi = liElems[0];
       }
 
       const timer = setTimeout(() => {
@@ -329,7 +338,6 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       }, 200);
     
       return () => clearTimeout(timer);
-      
     }
   }
 
