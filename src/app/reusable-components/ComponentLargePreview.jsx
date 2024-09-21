@@ -231,16 +231,21 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
   
   const params = new URLSearchParams(searchParams);
 
-  const hasTheme = params.has('theme');
+  // const hasTheme = params.has('theme');
+  const initialTheme = params.get('theme') || 'dark';
   // const [theme, setTheme] = useState("dark");
-  const [theme, setTheme] = useState(hasTheme ? params.get('theme') : "dark");
+  const [theme, setTheme] = useState(initialTheme);
   const { variants, componentName } = component;
   const [reload, setReload] = useState(false);
   
   const hasPreview = params.has('preview');
   const hasCode = params.has('code');
 
-  const [currentTab, setCurrentTab] = useState(updateParams ? (hasPreview || !hasPreview && !hasCode ? 0 : 1) : 0);
+  const initialTab = updateParams
+  ? (hasPreview || (!hasPreview && !hasCode) ? 0 : 1)
+  : 0;
+
+  const [currentTab, setCurrentTab] = useState(initialTab);
 
   const variantsRef = useRef(null);
   const themesObj = variants;
@@ -261,7 +266,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
         newParams.delete('preview');
       }
 
-      router.replace(`${pathName}?${newParams.toString()}`, undefined, { shallow: true });
+      router.push(`${pathName}?${newParams.toString()}`, undefined, { shallow: true });
     }
 
     if(parent) {
@@ -284,8 +289,6 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
   useEffect(() => {
     if (hasCode) {
       setCurrentTab(1);
-    } else if (hasPreview) {
-      setCurrentTab(0);
     }
     else{
       setCurrentTab(0);
@@ -305,7 +308,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
 
     targetEle
       .closest("ul")
-      .style.setProperty("--circleY", `${top - parentY}px`);
+      .style.setProperty("--circleY", `${Math.ceil(top - parentY)}px`);
 
     setTheme(getTheme);
   }
@@ -320,8 +323,13 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
         router.push('/components');
         return;
       }
+
+      const timer = setTimeout(() => {
+        changeTheme(targetLi);
+      }, 200);
+    
+      return () => clearTimeout(timer);
       
-      changeTheme(targetLi);
     }
   }
 

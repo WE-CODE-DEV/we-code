@@ -44,7 +44,6 @@ const ComponentPreview = (props) => {
                 setComponentLink(`${componentLinkArr[0]}&theme=${getTheme}`);
             }
 
-
             setTheme(getTheme);
         }
     }
