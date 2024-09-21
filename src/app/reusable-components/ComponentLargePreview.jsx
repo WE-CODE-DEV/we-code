@@ -312,7 +312,7 @@ const ComponentLargePreview = ({ component, updateParams = true }) => {
       .closest("ul")
       .style.setProperty("--circleY", `${Math.ceil(top - parentY)}px`);
 
-    if(theme !== getTheme){
+    if(theme !== getTheme && updateParams){
       const newParams = new URLSearchParams(searchParams);
       newParams.set('theme', getTheme);
           
