@@ -7,16 +7,17 @@ import { componentPreview } from "../reusable-components/ComponentPreview.module
 
 const ComponentPreviews = () => {
     const [components, setComponents] = useState();
+    const [baseURL, setBaseURL] = useState('');
 
     const componentsPerPage = 8;
 
-    const environment = process.env.NODE_ENV;
+    // const environment = process.env.NODE_ENV;
 
     // const baseURL = environment === 'development' 
     // ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
     // : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
 
-    const baseURL = window.location.origin;
+    // const baseURL = window.location.origin;
 
     const apiURL = `${baseURL}/api/components`;
 
@@ -54,6 +55,12 @@ const ComponentPreviews = () => {
             </>
         )
     }
+
+    useEffect(() => {
+        if(typeof window !== 'undefined'){
+            setBaseURL(window.location.origin);
+        }
+    }, []);
         
     useEffect(() => {
         const loadComponents = async () => {
@@ -62,7 +69,7 @@ const ComponentPreviews = () => {
         };
 
         loadComponents();
-    }, []);
+    }, [baseURL]);
 
     return (
         <div className="flex-1 flex flex-col relative">

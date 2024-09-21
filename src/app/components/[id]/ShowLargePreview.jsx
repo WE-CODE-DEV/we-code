@@ -4,19 +4,17 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 
 const ShowLargePreview = ({ id }) => {
-    const [ component, setComponent ] = useState(null);
+    const [ component, setComponent ] = useState(null);    
+    const [loading, setLoading] = useState(true);
+    const [baseURL, setBaseURL] = useState('');
 
     const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
-
-    const environment = process.env.NODE_ENV;
+    // const environment = process.env.NODE_ENV;
 
     // const baseURL = environment === 'development' 
     // ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
     // : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
-
-    const baseURL = window.location.origin;
 
     const apiURL = `${baseURL}/api/components/component?id=${id}&operation=getById`;
 
@@ -102,6 +100,12 @@ const ShowLargePreview = ({ id }) => {
     );
 
     useEffect(() => {
+        if(typeof window !== 'undefined'){
+            setBaseURL(window.location.origin);
+        }
+    }, []);
+
+    useEffect(() => {
         const loadComponent = async () => {
             setLoading(true);
             const fetchedComponent = await getComponent();
@@ -120,7 +124,7 @@ const ShowLargePreview = ({ id }) => {
         return () => {
             setComponent(null);
         };
-    }, [id]);
+    }, [id, baseURL]);
 
     return loading ? <SkeletonLoading /> : <ActualComponent />;
 }

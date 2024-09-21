@@ -6,14 +6,15 @@ import ComponentPreview from "@/app/reusable-components/ComponentPreview";
 const ShowRelatedComponents = ({ id }) => {
     console.log('rerendered');
     const [relatedComponents, setRelatedComponents] = useState([]);
+    const [baseURL, setBaseURL] = useState('');
 
-    const environment = process.env.NODE_ENV;
+    // const environment = process.env.NODE_ENV;
 
     // const baseURL = environment === 'development' 
     // ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL 
     // : process.env.NEXT_PUBLIC_BASE_URL_LIVE;
 
-    const baseURL = window.location.origin;
+    // const baseURL = window.location.origin;
 
     const apiURL =
      `${baseURL}/api/components/component?id=${id}&operation=omitById&count=4`;
@@ -70,6 +71,12 @@ const ShowRelatedComponents = ({ id }) => {
     );
 
     useEffect(() => {
+        if(typeof window !== 'undefined'){
+            setBaseURL(window.location.origin);
+        }
+    }, []);
+
+    useEffect(() => {
         const loadComponents = async () => {
             const fetchedRelatedComponents = await getRelatedComponents();
 
@@ -77,7 +84,7 @@ const ShowRelatedComponents = ({ id }) => {
         }
 
         loadComponents();
-    }, [id]);
+    }, [id, baseURL]);
 
     return relatedComponents.length > 0 ? <ActualComponent/> : <SkeletonLoading/>;
 }
