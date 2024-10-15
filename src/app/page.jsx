@@ -37,6 +37,7 @@ export default function Home() {
     "__v": 0
   };
 
+
   return (
       <>
           <MainHero/>
