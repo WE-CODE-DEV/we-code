@@ -79,13 +79,14 @@
 
   .themes::before{
     content: '';
-    @apply absolute rounded-full border-2 border-blue-100;
+    @apply absolute rounded-full;
     width: 20px;
     height: 20px;
     top: var(--circleY, -0%);
     left: 50%;
-    transform: translateX(-50%) scale(1.25);
+    transform: translateX(-50%) scale(1.1);
     transition: .3s;
+    box-shadow: 0 0 0 2px #dbeafe;
     transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1.2);
   }
 
