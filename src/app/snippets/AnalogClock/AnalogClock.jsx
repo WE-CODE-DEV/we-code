@@ -38,11 +38,11 @@ const AnalogClockComponent = styled.div`
         width: var(--wh);
         height: var(--wh);
         position: absolute;
-        background: var(--secBg);
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 50%;
+        background: conic-gradient(from var(--start), var(--priBg) 2deg, var(--priBg) var(--end), var(--secBg) 2deg, var(--secBg));
     }
 
     &::after{
@@ -215,6 +215,8 @@ const AnalogClock = (props) => {
     const [minuteDeg, setMinuteDeg] = useState(0);
     const [hourDeg, setHourDeg] = useState(0);
     const [secDeg, setSecDeg] = useState(0);
+    const [startDeg, setStartDeg] = useState(0);
+    const [endDeg, setEndDeg] = useState(0);
 
     const changeTime = () => {
         const time = new Date();
@@ -222,6 +224,21 @@ const AnalogClock = (props) => {
         const hour = time.getHours();
         const minute = time.getMinutes();
         const second = time.getSeconds();
+
+        const secondsAngle = time.getSeconds() * 6;
+        const minsAngle = time.getMinutes() * 6 + secondsAngle / 60;
+        const hourAngle = ((time.getHours() % 12) / 12) * 360  + minsAngle / 12;
+
+        let startPosition = minsAngle;
+        let endPosition = hourAngle - minsAngle;
+
+        if (minsAngle > hourAngle) {
+            startPosition = minsAngle - 360;
+            endPosition = hourAngle - startPosition;
+        }
+
+        setStartDeg(startPosition);
+        setEndDeg(endPosition);
     
         setHourDeg((hour % 12) * 30 + minute * 0.5);
         setMinuteDeg(minute * 6);
@@ -241,8 +258,8 @@ const AnalogClock = (props) => {
       }, [componentRef.current]);
 
     return(
-        <AnalogClockComponent data-theme={ theme } style={{opacity: 0}} ref={componentRef} onClick={(e)=>e.stopPropagation()}>
-            <div className="clock" style={{'--minuteDeg': `${minuteDeg}deg`, '--hourDeg': `${hourDeg}deg`,'--secDeg': `${secDeg}deg`}}>
+        <AnalogClockComponent data-theme={ theme } ref={componentRef} onClick={(e)=>e.stopPropagation()} style={{ opacity:0 ,'--minuteDeg': `${minuteDeg}deg`, '--hourDeg': `${hourDeg}deg`, '--secDeg': `${secDeg}deg`, '--start': `${startDeg}deg`, '--end': `${endDeg}deg`}}>
+            <div className="clock">
                 {Array(12)
                     .fill("_")
                     .map((_, index) => (

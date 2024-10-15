@@ -90,6 +90,7 @@ const cssCode = `
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 50%;
+        background: conic-gradient(from var(--start), var(--priBg) 2deg, var(--priBg) var(--end), var(--secBg) 2deg, var(--secBg));
     }
 
     &::after{
@@ -268,6 +269,21 @@ const changeTime = () => {
     const minute = time.getMinutes();
     const second = time.getSeconds();
 
+    const secondsAngle = time.getSeconds() * 6;
+    const minsAngle = time.getMinutes() * 6 + secondsAngle / 60;
+    const hourAngle = ((time.getHours() % 12) / 12) * 360  + minsAngle / 12;
+
+    let startPosition = minsAngle;
+    let endPosition = hourAngle - minsAngle;
+
+    if (minsAngle > hourAngle) {
+        startPosition = minsAngle - 360;
+        endPosition = hourAngle - startPosition;
+    }
+    
+    clock.style.setProperty("--start", startPosition + "deg");
+    clock.style.setProperty("--end", endPosition + "deg");
+
     const hourDeg = (hour % 12) * 30 + minute * 0.5;
     const minuteDeg = minute * 6;
     const secondDeg = second * 6;
@@ -292,6 +308,8 @@ const AnalogClock = () => {
     const [minuteDeg, setMinuteDeg] = useState(0);
     const [hourDeg, setHourDeg] = useState(0);
     const [secDeg, setSecDeg] = useState(0);
+    const [startDeg, setStartDeg] = useState(0);
+    const [endDeg, setEndDeg] = useState(0);
 
     const changeTime = () => {
         const time = new Date();
@@ -299,6 +317,21 @@ const AnalogClock = () => {
         const hour = time.getHours();
         const minute = time.getMinutes();
         const second = time.getSeconds();
+
+        const secondsAngle = time.getSeconds() * 6;
+        const minsAngle = time.getMinutes() * 6 + secondsAngle / 60;
+        const hourAngle = ((time.getHours() % 12) / 12) * 360  + minsAngle / 12;
+
+        let startPosition = minsAngle;
+        let endPosition = hourAngle - minsAngle;
+
+        if (minsAngle > hourAngle) {
+            startPosition = minsAngle - 360;
+            endPosition = hourAngle - startPosition;
+        }
+
+        setStartDeg(startPosition);
+        setEndDeg(endPosition);
 
         setHourDeg((hour % 12) * 30 + minute * 0.5);
         setMinuteDeg(minute * 6);
@@ -315,7 +348,7 @@ const AnalogClock = () => {
 
     return (
         <div className="clock-component">
-            <div className="clock" style={{ '--minuteDeg': \`\${minuteDeg}deg\`, '--hourDeg': \`\${hourDeg}deg\`, '--secDeg': \`\${secDeg}deg\`}}>
+            <div className="clock" style={{ '--minuteDeg': \`\${minuteDeg}deg\`, '--hourDeg': \`\${hourDeg}deg\`, '--secDeg': \`\${secDeg}deg\`, '--start': \`\${startDeg}deg\`, '--end': \`\${endDeg}deg\`}}>
                 {
                     Array(12).fill("_").map((_, index) => <div className="number" key={index}></div>)
                 }

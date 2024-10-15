@@ -23,7 +23,7 @@ const htmlCode = `
 </head>
 <body>
     <div class="container">
-        <div class="flipper-clock-container" data-theme="dark">
+        <div class="flipper-clock-container">
             <div class="flipper-clock">
                 <ul class="flipper">
                     <li>
@@ -654,7 +654,7 @@ const FlipperClock = () => {
     }, []);
 
     return (
-        <div className="flipper-clock-container" data-theme="dark">
+        <div className="flipper-clock-container">
             <div className="flipper-clock">
                 { renderFlipper(parseInt(time.hour[0])) }
                 { renderFlipper(parseInt(time.hour[1])) }
