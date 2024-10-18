@@ -92,7 +92,7 @@ const DockComponent = styled.div`
     }
   }
 
-  & nav ul li a {
+  & nav ul li div {
     position: relative;
     display: flex;
     height: 2rem;
@@ -107,19 +107,19 @@ const DockComponent = styled.div`
   }
 
   @media (min-width: 1024px) {
-    & nav ul li a {
+    & nav ul li div {
       height: 2.5rem;
       width: 2.5rem;
     }
   }
 
-  & nav ul li a{
+  & nav ul li div{
     background: var(--secBg);
     color: var(--terBg);
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   }
 
-  & nav ul li.scale-3 a::before {
+  & nav ul li.scale-3 div::before {
     position: absolute;
     white-space: nowrap;
     border-radius: 0.375rem;
@@ -133,19 +133,19 @@ const DockComponent = styled.div`
   }
 
   @media (min-width: 1024px) {
-    & nav ul li.scale-3 a::before{
+    & nav ul li.scale-3 div::before{
       font-size: .6rem;
       padding: 0.25rem 0.5rem;
     }
   }
 
-  & nav ul li a svg {
+  & nav ul li div svg {
     height: 1rem;
     width: 1rem;
   }
 
   @media (min-width: 1024px) {
-    & nav ul li a svg {
+    & nav ul li div svg {
       height: 1.25rem;
       width: 1.25rem;
     }
@@ -276,10 +276,10 @@ const Dock = (props) => {
       <nav>
         <ul>
           {menuItems.map((item, index) => (
-            <li key={index} onMouseEnter={() => handleMouseEnter(index)} className={ hoveredIndex === index ? 'scale-3' : (index === hoveredIndex - 1 || index === hoveredIndex + 1) ? 'scale-2' : (index === hoveredIndex - 2 || index === hoveredIndex + 2) ? 'scale-1' : ''}>
-              <a href="#" data-title={item.label}>
+            <li key={index} onMouseEnter={() => handleMouseEnter(index)} className={ hoveredIndex === index ? 'scale-3' : (index === hoveredIndex - 1 || index === hoveredIndex + 1) ? 'scale-2' : (index === hoveredIndex - 2 || index === hoveredIndex + 2) ? 'scale-1' : ''} data-title={item.label}>
+              <div data-title={item.label}>
                 {item.icon}
-              </a>
+              </div>
             </li>
           ))}
         </ul>
