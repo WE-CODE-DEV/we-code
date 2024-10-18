@@ -390,7 +390,7 @@ const cssCode = `
     font-weight: 700;
     line-height: 2.25rem;
     color: var(--txtClr);
-    text-shadow: 0 2px 4px rgba(0,0,0,.8);
+    text-shadow: 0 2px 4px rgba(0,0,0,.4);
     transform: translateY(3px);
   }
 
